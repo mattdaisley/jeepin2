@@ -19,7 +19,6 @@ export class ChatService {
   getMessages() {
     let observable = new Observable<Gyro>(observer => {
       this.socket.on('message', (data) => {
-        console.log(data.content);
         var gyroData:Gyro = { pitch: 0, roll: 0};
         gyroData.pitch = parseInt(data.content.pitch);
         gyroData.roll = parseInt(data.content.roll);

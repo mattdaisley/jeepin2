@@ -60,7 +60,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(647),
+            template: __webpack_require__(648),
             styles: [__webpack_require__(646)]
         }), 
         __metadata('design:paramtypes', [])
@@ -151,10 +151,21 @@ var ChatComponent = (function () {
     ChatComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.connection = this.chatService.getMessages().subscribe(function (message) {
-            console.log(message);
             _this.pitch = message.pitch;
             _this.roll = message.roll;
         });
+    };
+    ChatComponent.prototype.ngAfterViewInit = function () {
+        console.log('go fullscreen');
+        this.fullscreen();
+    };
+    ChatComponent.prototype.fullscreen = function () {
+        var element = document.documentElement;
+        // Supports most browsers and their versions.
+        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+        if (requestMethod) {
+            requestMethod.call(element);
+        }
     };
     ChatComponent.prototype.updateOffset = function () {
         this.pitchOffset = this.pitch;
@@ -166,7 +177,8 @@ var ChatComponent = (function () {
     ChatComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Component */])({
             selector: 'chat',
-            template: "<div>\n              <div style=\"width:400px; height: 400px; float:left; position:relative; background-color:#000;\">\n                <img src=\"assets/guage1.png\" width=\"400\" style=\"position:absolute;\"/>\n                <img src=\"assets/guage3.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n                <img src=\"assets/guage2.png\" width=\"400\" style=\"position:absolute;\"/>\n                <img src=\"assets/jeepside.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n                <img src=\"assets/guage4.png\" width=\"400\" style=\"position:absolute;\"/>\n                <div style=\"position:absolute; left: 150px; top: 280px; width: 100px; height: 100px; color: #ffffff; text-align:center;\">{{pitch - pitchOffset}}<sup>o</sup></div>\n              </div>\n              <div style=\"width:400px; height: 400px; float:left; position:relative; background-color:#000;\">\n                <img src=\"assets/guage1.png\" width=\"400\" style=\"position:absolute;\"/>\n                <img src=\"assets/guage3.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n                <img src=\"assets/guage2.png\" width=\"400\" style=\"position:absolute;\"/>\n                <img src=\"assets/jeeprear.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n                <img src=\"assets/guage4.png\" width=\"400\" style=\"position:absolute;\"/>\n                <div style=\"position:absolute; left: 150px; top: 280px; width: 100px; height: 100px; color: #ffffff; text-align:center;\">{{roll - rollOffset}}<sup>o</sup></div>\n              </div>\n            </div>\n            <div>\n              Original: {{pitch}}, {{roll}}\n            </div>\n            <div>\n              Adjusted: {{pitch - pitchOffset}}, {{roll - rollOffset}}\n            </div>\n            <button (click)=\"updateOffset()\">Reset Gyro to 0,0</button>",
+            template: __webpack_require__(649),
+            styles: [__webpack_require__(647)],
             providers: [__WEBPACK_IMPORTED_MODULE_1__chat_service__["a" /* ChatService */]]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__chat_service__["a" /* ChatService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__chat_service__["a" /* ChatService */]) === 'function' && _a) || Object])
@@ -184,7 +196,7 @@ var ChatComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(658);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(660);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatService; });
 
@@ -204,7 +216,6 @@ var ChatService = (function () {
         var _this = this;
         var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (observer) {
             _this.socket.on('message', function (data) {
-                console.log(data.content);
                 var gyroData = { pitch: 0, roll: 0 };
                 gyroData.pitch = parseInt(data.content.pitch);
                 gyroData.roll = parseInt(data.content.roll);
@@ -272,7 +283,7 @@ var environment = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(497);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(664);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(666);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -304,18 +315,32 @@ module.exports = ""
 /***/ 647:
 /***/ (function(module, exports) {
 
-module.exports = "<h1>\n  <chat></chat>\n</h1>\n"
+module.exports = ".cluster { \n  height: 100%;\n}\n\n.guage {\n  position:relative; background-color:#000;\n}\n.guage img {\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; left: 37.5%; top: 65%; width: 25%; height: 25%; font-size:4em; color: #ffffff; text-align:center;\n}"
 
 /***/ }),
 
-/***/ 665:
+/***/ 648:
+/***/ (function(module, exports) {
+
+module.exports = "<chat></chat>"
+
+/***/ }),
+
+/***/ 649:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"flex cluster\">\n  <div class=\"flex-item guage\">\n    <img src=\"assets/guage1.png\" width=\"400\" style=\"position:absolute;\"/>\n    <img src=\"assets/guage3.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n    <img src=\"assets/guage2.png\" width=\"400\" style=\"position:absolute;\"/>\n    <img src=\"assets/jeepside.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n    <img src=\"assets/guage4.png\" width=\"400\" style=\"position:absolute;\"/>\n    <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n  </div>\n  <div class=\"flex-item guage\">\n    <img src=\"assets/guage1.png\" width=\"400\" style=\"position:absolute;\"/>\n    <img src=\"assets/guage3.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n    <img src=\"assets/guage2.png\" width=\"400\" style=\"position:absolute;\"/>\n    <img src=\"assets/jeeprear.png\" width=\"400\" style=\"position:absolute; transition: 1s ease-in-out\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n    <img src=\"assets/guage4.png\" width=\"400\" style=\"position:absolute;\"/>\n    <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n  </div>\n</div>\n<div>\nOriginal: {{pitch}}, {{roll}}\n</div>\n<div>\nAdjusted: {{pitch - pitchOffset}}, {{roll - rollOffset}}\n</div>\n<button (click)=\"updateOffset()\">Reset Gyro to 0,0</button>\n<button (click)=\"fullscreen()\">Fullscreen</button>"
+
+/***/ }),
+
+/***/ 667:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 666:
+/***/ 668:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(365);
@@ -323,5 +348,5 @@ module.exports = __webpack_require__(365);
 
 /***/ })
 
-},[666]);
+},[668]);
 //# sourceMappingURL=main.bundle.map

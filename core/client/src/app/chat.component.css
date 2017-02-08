@@ -1,0 +1,13 @@
+.cluster { 
+  height: 100%;
+}
+
+.guage {
+  position:relative; background-color:#000;
+}
+.guage img {
+  width: 100%;
+}
+.guage .deg {
+  position:absolute; left: 37.5%; top: 65%; width: 25%; height: 25%; font-size:4em; color: #ffffff; text-align:center;
+}
