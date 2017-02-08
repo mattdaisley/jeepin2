@@ -11,11 +11,11 @@ from random import randint, uniform
 
 pitch = 0;
 roll = 0;
-step = 5;
+step = 2;
 
 while True:
     pitch = (pitch + uniform(-step, step))
     roll = (roll + uniform(-step, step))
     print(json.dumps( {'result':{'pitch':pitch, 'roll': roll}} ))
     sys.stdout.flush()
-    time.sleep(1)
+    time.sleep(.1)
