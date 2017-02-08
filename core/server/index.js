@@ -1,4 +1,5 @@
 var express     = require('express'),
+    middleware  = require('./middleware'),
     AppServer 	= require('./app-server');
 
 function init(options) {
@@ -13,6 +14,9 @@ function init(options) {
 
     return new Promise(function (resolve) {
 	    var parentApp = express();
+
+	    // ## Middleware and Routing
+	    middleware(parentApp);
 
 	    appServer = new AppServer(parentApp);
 		resolve(appServer);
