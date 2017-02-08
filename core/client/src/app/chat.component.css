@@ -29,6 +29,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  transition: .2s ease-in-out;
 }
 .guage .deg-wrapper {
   position: absolute;
@@ -44,4 +45,10 @@
   height: 25%; 
   font-size: 3em; 
   color: #ffffff; text-align:center;
+}
+
+.button-menu {
+  width: 100%; 
+  position: absolute;
+  text-align: center;
 }

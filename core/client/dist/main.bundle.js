@@ -308,28 +308,28 @@ var environment = {
 /***/ 646:
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".wrapper { \n  height: 100%; \n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #000;\n}\n\n.wrapper .container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  max-height: 450px;\n}"
 
 /***/ }),
 
 /***/ 647:
 /***/ (function(module, exports) {
 
-module.exports = ".cluster { \n  /*height: 100%;*/\n  /*max-height: 450px; */\n  background-color:#000;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position:relative;\n  max-width: 450px;\n}\n.guage:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tpadding-top: 100%; \t/* initial ratio of 1:1*/\n}\n.guage .content {\n  position:  absolute;\n\ttop: 0;\n\tleft: 0;\n\tbottom: 0;\n\tright: 0;\n}\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0; \n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; \n  left: 37.5%; \n  top: 67%; width: 25%; \n  height: 25%; \n  font-size: 3em; \n  color: #ffffff; text-align:center;\n}"
+module.exports = ".cluster { \n  /*height: 100%;*/\n  /*max-height: 450px; */\n  background-color:#000;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position:relative;\n  max-width: 450px;\n}\n.guage:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tpadding-top: 100%; \t/* initial ratio of 1:1*/\n}\n.guage .content {\n  position:  absolute;\n\ttop: 0;\n\tleft: 0;\n\tbottom: 0;\n\tright: 0;\n}\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition:.2s ease-in-out;\n  transition: .2s ease-in-out;\n}\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0; \n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; \n  left: 37.5%; \n  top: 67%; width: 25%; \n  height: 25%; \n  font-size: 3em; \n  color: #ffffff; text-align:center;\n}\n\n.button-menu {\n  width: 100%; \n  position: absolute;\n  text-align: center;\n}"
 
 /***/ }),
 
 /***/ 648:
 /***/ (function(module, exports) {
 
-module.exports = "<chat></chat>"
+module.exports = "<div class=\"wrapper\">\n  <div class=\"container\">\n    <chat></chat>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 649:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cluster\">\n  <div class=\"guage\">\n    <div class=\"content\">\n      <img src=\"assets/guage1.png\" width=\"400\"/>\n      <img src=\"assets/guage3.png\" width=\"400\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n      <img src=\"assets/guage2.png\" width=\"400\"/>\n      <img src=\"assets/jeepside.png\" width=\"400\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n      <img src=\"assets/guage4.png\" width=\"400\"/>\n      <div class=\"deg-wrapper\">\n        <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n      </div>\n    </div>\n  </div>\n  <div class=\"guage\">\n    <div class=\"content\">\n      <img src=\"assets/guage1.png\" width=\"400\"/>\n      <img src=\"assets/guage3.png\" width=\"400\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n      <img src=\"assets/guage2.png\" width=\"400\"/>\n      <img src=\"assets/jeeprear.png\" width=\"400\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n      <img src=\"assets/guage4.png\" width=\"400\"/>\n      <div class=\"deg-wrapper\">\n        <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n      </div>\n    </div>\n  </div>\n</div>\n<div>\nOriginal: {{pitch}}, {{roll}}\n</div>\n<div>\nAdjusted: {{pitch - pitchOffset}}, {{roll - rollOffset}}\n</div>\n<button (click)=\"updateOffset()\">Reset Gyro to 0,0</button>\n<button (click)=\"fullscreen()\">Fullscreen</button>"
+module.exports = "<div class=\"cluster\">\n  <div class=\"guage\">\n    <div class=\"content\">\n      <img src=\"assets/guage1.png\"/>\n      <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n      <img src=\"assets/guage2.png\"/>\n      <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n      <img src=\"assets/guage4.png\"/>\n      <div class=\"deg-wrapper\">\n        <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n      </div>\n    </div>\n  </div>\n  <div class=\"guage\">\n    <div class=\"content\">\n      <img src=\"assets/guage1.png\"/>\n      <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n      <img src=\"assets/guage2.png\"/>\n      <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n      <img src=\"assets/guage4.png\"/>\n      <div class=\"deg-wrapper\">\n        <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"button-menu\">\n    <button (click)=\"updateOffset()\">Reset Gyro to 0,0</button>\n    <button (click)=\"fullscreen()\">Fullscreen</button>\n  </div>\n</div>\n"
 
 /***/ }),
 
