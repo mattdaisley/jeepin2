@@ -60,8 +60,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(648),
-            styles: [__webpack_require__(646)]
+            template: __webpack_require__(651),
+            styles: [__webpack_require__(649)]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -80,7 +80,7 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(442);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(448);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(472);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__chat_component__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tilt_gauges_tilt_gauges_component__ = __webpack_require__(474);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -104,7 +104,7 @@ var AppModule = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_5__chat_component__["a" /* ChatComponent */]
+                __WEBPACK_IMPORTED_MODULE_5__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -127,8 +127,8 @@ var AppModule = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__chat_service__ = __webpack_require__(475);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__ = __webpack_require__(475);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TiltGaugesComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -140,26 +140,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var ChatComponent = (function () {
-    function ChatComponent(chatService) {
-        this.chatService = chatService;
+var TiltGaugesComponent = (function () {
+    function TiltGaugesComponent(tiltGaugesService) {
+        this.tiltGaugesService = tiltGaugesService;
         this.messages = [];
         this.pitchOffset = 0;
         this.rollOffset = 0;
-        this.chatService.connect();
+        this.tiltGaugesService.connect();
     }
-    ChatComponent.prototype.ngOnInit = function () {
+    TiltGaugesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.connection = this.chatService.getMessages().subscribe(function (message) {
+        this.connection = this.tiltGaugesService.getMessages().subscribe(function (message) {
             _this.pitch = message.pitch;
             _this.roll = message.roll;
         });
     };
-    ChatComponent.prototype.ngAfterViewInit = function () {
+    TiltGaugesComponent.prototype.ngAfterViewInit = function () {
         console.log('go fullscreen');
         this.fullscreen();
     };
-    ChatComponent.prototype.fullscreen = function () {
+    TiltGaugesComponent.prototype.fullscreen = function () {
         var element = document.documentElement;
         // Supports most browsers and their versions.
         var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
@@ -167,26 +167,26 @@ var ChatComponent = (function () {
             requestMethod.call(element);
         }
     };
-    ChatComponent.prototype.updateOffset = function () {
+    TiltGaugesComponent.prototype.updateOffset = function () {
         this.pitchOffset = this.pitch;
         this.rollOffset = this.roll;
     };
-    ChatComponent.prototype.ngOnDestroy = function () {
+    TiltGaugesComponent.prototype.ngOnDestroy = function () {
         this.connection.unsubscribe();
     };
-    ChatComponent = __decorate([
+    TiltGaugesComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Component */])({
-            selector: 'chat',
-            template: __webpack_require__(649),
-            styles: [__webpack_require__(647)],
-            providers: [__WEBPACK_IMPORTED_MODULE_1__chat_service__["a" /* ChatService */]]
+            selector: 'tiltGauges',
+            template: __webpack_require__(652),
+            styles: [__webpack_require__(650)],
+            providers: [__WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__["a" /* TiltGaugesService */]]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__chat_service__["a" /* ChatService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__chat_service__["a" /* ChatService */]) === 'function' && _a) || Object])
-    ], ChatComponent);
-    return ChatComponent;
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__["a" /* TiltGaugesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__["a" /* TiltGaugesService */]) === 'function' && _a) || Object])
+    ], TiltGaugesComponent);
+    return TiltGaugesComponent;
     var _a;
 }());
-//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/chat.component.js.map
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/tilt-gauges.component.js.map
 
 /***/ }),
 
@@ -196,23 +196,23 @@ var ChatComponent = (function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(660);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(663);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChatService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TiltGaugesService; });
 
 
-var ChatService = (function () {
-    function ChatService() {
+var TiltGaugesService = (function () {
+    function TiltGaugesService() {
         this.url = 'http://127.0.0.1:7768';
     }
-    ChatService.prototype.connect = function () {
+    TiltGaugesService.prototype.connect = function () {
         this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(this.url);
         this.socket.emit('new connection', 'testing socket connection');
     };
-    ChatService.prototype.sendMessage = function (message) {
+    TiltGaugesService.prototype.sendMessage = function (message) {
         this.socket.emit('add-message', message);
     };
-    ChatService.prototype.getMessages = function () {
+    TiltGaugesService.prototype.getMessages = function () {
         var _this = this;
         var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (observer) {
             _this.socket.on('message', function (data) {
@@ -227,9 +227,9 @@ var ChatService = (function () {
         });
         return observable;
     };
-    return ChatService;
+    return TiltGaugesService;
 }());
-//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/chat.service.js.map
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/tilt-gauges.service.js.map
 
 /***/ }),
 
@@ -283,7 +283,7 @@ var environment = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(497);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(666);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(672);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -305,42 +305,42 @@ var environment = {
 
 /***/ }),
 
-/***/ 646:
-/***/ (function(module, exports) {
-
-module.exports = ".wrapper { \n  height: 100%; \n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #000;\n}\n\n.wrapper .container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  max-height: 450px;\n}"
-
-/***/ }),
-
-/***/ 647:
-/***/ (function(module, exports) {
-
-module.exports = ".cluster { \n  /*height: 100%;*/\n  /*max-height: 450px; */\n  background-color:#000;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative;\n}\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position:relative;\n  max-width: 450px;\n}\n.guage:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tpadding-top: 100%; \t/* initial ratio of 1:1*/\n}\n.guage .content {\n  position:  absolute;\n\ttop: 0;\n\tleft: 0;\n\tbottom: 0;\n\tright: 0;\n}\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition:.2s ease-in-out;\n  transition: .2s ease-in-out;\n}\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0; \n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; \n  left: 37.5%; \n  top: 67%; width: 25%; \n  height: 25%; \n  font-size: 3em; \n  color: #ffffff; text-align:center;\n}\n\n.button-menu {\n  width: 100%; \n  height: 22px;\n  position: absolute;\n  top: 0; left: 0;\n  text-align: center;\n}"
-
-/***/ }),
-
-/***/ 648:
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"wrapper\">\n  <div class=\"container\">\n    <chat></chat>\n  </div>\n</div>"
-
-/***/ }),
-
 /***/ 649:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"cluster\">\n  <div class=\"guage\">\n    <div class=\"content\">\n      <img src=\"assets/guage1.png\"/>\n      <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n      <img src=\"assets/guage2.png\"/>\n      <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n      <img src=\"assets/guage4.png\"/>\n      <div class=\"deg-wrapper\">\n        <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n      </div>\n    </div>\n  </div>\n  <div class=\"guage\">\n    <div class=\"content\">\n      <img src=\"assets/guage1.png\"/>\n      <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n      <img src=\"assets/guage2.png\"/>\n      <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n      <img src=\"assets/guage4.png\"/>\n      <div class=\"deg-wrapper\">\n        <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n      </div>\n    </div>\n  </div>\n\n  <div class=\"button-menu\">\n    <button (click)=\"updateOffset()\">Reset Gyro to 0,0</button>\n    <button (click)=\"fullscreen()\">Fullscreen</button>\n  </div>\n</div>\n"
+module.exports = ".wrapper { \n  height: 100%; \n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: #000;\n}\n\n.wrapper .container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 720px;\n  height: 100%;\n  max-height: 480px;\n  border: 1px solid #ccc;\n  overflow: hidden;\n}\n\n.wrapper .menu {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 80px;\n  height: 100%;\n  max-height: 480px;\n  background: black;\n  border-width: 1px 0 1px 1px;\n  border-style: solid;\n  border-color: #ccc;\n}"
 
 /***/ }),
 
-/***/ 667:
+/***/ 650:
+/***/ (function(module, exports) {
+
+module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%;\n  background: -webkit-linear-gradient(115deg,#035584, black, black,#035584);\n  background: linear-gradient(-25deg,#035584, black, black,#035584);\n}\n\n.cluster-wrapper {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  height: 100%;\n}\n\n.cluster { \n  /*height: 100%;*/\n  /*max-height: 450px; */\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative;\n}\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position:relative;\n  max-width: 450px;\n  padding: 15px;\n}\n.guage:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tpadding-top: 100%; \t/* initial ratio of 1:1*/\n}\n.guage .content {\n  position:  absolute;\n\ttop: 0;\n\tleft: 0;\n\tbottom: 0;\n\tright: 0;\n}\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition: .2s ease-in-out;\n  transition: .2s ease-in-out;\n}\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0; \n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; \n  left: 37.5%; \n  top: 67%; width: 25%; \n  height: 25%; \n  font-size: 3em; \n  color: #ffffff; text-align:center;\n}\n\n.button-menu {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%; \n  max-height: 80px;\n  text-align: center;\n}\n\n.button-menu .button-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  height: 100%;\n  border-top: 1px solid #ccc;\n  margin: 0 25px;\n}\n\n.button-menu .button-wrapper button {\n  padding: 20px;\n  border-radius: 5px;\n  border: 1px solid #CCC;\n  /*border: 1px solid #71D1F1;*/\n  background-color: #000;\n  color: #fff;\n  font-size: 1.3em;\n  margin: 0 10px;\n}\n\nbutton:hover {\n  cursor: pointer; \n}\n\nbutton:focus {\n  outline: none;\n}\n\n\n"
+
+/***/ }),
+
+/***/ 651:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\">\n  <div class=\"menu\">\n    <i class=\"fa fa-american-sign-language-interpreting fa-5x\" aria-hidden=\"true\"> </i>\n  </div>\n  <div class=\"container\">\n    <tiltGauges></tiltGauges>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ 652:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n  <div class=\"cluster-wrapper\">\n    <div class=\"cluster\">\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"button-menu\">\n    <div class=\"button-wrapper\">\n      <button (click)=\"updateOffset()\">Reset Gyro to 0</button>\n      <button (click)=\"updateOffset()\">Button 2</button>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ 673:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 668:
+/***/ 674:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(365);
@@ -348,5 +348,5 @@ module.exports = __webpack_require__(365);
 
 /***/ })
 
-},[668]);
+},[674]);
 //# sourceMappingURL=main.bundle.map

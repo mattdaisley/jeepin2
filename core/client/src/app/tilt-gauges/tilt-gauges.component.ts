@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { ChatService }       from './chat.service';
-import { Gyro } from './gyro.interface';
+import { TiltGaugesService }  from './tilt-gauges.service';
+import { Gyro }               from './gyro.interface';
 
 @Component({
   moduleId: module.id,
-  selector: 'chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css'],
-  providers: [ChatService]
+  selector: 'tiltGauges',
+  templateUrl: './tilt-gauges.component.html',
+  styleUrls: ['./tilt-gauges.component.css'],
+  providers: [TiltGaugesService]
 })
-export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TiltGaugesComponent implements OnInit, OnDestroy, AfterViewInit {
   messages = [];
   connection;
   pitch:number;
@@ -17,12 +17,12 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewInit {
   pitchOffset:number = 0;
   rollOffset:number = 0;
   
-  constructor(private chatService:ChatService) {
-    this.chatService.connect();
+  constructor(private tiltGaugesService:TiltGaugesService) {
+    this.tiltGaugesService.connect();
   }
 
   ngOnInit() {
-    this.connection = this.chatService.getMessages().subscribe(message => {
+    this.connection = this.tiltGaugesService.getMessages().subscribe(message => {
       this.pitch = message.pitch;
       this.roll = message.roll;
     });

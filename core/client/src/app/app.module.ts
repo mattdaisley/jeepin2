@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { ChatComponent } from './chat.component';
+import { TiltGaugesComponent } from './tilt-gauges/tilt-gauges.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    TiltGaugesComponent,
+    MenuComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

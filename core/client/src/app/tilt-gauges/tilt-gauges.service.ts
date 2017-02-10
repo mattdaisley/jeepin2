@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 import { Gyro } from './gyro.interface';
 
-export class ChatService {
+export class TiltGaugesService {
   private url = 'http://127.0.0.1:7768';  
   private socket;
 
