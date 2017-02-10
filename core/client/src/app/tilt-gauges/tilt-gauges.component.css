@@ -23,7 +23,7 @@
 .guage {
   flex: 1;
   position:relative;
-  max-width: 450px;
+  max-width: 800px;
   padding: 15px;
 }
 .guage:before{

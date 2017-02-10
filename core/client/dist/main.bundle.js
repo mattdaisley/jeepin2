@@ -144,8 +144,61 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var MenuComponent = (function () {
     function MenuComponent() {
+        this.isFullScreen = false;
     }
     MenuComponent.prototype.ngOnInit = function () {
+    };
+    MenuComponent.prototype.requestFullScreen = function () {
+        var element = document.documentElement;
+        // Supports most browsers and their versions.
+        // var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+        // if (requestMethod) { // Native full screen.
+        //     requestMethod.call(element);
+        //     this.isFullScreen = true;
+        // }
+        if (element.requestFullscreen) {
+            if (element.fullScreenElement) {
+                element.cancelFullScreen();
+            }
+            else {
+                element.requestFullscreen();
+            }
+        }
+        else if (element.msRequestFullscreen) {
+            if (element.msFullscreenElement) {
+                element.msExitFullscreen();
+            }
+            else {
+                element.msRequestFullscreen();
+            }
+        }
+        else if (element.mozRequestFullScreen) {
+            if (element.mozFullScreen) {
+                element.mozCancelFullScreen();
+            }
+            else {
+                element.mozRequestFullScreen();
+            }
+        }
+        else if (element.webkitRequestFullscreen) {
+            if (document.webkitIsFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+            else {
+                element.webkitRequestFullscreen();
+            }
+        }
+        this.isFullScreen = !this.isFullScreen;
+    };
+    MenuComponent.prototype.exitFullScreen = function () {
+        console.log('in exitFullScreen');
+        var element = document.documentElement;
+        // Supports most browsers and their versions.
+        var requestMethod = element.exitFullScreen || element.webkitCancelFullScreen || element.mozCancelFullScreen || element.msExitFullscreen;
+        if (requestMethod) {
+            requestMethod.call(element);
+            this.isFullScreen = false;
+        }
     };
     MenuComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Component */])({
@@ -193,18 +246,6 @@ var TiltGaugesComponent = (function () {
             _this.pitch = message.pitch;
             _this.roll = message.roll;
         });
-    };
-    TiltGaugesComponent.prototype.ngAfterViewInit = function () {
-        console.log('go fullscreen');
-        this.fullscreen();
-    };
-    TiltGaugesComponent.prototype.fullscreen = function () {
-        var element = document.documentElement;
-        // Supports most browsers and their versions.
-        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-        if (requestMethod) {
-            requestMethod.call(element);
-        }
     };
     TiltGaugesComponent.prototype.updateOffset = function () {
         this.pitchOffset = this.pitch;
@@ -354,14 +395,14 @@ module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;
 /***/ 651:
 /***/ (function(module, exports) {
 
-module.exports = ".wrapper { \n  height: 100%; \n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: #000;\n}\n\n.wrapper .container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 720px;\n  height: 100%;\n  max-height: 480px;\n  /*border: 1px solid #ccc;*/\n  overflow: hidden;\n}\n\n.wrapper .menu {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 80px;\n  height: 100%;\n  max-height: 480px;\n  background: black;\n  /*border-width: 1px 0 1px 1px;\n  border-style: solid;\n  border-color: #ccc;*/\n}"
+module.exports = ".wrapper { \n  height: 100%; \n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: #000;\n}\n\n.wrapper .container {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 100%;\n  height: 100%;\n  max-height: 100%;\n  /*border: 1px solid #ccc;*/\n  overflow: hidden;\n}\n\n.wrapper .menu {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  max-width: 80px;\n  height: 100%;\n  max-height: 100%px;\n  background: black;\n  /*border-width: 1px 0 1px 1px;\n  border-style: solid;\n  border-color: #ccc;*/\n}"
 
 /***/ }),
 
 /***/ 652:
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%;\n  background: -webkit-linear-gradient(115deg,#035584, black, black,#035584);\n  background: linear-gradient(-25deg,#035584, black, black,#035584);\n}\n\n.cluster-wrapper {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  height: 100%;\n}\n\n.cluster { \n  /*height: 100%;*/\n  /*max-height: 450px; */\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative;\n}\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position:relative;\n  max-width: 450px;\n  padding: 15px;\n}\n.guage:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tpadding-top: 100%; \t/* initial ratio of 1:1*/\n}\n.guage .content {\n  position:  absolute;\n\ttop: 0;\n\tleft: 0;\n\tbottom: 0;\n\tright: 0;\n}\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition: .2s ease-in-out;\n  transition: .2s ease-in-out;\n}\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0; \n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; \n  left: 37.5%; \n  top: 67%; width: 25%; \n  height: 25%; \n  font-size: 3em; \n  color: #ffffff; text-align:center;\n}\n\n.button-menu {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%; \n  max-height: 80px;\n  text-align: center;\n}\n\n.button-menu .button-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  height: 100%;\n  border-top: 1px solid #ccc;\n  margin: 0 25px;\n}\n\n.button-menu .button-wrapper button {\n  padding: 20px;\n  border-radius: 5px;\n  border: 1px solid #CCC;\n  /*border: 1px solid #71D1F1;*/\n  background-color: #000;\n  color: #fff;\n  font-size: 1.3em;\n  margin: 0 10px;\n}\n\nbutton:hover {\n  cursor: pointer; \n}\n\nbutton:focus {\n  outline: none;\n}\n\n\n"
+module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%;\n  background: -webkit-linear-gradient(115deg,#035584, black, black,#035584);\n  background: linear-gradient(-25deg,#035584, black, black,#035584);\n}\n\n.cluster-wrapper {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  height: 100%;\n}\n\n.cluster { \n  /*height: 100%;*/\n  /*max-height: 450px; */\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative;\n}\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position:relative;\n  max-width: 800px;\n  padding: 15px;\n}\n.guage:before{\n\tcontent: \"\";\n\tdisplay: block;\n\tpadding-top: 100%; \t/* initial ratio of 1:1*/\n}\n.guage .content {\n  position:  absolute;\n\ttop: 0;\n\tleft: 0;\n\tbottom: 0;\n\tright: 0;\n}\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition: .2s ease-in-out;\n  transition: .2s ease-in-out;\n}\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0; \n  left: 0;\n  height: 100%;\n  width: 100%;\n}\n.guage .deg {\n  position:absolute; \n  left: 37.5%; \n  top: 67%; width: 25%; \n  height: 25%; \n  font-size: 3em; \n  color: #ffffff; text-align:center;\n}\n\n.button-menu {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%; \n  max-height: 80px;\n  text-align: center;\n}\n\n.button-menu .button-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  height: 100%;\n  border-top: 1px solid #ccc;\n  margin: 0 25px;\n}\n\n.button-menu .button-wrapper button {\n  padding: 20px;\n  border-radius: 5px;\n  border: 1px solid #CCC;\n  /*border: 1px solid #71D1F1;*/\n  background-color: #000;\n  color: #fff;\n  font-size: 1.3em;\n  margin: 0 10px;\n}\n\nbutton:hover {\n  cursor: pointer; \n}\n\nbutton:focus {\n  outline: none;\n}\n\n\n"
 
 /***/ }),
 
@@ -375,7 +416,7 @@ module.exports = "<div class=\"wrapper\">\n  <app-menu class=\"menu\"></app-menu
 /***/ 654:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <i class=\"fa fa-bars fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-music fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-tachometer fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-map-o fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-car fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-gear fa-3x\" aria-hidden=\"true\"> </i> \n</div>"
+module.exports = "<div class=\"container\">\n  <i class=\"fa fa-bars fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-music fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-tachometer fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-map-o fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-car fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-gear fa-3x\" aria-hidden=\"true\"> </i> \n  <i *ngIf=\"!isFullScreen\" class=\"fa fa-expand fa-3x\" aria-hidden=\"true\" (click)=\"requestFullScreen()\"> </i> \n  <i *ngIf=\"isFullScreen\" class=\"fa fa-compress fa-3x\" aria-hidden=\"true\" (click)=\"requestFullScreen()\"> </i> \n</div>"
 
 /***/ }),
 

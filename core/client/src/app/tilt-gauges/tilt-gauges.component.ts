@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TiltGaugesService }  from './tilt-gauges.service';
 import { Gyro }               from './gyro.interface';
 
@@ -9,7 +9,7 @@ import { Gyro }               from './gyro.interface';
   styleUrls: ['./tilt-gauges.component.css'],
   providers: [TiltGaugesService]
 })
-export class TiltGaugesComponent implements OnInit, OnDestroy, AfterViewInit {
+export class TiltGaugesComponent implements OnInit, OnDestroy {
   messages = [];
   connection;
   pitch:number;
@@ -27,21 +27,6 @@ export class TiltGaugesComponent implements OnInit, OnDestroy, AfterViewInit {
       this.roll = message.roll;
     });
   }
-
-  ngAfterViewInit() {
-    console.log('go fullscreen');
-    this.fullscreen();
-  }
-
-  fullscreen() {
-      var element:any = document.documentElement;
-      // Supports most browsers and their versions.
-      var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-
-      if (requestMethod) { // Native full screen.
-          requestMethod.call(element);
-      }
-    }
 
   updateOffset() {
     this.pitchOffset = this.pitch;
