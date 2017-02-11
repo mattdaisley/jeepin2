@@ -1,36 +1,36 @@
 // # API routes
 var senseHat        = require('../senseHat'),
-    defaultRoomId   = 1,
-    io,
-    socketListeners;
+  defaultRoomId   = 1,
+  io,
+  socketListeners;
 
 setupMiddleware = function setupMiddleware(serverIO) {
-    io = serverIO;
-    io.on('connection', socketListeners);
+  io = serverIO;
+  io.on('connection', socketListeners);
 
-    readSensors();
+  readSensors();
 }
 
 socketListeners = function socketListeners(socket) {
 
-    socket.on('disconnect', function(data){
-        io.in(defaultRoomId).emit('disconnect', data);
-    });
+  socket.on('disconnect', function(data){
+    io.in(defaultRoomId).emit('disconnect', data);
+  });
 
-    socket.on('new connection', function(data) {
-        console.log('new connection: ', data);
-        socket.leave(defaultRoomId);
-        socket.join(defaultRoomId);
-        
-        io.in(defaultRoomId).emit('message', {content: {'pitch':'Welcome to the room'}});
+  socket.on('new connection', function(data) {
+    console.log('new connection: ', data);
+    socket.leave(defaultRoomId);
+    socket.join(defaultRoomId);
+    
+    io.in(defaultRoomId).emit('message', {content: {'pitch':'Welcome to the room'}});
 
-    });
+  });
 
-    socket.on('add-message', function(data) {
-        // console.log('add-message:', data);
-        io.in(defaultRoomId).emit('message', {content:data});
+  socket.on('add-message', function(data) {
+    // console.log('add-message:', data);
+    io.in(defaultRoomId).emit('message', {content:data});
 
-    });
+  });
 };
 
 readSensors = function readSensors() {
@@ -40,7 +40,7 @@ readSensors = function readSensors() {
 
 onResult = function onResult( result ) {
   var pitch = parseFloat(result.pitch), 
-      roll  = parseFloat(result.roll);
+    roll  = parseFloat(result.roll);
 
   if ( pitch > 180 ) pitch = pitch - 360;
   if ( roll > 180 ) roll = roll - 360;
@@ -50,7 +50,9 @@ onResult = function onResult( result ) {
 };
 
 onError = function onError( error ) {
-  console.log(error);
+  //console.log(error);
+  var self = this;
+  var interval = interval( self.readSensors );
 }
 
 module.exports = setupMiddleware;

@@ -1,8 +1,8 @@
 // # Ghost Server
 // Handles the creation of an HTTP Server for Ghost
 var fs      = require('fs')
-    sockets = require('./sockets'),
-    config  = require('./config');
+  sockets = require('./sockets'),
+  config  = require('./config');
 
 /**
  * ## AppServer
@@ -10,14 +10,14 @@ var fs      = require('fs')
  * @param {Object} rootApp - parent express instance
  */
 function AppServer(rootApp) {
-    this.rootApp = rootApp;
-    this.httpServer = null;
-    this.io = null;
-    this.connections = {};
-    this.connectionId = 0;
+  this.rootApp = rootApp;
+  this.httpServer = null;
+  this.io = null;
+  this.connections = {};
+  this.connectionId = 0;
 
-    // Expose config module for use externally.
-    this.config = config;
+  // Expose config module for use externally.
+  this.config = config;
 }
 
 /**
@@ -31,29 +31,29 @@ function AppServer(rootApp) {
  * @return {Promise} Resolves once Ghost has started
  */
 AppServer.prototype.start = function (externalApp) {
-    var self = this,
-        rootApp = externalApp ? externalApp : self.rootApp;
+  var self = this,
+    rootApp = externalApp ? externalApp : self.rootApp;
 
-    return new Promise(function (resolve) {
-        self.httpServer = rootApp.listen(
-            config.web.port,
-            config.web.host
-        );
+  return new Promise(function (resolve) {
+    self.httpServer = rootApp.listen(
+      config.web.port,
+      config.web.host
+    );
 
-        console.log('socket server started on port', config.web.port);
-        self.io = require('socket.io')(self.httpServer);
+    console.log('socket server started on port', config.web.port);
+    self.io = require('socket.io')(self.httpServer);
 
-        self.sockets = sockets.chat(self.io);
+    self.sockets = sockets.chat(self.io);
 
-        self.httpServer.on('error', function (error) {
-            if (error.errno === 'EADDRINUSE') {
-                console.log(error);
-            } else {
-                console.log(error)
-            }
-            process.exit(-1);
-        });
+    self.httpServer.on('error', function (error) {
+      if (error.errno === 'EADDRINUSE') {
+        console.log(error);
+      } else {
+        console.log(error)
+      }
+      process.exit(-1);
     });
+  });
 };
 
 /**
@@ -63,18 +63,18 @@ AppServer.prototype.start = function (externalApp) {
  * @returns {Promise} Resolves once the server has stopped
  */
 AppServer.prototype.stop = function () {
-    var self = this;
+  var self = this;
 
-    return new Promise(function (resolve) {
-        if (self.httpServer === null) {
-            resolve(self);
-        } else {
-            self.httpServer.close(function () {
-                self.httpServer = null;
-                resolve(self);
-            });
-        }
-    });
+  return new Promise(function (resolve) {
+    if (self.httpServer === null) {
+      resolve(self);
+    } else {
+      self.httpServer.close(function () {
+        self.httpServer = null;
+        resolve(self);
+      });
+    }
+  });
 };
 
 /**
@@ -83,7 +83,7 @@ AppServer.prototype.stop = function () {
  * @returns {Promise} Resolves once the server has restarted
  */
 AppServer.prototype.restart = function () {
-    return this.stop().then(this.start.bind(this));
+  return this.stop().then(this.start.bind(this));
 };
 
 module.exports = AppServer;

@@ -1,55 +1,55 @@
 var cors = require('cors'),
-    url = require('url'),
-    os = require('os'),
-    config = require('../config'),
-    whitelist = [],
-    ENABLE_CORS = {origin: true, maxAge: 86400},
-    DISABLE_CORS = {origin: false};
+  url = require('url'),
+  os = require('os'),
+  config = require('../config'),
+  whitelist = [],
+  ENABLE_CORS = {origin: true, maxAge: 86400},
+  DISABLE_CORS = {origin: false};
 
 /**
  * Gather a list of local ipv4 addresses
  * @return {Array<String>}
  */
 function getIPs() {
-    var ifaces = os.networkInterfaces(),
-        ips = [
-            'localhost'
-        ];
+  var ifaces = os.networkInterfaces(),
+    ips = [
+      'localhost'
+    ];
 
-    Object.keys(ifaces).forEach(function (ifname) {
-        ifaces[ifname].forEach(function (iface) {
-            // only support IPv4
-            if (iface.family !== 'IPv4') {
-                return;
-            }
+  Object.keys(ifaces).forEach(function (ifname) {
+    ifaces[ifname].forEach(function (iface) {
+      // only support IPv4
+      if (iface.family !== 'IPv4') {
+        return;
+      }
 
-            ips.push(iface.address);
-        });
+      ips.push(iface.address);
     });
+  });
 
-    return ips;
+  return ips;
 }
 
 function getUrls() {
-    var urls = [url.parse(config.url).hostname];
+  var urls = [url.parse(config.url).hostname];
 
-    if (config.urlSSL) {
-        urls.push(url.parse(config.urlSSL).hostname);
-    }
+  if (config.urlSSL) {
+    urls.push(url.parse(config.urlSSL).hostname);
+  }
 
-    return urls;
+  return urls;
 }
 
 function getWhitelist() {
-    // This needs doing just one time after init
-    if (_.isEmpty(whitelist)) {
-        // origins that always match: localhost, local IPs, etc.
-        whitelist = whitelist.concat(getIPs());
-        // Trusted urls from config.js
-        whitelist = whitelist.concat(getUrls());
-    }
+  // This needs doing just one time after init
+  if (_.isEmpty(whitelist)) {
+    // origins that always match: localhost, local IPs, etc.
+    whitelist = whitelist.concat(getIPs());
+    // Trusted urls from config.js
+    whitelist = whitelist.concat(getUrls());
+  }
 
-    return whitelist;
+  return whitelist;
 }
 
 /**
@@ -59,25 +59,25 @@ function getWhitelist() {
  * @return {null}
  */
 function handleCORS(req, cb) {
-    var origin = req.get('origin'),
-        trustedDomains = req.client && req.client.trustedDomains;
+  var origin = req.get('origin'),
+    trustedDomains = req.client && req.client.trustedDomains;
 
-    // Request must have an Origin header
-    if (!origin) {
-        return cb(null, DISABLE_CORS);
-    }
-
-    // Origin matches a client_trusted_domain
-    // if (_.some(trustedDomains, {trusted_domain: origin})) {
-        return cb(null, ENABLE_CORS);
-    // }
-
-    // Origin matches whitelist
-    if (getWhitelist().indexOf(url.parse(origin).hostname) > -1) {
-        return cb(null, ENABLE_CORS);
-    }
-
+  // Request must have an Origin header
+  if (!origin) {
     return cb(null, DISABLE_CORS);
+  }
+
+  // Origin matches a client_trusted_domain
+  // if (_.some(trustedDomains, {trusted_domain: origin})) {
+    return cb(null, ENABLE_CORS);
+  // }
+
+  // Origin matches whitelist
+  if (getWhitelist().indexOf(url.parse(origin).hostname) > -1) {
+    return cb(null, ENABLE_CORS);
+  }
+
+  return cb(null, DISABLE_CORS);
 }
 
 module.exports = cors(handleCORS);

@@ -1,5 +1,5 @@
 var chat         = require('./chat');
 
 module.exports = {
-    chat: chat
+  chat: chat
 };

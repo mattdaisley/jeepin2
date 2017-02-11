@@ -1,26 +1,26 @@
 var express     = require('express'),
-    middleware  = require('./middleware'),
-    AppServer 	= require('./app-server');
+  middleware  = require('./middleware'),
+  AppServer 	= require('./app-server');
 
 function init(options) {
-    var appServer = null;
+  var appServer = null;
 
-    // ### Initialisation
-    // The server and its dependencies require a populated config
-    // It returns a promise that is resolved when the application
-    // has finished starting up.
+  // ### Initialisation
+  // The server and its dependencies require a populated config
+  // It returns a promise that is resolved when the application
+  // has finished starting up.
 
-    // Get reference to an express app instance.
+  // Get reference to an express app instance.
 
-    return new Promise(function (resolve) {
-	    var parentApp = express();
+  return new Promise(function (resolve) {
+  var parentApp = express();
 
-	    // ## Middleware and Routing
-	    middleware(parentApp);
+  // ## Middleware and Routing
+  middleware(parentApp);
 
-	    appServer = new AppServer(parentApp);
-		resolve(appServer);
-    });
+  appServer = new AppServer(parentApp);
+  resolve(appServer);
+  });
 }
 
 module.exports = init;
