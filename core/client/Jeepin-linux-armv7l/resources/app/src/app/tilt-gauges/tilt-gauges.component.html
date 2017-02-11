@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="cluster-wrapper">
+    <div class="cluster">
+      <div class="guage">
+        <div class="content">
+          <img src="assets/guage1.png"/>
+          <img src="assets/guage3.png" [ngStyle]="{'transform': 'rotate('+(roll - rollOffset)+'deg)'}"/>
+          <img src="assets/guage2.png"/>
+          <img src="assets/jeepside.png" [ngStyle]="{'transform': 'rotate('+(roll - rollOffset)+'deg)'}"/>
+          <img src="assets/guage4.png"/>
+          <div class="deg-wrapper">
+            <div class="deg">{{roll - rollOffset}}<sup>o</sup></div>
+          </div>
+        </div>
+      </div>
+      <div class="guage">
+        <div class="content">
+          <img src="assets/guage1.png"/>
+          <img src="assets/guage3.png" [ngStyle]="{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}"/>
+          <img src="assets/guage2.png"/>
+          <img src="assets/jeeprear.png" [ngStyle]="{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}"/>
+          <img src="assets/guage4.png"/>
+          <div class="deg-wrapper">
+            <div class="deg">{{pitch - pitchOffset}}<sup>o</sup></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="button-menu">
+    <div class="button-wrapper">
+      <button (click)="updateOffset()">Reset Gyro to 0</button>
+      <button (click)="updateOffset()">Button 2</button>
+    </div>
+  </div>
+</div>
