@@ -148,58 +148,6 @@ var MenuComponent = (function () {
     }
     MenuComponent.prototype.ngOnInit = function () {
     };
-    MenuComponent.prototype.requestFullScreen = function () {
-        var element = document.documentElement;
-        // Supports most browsers and their versions.
-        // var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-        // if (requestMethod) { // Native full screen.
-        //     requestMethod.call(element);
-        //     this.isFullScreen = true;
-        // }
-        if (element.requestFullscreen) {
-            if (element.fullScreenElement) {
-                element.cancelFullScreen();
-            }
-            else {
-                element.requestFullscreen();
-            }
-        }
-        else if (element.msRequestFullscreen) {
-            if (element.msFullscreenElement) {
-                element.msExitFullscreen();
-            }
-            else {
-                element.msRequestFullscreen();
-            }
-        }
-        else if (element.mozRequestFullScreen) {
-            if (element.mozFullScreen) {
-                element.mozCancelFullScreen();
-            }
-            else {
-                element.mozRequestFullScreen();
-            }
-        }
-        else if (element.webkitRequestFullscreen) {
-            if (document.webkitIsFullScreen) {
-                document.webkitCancelFullScreen();
-            }
-            else {
-                element.webkitRequestFullscreen();
-            }
-        }
-        this.isFullScreen = !this.isFullScreen;
-    };
-    MenuComponent.prototype.exitFullScreen = function () {
-        console.log('in exitFullScreen');
-        var element = document.documentElement;
-        // Supports most browsers and their versions.
-        var requestMethod = element.exitFullScreen || element.webkitCancelFullScreen || element.mozCancelFullScreen || element.msExitFullscreen;
-        if (requestMethod) {
-            requestMethod.call(element);
-            this.isFullScreen = false;
-        }
-    };
     MenuComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["U" /* Component */])({
             selector: 'app-menu',
@@ -416,7 +364,7 @@ module.exports = "<div class=\"wrapper\">\n  <app-menu class=\"menu\"></app-menu
 /***/ 654:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <i class=\"fa fa-bars fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-music fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-tachometer fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-map-o fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-car fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-gear fa-3x\" aria-hidden=\"true\"> </i> \n  <i *ngIf=\"!isFullScreen\" class=\"fa fa-expand fa-3x\" aria-hidden=\"true\" (click)=\"requestFullScreen()\"> </i> \n  <i *ngIf=\"isFullScreen\" class=\"fa fa-compress fa-3x\" aria-hidden=\"true\" (click)=\"requestFullScreen()\"> </i> \n</div>"
+module.exports = "<div class=\"container\">\n  <i class=\"fa fa-bars fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-music fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-tachometer fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-map-o fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-car fa-3x\" aria-hidden=\"true\"> </i> \n  <i class=\"fa fa-gear fa-3x\" aria-hidden=\"true\"> </i> \n</div>"
 
 /***/ }),
 
