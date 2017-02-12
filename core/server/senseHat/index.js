@@ -21,8 +21,8 @@ function runScript(scriptName, args) {
 
   var shell = new PythonShell(scriptName, options, function (err, results) {
     if ( err ) {
-    reject(err);
-    return;
+      reject(err);
+      return;
     }
   });
 
@@ -32,10 +32,10 @@ function runScript(scriptName, args) {
 
   shell.end(function (err) {
     if ( err ) {
-    // var error = JSON.parse(err);
-    console.log('error with python script');
-    // console.log(err);
-    // throw err;
+      // var error = JSON.parse(err);
+      // console.log('error with python script');
+      // console.log(err);
+      // throw err;
     }
   });
 
@@ -44,30 +44,30 @@ function runScript(scriptName, args) {
 
 function pollScript(scriptName, args, onResult, onError) {
   var options = { 
-  mode: 'json', 
-  scriptPath: rootDir + '/sense',
-  args: args
+    mode: 'json', 
+    scriptPath: rootDir + '/sense',
+    args: args
   }
 
   var shell = new PythonShell(scriptName, options, function (err, results) {
-  if ( err ) {
-    onError(err);
-    return;
-  }
+    if ( err ) {
+      onError(err);
+      return;
+    }
   });
 
   shell.on('message', function (message) {
-  onResult(message.result);
+    onResult(message.result);
   });
 
   shell.end(function (err) {
-  if ( err ) {
-    // var error = JSON.parse(err);
-    console.log('error with python script');
-    // console.log(err);
-    onError(err);
-    return;
-  }
+    if ( err ) {
+      // var error = JSON.parse(err);
+      // console.log('error with python script');
+      // console.log(err);
+      onError(err);
+      return;
+    }
   });
 }
 

@@ -1,7 +1,7 @@
 // # Ghost Server
 // Handles the creation of an HTTP Server for Ghost
 var fs      = require('fs')
-  sockets = require('./sockets'),
+  socketRoutes = require('./socket-routes'),
   config  = require('./config');
 
 /**
@@ -40,10 +40,11 @@ AppServer.prototype.start = function (externalApp) {
       config.web.host
     );
 
+
     console.log('socket server started on port', config.web.port);
     self.io = require('socket.io')(self.httpServer);
+    self.socketRoutes = socketRoutes.sockets(self.io);
 
-    self.sockets = sockets.chat(self.io);
 
     self.httpServer.on('error', function (error) {
       if (error.errno === 'EADDRINUSE') {

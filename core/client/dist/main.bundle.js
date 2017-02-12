@@ -235,15 +235,12 @@ var TiltGaugesService = (function () {
     }
     TiltGaugesService.prototype.connect = function () {
         this.socket = __WEBPACK_IMPORTED_MODULE_1_socket_io_client__(this.url);
-        this.socket.emit('new connection', 'testing socket connection');
-    };
-    TiltGaugesService.prototype.sendMessage = function (message) {
-        this.socket.emit('add-message', message);
+        this.socket.emit('gyro/connected', 'testing socket connection');
     };
     TiltGaugesService.prototype.getMessages = function () {
         var _this = this;
         var observable = new __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__["Observable"](function (observer) {
-            _this.socket.on('message', function (data) {
+            _this.socket.on('gyro/data', function (data) {
                 var gyroData = { pitch: 0, roll: 0 };
                 gyroData.pitch = parseInt(data.content.pitch);
                 gyroData.roll = parseInt(data.content.roll);

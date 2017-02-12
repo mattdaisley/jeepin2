@@ -9,16 +9,12 @@ export class TiltGaugesService {
 
   connect() {
     this.socket = io(this.url);
-    this.socket.emit('new connection', 'testing socket connection');
-  }
-  
-  sendMessage(message){
-    this.socket.emit('add-message', message);    
+    this.socket.emit('gyro/connected', 'testing socket connection');
   }
   
   getMessages() {
     let observable = new Observable<Gyro>(observer => {
-      this.socket.on('message', (data) => {
+      this.socket.on('gyro/data', (data) => {
         var gyroData:Gyro = { pitch: 0, roll: 0};
         gyroData.pitch = parseInt(data.content.pitch);
         gyroData.roll = parseInt(data.content.roll);

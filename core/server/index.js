@@ -13,13 +13,13 @@ function init(options) {
   // Get reference to an express app instance.
 
   return new Promise(function (resolve) {
-  var parentApp = express();
+    var parentApp = express();
 
-  // ## Middleware and Routing
-  middleware(parentApp);
+    // ## Middleware and Routing
+    middleware(parentApp);
 
-  appServer = new AppServer(parentApp);
-  resolve(appServer);
+    appServer = new AppServer(parentApp);
+    resolve(appServer);
   });
 }
 
