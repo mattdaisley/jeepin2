@@ -6,7 +6,6 @@ import { PageNotFoundComponent } from './error-pages/page-not-found.component';
 
 const appRoutes: Routes = [
   { path: 'tilt-gauges', component: TiltGaugesComponent },
-  { path: '',   redirectTo: '/tilt-gauges', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

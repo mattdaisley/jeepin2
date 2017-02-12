@@ -6,7 +6,7 @@ import { Gyro }               from './gyro.interface';
   moduleId: module.id,
   selector: 'tiltGauges',
   templateUrl: './tilt-gauges.component.html',
-  styleUrls: ['./tilt-gauges.component.css'],
+  styleUrls: ['./tilt-gauges.component.scss'],
   providers: [TiltGaugesService]
 })
 export class TiltGaugesComponent implements OnInit, OnDestroy {
