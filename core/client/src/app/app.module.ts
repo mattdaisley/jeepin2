@@ -5,25 +5,30 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutesModule } from './app-routes.module';
+// import { PageRoutesModule } from './pages/pages-routes.module';
 
-import { TiltGaugesComponent } from './tilt-gauges/tilt-gauges.component';
+import { PagesModule } from './pages/pages.module';
+
 import { MenuComponent } from './menu/menu.component';
-import { PageNotFoundComponent } from './error-pages/page-not-found.component';
+import { StatusBarComponent } from './status-bar/status-bar.component';
+
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutesModule
+    AppRoutesModule,
+    // PageRoutesModule,
+    PagesModule
   ],
   declarations: [
     AppComponent,
-    TiltGaugesComponent,
     MenuComponent,
-    PageNotFoundComponent
+    StatusBarComponent
   ],
   providers: [],
   bootstrap: [ AppComponent ]
 })
+
 export class AppModule { }
