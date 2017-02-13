@@ -1,6 +1,15 @@
 <div class="wrapper">
   <app-menu class="menu"></app-menu>
+
+
   <div class="container">
-    <tiltGauges></tiltGauges>
+    <div class="main-wrapper">
+      
+      <app-status-bar></app-status-bar>
+
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
 </div>

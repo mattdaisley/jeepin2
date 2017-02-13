@@ -4,22 +4,31 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { TiltGaugesComponent } from './tilt-gauges/tilt-gauges.component';
+import { AppRoutesModule } from './app-routes.module';
+// import { PageRoutesModule } from './pages/pages-routes.module';
+
+import { PagesModule } from './pages/pages.module';
+
 import { MenuComponent } from './menu/menu.component';
+import { StatusBarComponent } from './status-bar/status-bar.component';
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TiltGaugesComponent,
-    MenuComponent,
-    MenuComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutesModule,
+    // PageRoutesModule,
+    PagesModule
+  ],
+  declarations: [
+    AppComponent,
+    MenuComponent,
+    StatusBarComponent
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
+
 export class AppModule { }
