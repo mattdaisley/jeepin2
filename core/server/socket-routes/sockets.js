@@ -9,7 +9,7 @@ setupMiddleware = function setupMiddleware(serverIO) {
   io.on('connection', socketListeners);
 
   sockets.poll(io, sockets.gyro.pollSensor);
-  sockets.poll(io, sockets.bluetooth.pollDevices);
+  setTimeout( function() { sockets.poll(io, sockets.bluetooth.pollDevices); }, 12000);
 }
 
 socketListeners = function socketListeners(socket) {
