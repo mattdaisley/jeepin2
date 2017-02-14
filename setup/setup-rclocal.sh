@@ -1,7 +1,11 @@
 #!/bin/bash
 
-echo 'sudo mv /etc/rc.local /etc/rc.local.deac'
-sudo mv /etc/rc.local /etc/rc.local.deac
+echo 'if [ -f /etc/rc.local ]; then'
+echo '  sudo mv /etc/rc.local /etc/rc.local.deac'
+echo 'fi'
+if [ -f /etc/rc.local ]; then
+  sudo mv /etc/rc.local /etc/rc.local.deac
+fi
 
 echo 'sudo mv /home/pi/jeepin2/setup/rc.local /etc/rc.local'
 sudo cp /home/pi/jeepin2/setup/rc.local /etc/rc.local
