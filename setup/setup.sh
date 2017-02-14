@@ -19,12 +19,14 @@ sudo gpasswd -a pulse lp
 sudo gpasswd -a pi audio
 sudo gpasswd -a pulse audio
 
-sudo sh -c "echo 'extra-arguments = --exit-idle-time=-1 --log-target=syslog' >> /etc/pulse/client.conf"
 sudo hciconfig hci0 up
 sudo hciconfig hci0 class 0x200420
 
 sudo mv /etc/xdg/autostart/pulseaudio.desktop /etc/xdg/autostart/pulseaudio.desktop.deac
-sudo mv /home/pi/setup/pulseaudio.desktop /home/pi/.config/autostart/pulseaudio.desktop
+sudo mv /home/pi/jeepin2/setup/pulseaudio.desktop /home/pi/.config/autostart/pulseaudio.desktop
+
+sudo mv /etc/rc.local /etc/rc.local.deac
+sudo mv /home/pi/jeepin2/setup/rc.local /etc/rc.local
 
 sudo reboot
 # sudo echo "Class = 0x200420" >> /etc/bluetooth/main.conf
