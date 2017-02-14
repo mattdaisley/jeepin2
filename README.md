@@ -47,10 +47,10 @@ sudo apt-get install pulseaudio-module-bluetooth bluez-tools
 
 Add users to groups. This is very important. If using any other distro, replace ‘xbian’ with your username.
 
-sudo gpasswd -a xbian pulse
-sudo gpasswd -a xbian lp
+sudo gpasswd -a pi pulse
+sudo gpasswd -a pi lp
 sudo gpasswd -a pulse lp
-sudo gpasswd -a xbian audio
+sudo gpasswd -a pi audio
 sudo gpasswd -a pulse audio
 
 

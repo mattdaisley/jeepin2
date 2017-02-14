@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=PulseAudio Sound System
+Exec=/bin/sh -c "sleep 10; pulseaudio --start"
+Terminal=false
+Type=Application
+X-GNOME-Autostart-Phase=Initialization
+NotShowIn=KDE;
