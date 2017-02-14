@@ -2,8 +2,8 @@
 
 sudo apt-get update
 
-sudo apt-get -y install nodejs npm node-semver
+#sudo apt-get -y install nodejs npm node-semver
 
-cd jeepin2 
+#cd jeepin2 
 
-sudo npm install 
+#sudo npm install 
