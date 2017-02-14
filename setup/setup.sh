@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cd /home/pi
+
+sudo dpkg --configure -a
+
 sudo apt-get update
 
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
@@ -23,6 +27,7 @@ sudo hciconfig hci0 up
 sudo hciconfig hci0 class 0x200420
 
 sudo mv /etc/xdg/autostart/pulseaudio.desktop /etc/xdg/autostart/pulseaudio.desktop.deac
+sudo mkdir -p /home/pi/.config/autostart/
 sudo mv /home/pi/jeepin2/setup/pulseaudio.desktop /home/pi/.config/autostart/pulseaudio.desktop
 
 sudo mv /etc/rc.local /etc/rc.local.deac
@@ -30,6 +35,8 @@ sudo mv /home/pi/jeepin2/setup/rc.local /etc/rc.local
 sudo chown root /etc/rc.local
 sudo chgrp root /etc/rc.local
 sudo chmod 755 rc.local
+
+sudo mv /etc/xdg/autostart/pulseaudio.desktop /etc/xdg/autostart/pulseaudio.desktop.deac
 
 # sudo echo "Class = 0x200420" >> /etc/bluetooth/main.conf
 
