@@ -15,4 +15,4 @@ sudo hciconfig hci0 class 0x200420
 
 sudo mv /etc/xdg/autostart/pulseaudio.desktop /etc/xdg/autostart/pulseaudio.desktop.deac
 sudo mkdir -p /home/pi/.config/autostart/
-sudo mv /home/pi/jeepin2/setup/pulseaudio.desktop /home/pi/.config/autostart/pulseaudio.desktop
+sudo cp /home/pi/jeepin2/setup/pulseaudio.desktop /home/pi/.config/autostart/pulseaudio.desktop
