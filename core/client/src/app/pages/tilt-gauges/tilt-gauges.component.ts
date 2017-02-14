@@ -3,11 +3,10 @@ import { TiltGaugesService }  from './tilt-gauges.service';
 import { Gyro }               from './gyro.interface';
 
 @Component({
-  moduleId: module.id,
   selector: 'tiltGauges',
   templateUrl: './tilt-gauges.component.html',
   styleUrls: ['./tilt-gauges.component.scss'],
-  providers: [TiltGaugesService]
+  providers: [ TiltGaugesService ]
 })
 export class TiltGaugesComponent implements OnInit, OnDestroy {
   messages = [];

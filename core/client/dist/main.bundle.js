@@ -48,18 +48,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-// In renderer process (web page).
-// const {ipcRenderer} = require('electron')
-// console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-// ipcRenderer.on('asynchronous-reply', (event, arg) => {
-//   console.log(arg) // prints "pong"
-// })
-// ipcRenderer.send('asynchronous-message', 'ping')
 var SettingsComponent = (function () {
     function SettingsComponent() {
         var _this = this;
         this.toggleFullScreen = function () {
-            if (electron) {
+            if (electron !== undefined) {
                 electron.ipcRenderer.send('setFullScreen', !_this.isFullScreen);
             }
         };
@@ -514,10 +507,14 @@ var StatusBarComponent = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `angular-cli.json`.
 var environment = {
-    production: true
+    production: false
 };
-//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/environment.prod.js.map
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/environment.js.map
 
 /***/ }),
 
