@@ -16,6 +16,11 @@ bluetooth = {
             console.log('connecting to ' + device.name + ' ' + device.mac);
             blue.connect(device.mac);
         }
+        if ( device.name === 'iPhone' && device.paired === 'no' && device.connected === 'no') {
+            console.log('connecting to ' + device.name + ' ' + device.mac);
+            blue.trust(device.mac);
+            blue.pair(device.mac);
+        }
       }
 
     });
