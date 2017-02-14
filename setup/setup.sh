@@ -28,7 +28,6 @@ sudo mv /home/pi/jeepin2/setup/pulseaudio.desktop /home/pi/.config/autostart/pul
 sudo mv /etc/rc.local /etc/rc.local.deac
 sudo mv /home/pi/jeepin2/setup/rc.local /etc/rc.local
 
-sudo reboot
 # sudo echo "Class = 0x200420" >> /etc/bluetooth/main.conf
 
 # echo > sudo /etc/udev/rules.d/10-bluetooth.rules 'ACTION=="add", KERNEL=="hci0", RUN+="/usr/bin/hciconfig hci0 up"'
