@@ -7,9 +7,22 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+const { ipcMain } = require('electron')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+
+ipcMain.on('setFullScreen', (event, arg) => {
+  mainWindow.setFullScreen(arg)
+  event.sender.send('setFullScreen-reply', mainWindow.isFullScreen())
+})
+
+ipcMain.on('isFullScreen', (event, arg) => {
+  event.sender.send('isFullScreen-reply', mainWindow.isFullScreen())
+})
+
 
 function createWindow () {
   // Create the browser window.
@@ -23,7 +36,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

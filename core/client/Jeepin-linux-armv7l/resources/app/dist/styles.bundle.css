@@ -2335,14 +2335,24 @@ html, body {
 body {
   font-size: 12px; }
 
-.flex {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex; }
+button {
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #CCC;
+  /*border: 1px solid #71D1F1;*/
+  background-color: #000;
+  color: #fff;
+  font-size: 1.3em;
+  margin: 0 10px; }
 
-.flex-item {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1; }
+button[disabled] {
+  color: #444;
+  font-weight: bold; }
+
+button:hover {
+  cursor: pointer; }
+
+button:focus {
+  outline: none; }
 
 /*# sourceMappingURL=styles.bundle.map*/
