@@ -1,6 +1,6 @@
 // # API routes
 var senseHat      = require('../senseHat'),
-  defaultRoomId   = 1,
+  channels        = require('./channels'),
   io,
   socketListeners,
   
@@ -12,10 +12,19 @@ gyro = {
     return new Promise(function (resolve, reject) {
 
       console.log('new connection: ', data);
-      socket.leave(defaultRoomId);
-      socket.join(defaultRoomId);
+      socket.leave(channels.gyro);
+      socket.join(channels.gyro);
 
-      resolve( {'channel': defaultRoomId, 'emit': 'message', 'content': {'pitch':'Welcome to the room'}} );
+      resolve( {'channel': channels.gyro, 'emit': 'gyro/data', 'content': {'pitch':'0', 'roll':'0'}} );
+
+    });
+  },
+
+  endConnection: function endConnection(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('end connection: ', data);
+      socket.leave(channels.gyro);
 
     });
   },
@@ -41,7 +50,7 @@ gyro = {
       if ( roll > 180 ) roll = roll - 360;
 
       result = {'pitch':pitch, 'roll':roll};
-      respond( {'channel': defaultRoomId, 'emit': 'gyro/data', 'content': result} );
+      respond( {'channel': channels.gyro, 'emit': 'gyro/data', 'content': result} );
     };
 
     function pollFailed( error ) {
@@ -55,7 +64,7 @@ gyro = {
       setTimeout(function() { pollSensor(respond); }, retryDelay);
 
       result = { 'pitch': 0, 'roll': 0, 'error': { 'errorNum': 1, 'message': error } };
-      respond( {'channel': defaultRoomId, 'emit': 'gyro/data', 'content': result} );
+      respond( {'channel': channels.gyro, 'emit': 'gyro/data', 'content': result} );
     };
 
     pollSensor();

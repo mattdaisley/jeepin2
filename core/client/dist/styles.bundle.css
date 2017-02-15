@@ -2343,7 +2343,7 @@ button {
   background-color: #000;
   color: #fff;
   font-size: 1.3em;
-  margin: 0 10px; }
+  margin: 10px; }
 
 button[disabled] {
   color: #444;
@@ -2354,5 +2354,15 @@ button:hover {
 
 button:focus {
   outline: none; }
+
+.container-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%; }
 
 /*# sourceMappingURL=styles.bundle.map*/

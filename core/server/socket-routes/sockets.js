@@ -13,10 +13,15 @@ setupMiddleware = function setupMiddleware(serverIO) {
 }
 
 socketListeners = function socketListeners(socket) {
+  console.log('new connection. setting up socket listeners');
 
-  // socket.on('disconnect', gyro.disconnect);
+  socket.on('disconnect', function(data) {console.log('disconnect', data); });
 
   socket.on('gyro/connected', sockets.handle(io, socket, sockets.gyro.newConnection));
+  socket.on('gyro/disconnect', sockets.handle(io, socket, sockets.gyro.endConnection));
+
+  socket.on('bluetooth/connected', sockets.handle(io, socket, sockets.bluetooth.newConnection));
+  socket.on('bluetooth/disconnect', sockets.handle(io, socket, sockets.bluetooth.endConnection));
 
   // socket.on('add-message', function(data) {
   //   // console.log('add-message:', data);

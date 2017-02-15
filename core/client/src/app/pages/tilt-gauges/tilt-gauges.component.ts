@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { TiltGaugesService }  from './tilt-gauges.service';
 import { Gyro }               from './gyro.interface';
 
@@ -33,6 +34,7 @@ export class TiltGaugesComponent implements OnInit, OnDestroy {
   }
   
   ngOnDestroy() {
+    console.log('tilt-gagues component destroyed');
     this.connection.unsubscribe();
   }
 }

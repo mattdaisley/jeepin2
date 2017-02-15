@@ -34,11 +34,21 @@
     display: flex;
     flex-direction: column;
     align-content: stretch;
+    position: relative;
+
+    app-status-bar {
+      position: absolute;
+      width: 100%;
+      background-color: #000;
+    }
 
     .main-content {
       background: linear-gradient(-25deg,#035584, black, black,#035584);
-      padding: 30px;
-      flex: 1;
+      position: absolute;
+      box-sizing: border-box;
+      padding: 110px 30px 30px;
+      height: 100%;
+      width: 100%;
     }
   }
 }

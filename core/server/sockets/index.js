@@ -25,6 +25,7 @@ handle = function handle( io, socket, socketMethod, next ) {
 
   return socketMethod(socket, data)
     .then(function (response) {
+      console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
       io.in(response.channel).emit(response.emit, {content: response.content});
     }).catch(function (error) {
     // To be handled by the API middleware
@@ -37,6 +38,7 @@ handle = function handle( io, socket, socketMethod, next ) {
 poll = function poll( io, socketMethod ) {
   
   function respond(response) {
+    // console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
     io.in(response.channel).emit(response.emit, {content: response.content});
   }
 
