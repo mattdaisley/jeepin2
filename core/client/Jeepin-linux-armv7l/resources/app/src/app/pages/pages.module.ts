@@ -5,22 +5,23 @@ import { HttpModule }         from '@angular/http';
 
 import { TiltGaugesComponent } from './tilt-gauges/tilt-gauges.component';
 import { PageNotFoundComponent } from './error-pages/page-not-found.component';
-import { SettingsComponent } from './settings/settings.component';
 
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
-  imports:      [ 
+  imports: [ 
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    SettingsModule
   ],
-  
+
+  providers: [],
+
   declarations: [
     TiltGaugesComponent,
-    PageNotFoundComponent,
-    SettingsComponent
-  ],
-  providers:    [ ]
+    PageNotFoundComponent
+  ]
 })
 
 export class PagesModule { }

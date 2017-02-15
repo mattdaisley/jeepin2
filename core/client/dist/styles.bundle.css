@@ -2363,6 +2363,24 @@ button:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  height: 100%;
+  position: relative; }
+
+.list {
+  border-radius: 5px;
+  border: 1px solid #CCC;
+  /*border: 1px solid #71D1F1;*/
+  background-color: #000;
+  color: #fff;
+  font-size: 1.3em;
   height: 100%; }
+  .list .list-item {
+    padding: 20px;
+    border-bottom: 1px solid #CCC;
+    margin: 0 20px; }
+  .list .list-item:last-child {
+    border-bottom: none; }
+  .list .list-item:first-child {
+    border-bottom: 1px solid #CCC; }
 
 /*# sourceMappingURL=styles.bundle.map*/

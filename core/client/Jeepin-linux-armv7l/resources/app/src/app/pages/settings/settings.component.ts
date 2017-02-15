@@ -1,16 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-// import { ipcRenderer } from 'electron';
 
 declare var electron: any;
-
-// In renderer process (web page).
-// const {ipcRenderer} = require('electron')
-// console.log(ipcRenderer.sendSync('synchronous-message', 'ping')) // prints "pong"
-
-// ipcRenderer.on('asynchronous-reply', (event, arg) => {
-//   console.log(arg) // prints "pong"
-// })
-// ipcRenderer.send('asynchronous-message', 'ping')
 
 @Component({
   selector: 'app-settings',
@@ -49,7 +39,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   toggleFullScreen = () => {
-    if ( electron ) {
+    if ( electron !== undefined ) {
       electron.ipcRenderer.send('setFullScreen', !this.isFullScreen);
     }
   }

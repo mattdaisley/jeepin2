@@ -3,9 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { SocketService } from './shared/socket-service/socket.service';
+
 import { AppComponent } from './app.component';
 import { AppRoutesModule } from './app-routes.module';
-// import { PageRoutesModule } from './pages/pages-routes.module';
 
 import { PagesModule } from './pages/pages.module';
 
@@ -14,21 +15,23 @@ import { StatusBarComponent } from './status-bar/status-bar.component';
 
 
 @NgModule({
+  providers: [ SocketService ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutesModule,
     // PageRoutesModule,
-    PagesModule
+    PagesModule,
+    AppRoutesModule
   ],
   declarations: [
     AppComponent,
     MenuComponent,
     StatusBarComponent
   ],
-  providers: [],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ 
+    AppComponent
+  ]
 })
 
 export class AppModule { }
