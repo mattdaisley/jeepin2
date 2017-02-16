@@ -16,7 +16,7 @@ bluetooth = {
       socket.leave(channels.bluetooth);
       socket.join(channels.bluetooth);
 
-      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
 
     });
   },
@@ -31,14 +31,13 @@ bluetooth = {
       blue.on(blue.bluetoothEvents.Device, (devices) => {
         console.log('blue.bluetoothEvents.Device: ');
         console.log(devices);
-        this.devices = devices;
+        bluetooth.devices = devices;
+        bluetooth.checkConnectedDevice(devices);
 
-        this.checkConnectedDevice(devices);
-
-        respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+        respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
       });
     } else {
-      this.devices = [
+      bluetooth.devices = [
         {
           "mac": "70:70:0D:70:97:EC",
           "name": "test-iPhone",
@@ -88,7 +87,7 @@ bluetooth = {
           "trycount": 0
         },
       ];
-      respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+      respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
     }
 
   },
@@ -108,7 +107,7 @@ bluetooth = {
       console.log('new device connection requested for mac: ', data);
       blue.connect(data);
 
-      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
 
     });
   },
@@ -119,7 +118,7 @@ bluetooth = {
       console.log('new device connection requested for mac: ', data);
       blue.disconnect(data);
 
-      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
 
     });
   }
