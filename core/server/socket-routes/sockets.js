@@ -9,7 +9,7 @@ setupMiddleware = function setupMiddleware(serverIO) {
   io.on('connection', socketListeners);
 
   sockets.poll(io, sockets.gyro.pollSensor);
-  // sockets.poll(io, sockets.music.pollMusic);
+  sockets.poll(io, sockets.music.pollMusic);
   setTimeout( function() { sockets.poll(io, sockets.bluetooth.pollDevices); }, 12000); //delay to allow pulseaudio to start
 }
 
@@ -25,6 +25,8 @@ socketListeners = function socketListeners(socket) {
   socket.on('bluetooth/disconnect', sockets.handle(io, socket, sockets.bluetooth.endConnection));
   socket.on('bluetooth/device/connect', sockets.handle(io, socket, sockets.bluetooth.connectDevice));
   socket.on('bluetooth/device/disconnect', sockets.handle(io, socket, sockets.bluetooth.disconnectDevice));
+
+  socket.on('music/setup', sockets.poll(io, sockets.music.pollMusic));
 
   // socket.on('add-message', function(data) {
   //   // console.log('add-message:', data);

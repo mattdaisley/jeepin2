@@ -73,3 +73,42 @@ Terminal=false
 Type=Application
 X-GNOME-Autostart-Phase=Initialization
 NotShowIn=KDE;
+
+
+#bluez dbus
+
+signal sender=:1.5 -> dest=(null destination) serial=247 path=/org/bluez/hci0/dev_70_70_0D_70_97_EC/player0; interface=org.freedesktop.DBus.Properties; member=PropertiesChanged
+   string "org.bluez.MediaPlayer1"
+   array [
+      dict entry(
+         string "Track"
+         variant             array [
+               dict entry(
+                  string "Title"
+                  variant                      string "Ruff Ryders' Anthem"
+               )
+               dict entry(
+                  string "Album"
+                  variant                      string "It's Dark And Hell Is Hot"
+               )
+               dict entry(
+                  string "TrackNumber"
+                  variant                      uint32 63
+               )
+               dict entry(
+                  string "Artist"
+                  variant                      string "DMX"
+               )
+               dict entry(
+                  string "NumberOfTracks"
+                  variant                      uint32 75
+               )
+               dict entry(
+                  string "Duration"
+                  variant                      uint32 214000
+               )
+            ]
+      )
+   ]
+   array [
+   ]

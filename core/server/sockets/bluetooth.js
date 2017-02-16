@@ -1,7 +1,7 @@
 // # API routes
 var blue      = require('bluetoothctl'),
   channels    = require('./channels'),
-  music       = require('./music'),
+  sockets     = require('./'),
   bluetooth;
 
 
@@ -96,8 +96,7 @@ bluetooth = {
     var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
     console.log('connectedDevice', connectedDevice);
     if ( connectedDevice.lenth > 0 ) {
-      music.setMac(connectedDevice[0].mac);
-      music.pollMusic();
+      respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
     }
   },
 
