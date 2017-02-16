@@ -22,6 +22,7 @@ socketListeners = function socketListeners(socket) {
 
   socket.on('bluetooth/connected', sockets.handle(io, socket, sockets.bluetooth.newConnection));
   socket.on('bluetooth/disconnect', sockets.handle(io, socket, sockets.bluetooth.endConnection));
+  socket.on('bluetooth/device/connect', sockets.handle(io, socket, sockets.bluetooth.newConnection));
 
   // socket.on('add-message', function(data) {
   //   // console.log('add-message:', data);

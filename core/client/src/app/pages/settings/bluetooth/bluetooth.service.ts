@@ -4,11 +4,13 @@ import { Observable } from 'rxjs/Observable';
 
 import { SocketService } from '../../../shared/socket-service/socket.service';
 
-import { Device } from './device.interface';
+import { BtDevice } from './bt-device/bt-device.interface';
 
-@Injectable()
+@Injectable ()
 export class BluetoothService {
   private socket;
+  private devices:BtDevice[];
+  private isConnecting:Boolean = false;
 
   constructor( private socketService: SocketService ) { 
   }
@@ -18,18 +20,27 @@ export class BluetoothService {
     console.log('service emit', this.socket);
     this.socket.emit('bluetooth/connected', 'request bluetooth/connection');
   }
+
+  connectDevice( mac:String ) {
+    this.isConnecting = true;
+    this.socket.emit('bluetooth/device/connect', mac);
+  }
+
+  checkIsConnecting():Boolean {
+    return this.isConnecting;
+  }
   
   getDevices() {
-    let observable = new Observable<Device[]>(observer => {
+    let observable = new Observable<BtDevice[]>(observer => {
       this.socket.on('bluetooth/devices', (data) => {
         console.log(data.content);
-        let devices:Device[] = data.content;
-        observer.next(devices);    
+        this.devices = data.content;
+        observer.next(this.devices);    
       });
       return () => {
         this.socket.disconnect();
       };  
     })     
     return observable;
-  }  
+  }
 }

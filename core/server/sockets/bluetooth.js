@@ -45,11 +45,58 @@ bluetooth = {
           "blocked": "no",
           "connected": "no",
           "trycount": 0
-        }
+        },
+        {
+          "mac": "70:70:0D:70:97:EC",
+          "name": "test-iPhone2",
+          "signal": 0,
+          "paired": "yes",
+          "trusted": "yes",
+          "icon": "phone",
+          "class": "0x7a020c",
+          "blocked": "no",
+          "connected": "no",
+          "trycount": 0
+        },
+        {
+          "mac": "70:70:0D:70:97:EC",
+          "name": "test-iPhone3",
+          "signal": 0,
+          "paired": "yes",
+          "trusted": "yes",
+          "icon": "phone",
+          "class": "0x7a020c",
+          "blocked": "no",
+          "connected": "no",
+          "trycount": 0
+        },
+        {
+          "mac": "70:70:0D:70:97:EC",
+          "name": "test-iPhone4",
+          "signal": 0,
+          "paired": "yes",
+          "trusted": "yes",
+          "icon": "phone",
+          "class": "0x7a020c",
+          "blocked": "no",
+          "connected": "no",
+          "trycount": 0
+        },
       ];
       respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
     }
 
+  },
+
+  connectDevice: function connectDevice(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('new device connection requested for mac: ', data);
+      blue.connect(data);
+
+      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+
+    });
   }
 };
 

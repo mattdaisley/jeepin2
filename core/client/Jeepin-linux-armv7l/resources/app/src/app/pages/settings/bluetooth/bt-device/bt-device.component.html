@@ -1,0 +1,11 @@
+<div class="list-item-content">
+  <div class="list-item-text">
+    {{device.name}} {{(device.connected == 'yes') ? 'Connected' : ''}}
+    <span>{{device.mac}}</span>
+  </div>
+
+  <button *ngIf="device.paired === 'no'">Pair</button>
+  <button *ngIf="device.paired === 'yes'">Forget</button>
+  <button (click)="connect()" *ngIf="device.connected === 'no'">Connect{{(connectingStatus == 'connecting') ? 'ing...' : ''}}</button>
+  <button *ngIf="device.connected === 'yes'">Disconnect</button>
+</div>

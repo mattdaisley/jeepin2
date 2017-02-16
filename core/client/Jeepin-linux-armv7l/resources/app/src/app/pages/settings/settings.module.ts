@@ -9,7 +9,7 @@ import { BluetoothService } from './bluetooth/bluetooth.service';
 import { SettingsRoutingModule } from './settings-routes.module';
 
 import { SettingsComponent } from './settings.component';
-import { BluetoothComponent } from './bluetooth/bluetooth.component';
+import { BluetoothModule } from './bluetooth/bluetooth.module';
 import { SettingsHomeComponent } from './settings-home/settings-home.component';
 
 
@@ -19,12 +19,12 @@ import { SettingsHomeComponent } from './settings-home/settings-home.component';
     FormsModule,
     CommonModule,
     // HttpModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    BluetoothModule,
   ],
   
   declarations: [
     SettingsComponent,
-    BluetoothComponent,
     SettingsHomeComponent
 ],
 

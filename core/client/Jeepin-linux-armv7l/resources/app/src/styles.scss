@@ -21,8 +21,10 @@ body {
 button {
   padding: 20px;
   border-radius: 5px;
+  // border-width: 1px;
+  // border-style: solid;
+  // border-color: #CCC;
   border: 1px solid #CCC;
-  /*border: 1px solid #71D1F1;*/
   background-color: #000;
   color: #fff;
   font-size: 1.3em;
@@ -53,18 +55,46 @@ button:focus {
   border-radius: 5px;
   border: 1px solid #CCC;
   /*border: 1px solid #71D1F1;*/
-  background-color: #000;
+  background-color: rgba(0,0,0,.5);
   color: #fff;
   font-size: 1.3em;
   height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: scroll;
 
   .list-item {
-    padding: 20px;
     border-bottom: 1px solid #CCC;
-    margin: 0 20px;
+    padding: 20px;
+
+    .list-item-content {
+      display: flex;
+
+      .list-item-text {
+        // display: inline-block;
+        flex: 1;
+        font-size: 1.2em;
+
+        span {
+          display: block;
+          font-size: .8em;
+          margin-top: 5px;
+        }
+      }
+    }
+
+    button {
+      background: transparent;
+      padding: 15px;
+      border-radius: 0;
+      border-width: 0;
+      font-size: 1em;
+      margin: 0;
+      width: 110px;
+    }
   }
 
-  .list-item:last-child{
+  :last-child{
     border-bottom: none;
   }
 

@@ -3,18 +3,18 @@ import { Observable } from 'rxjs/Observable';
 
 import { BluetoothService } from './bluetooth.service';
 
-import { Device } from './device.interface';
+import { BtDevice } from './bt-device/bt-device.interface';
 
 @Component({
   selector: 'app-bluetooth',
   templateUrl: './bluetooth.component.html',
-  styleUrls: ['./bluetooth.component.css']
+  styleUrls: ['./bluetooth.component.scss']
 })
 export class BluetoothComponent implements OnInit, OnDestroy {
-  devices: Device[];
+  devices: BtDevice[];
   connection;
 
-  constructor(private bluetoothService:BluetoothService) {
+  constructor( private bluetoothService:BluetoothService ) {
     console.log('component connect bluetoothService');
     this.bluetoothService.connect();
   }
@@ -26,6 +26,12 @@ export class BluetoothComponent implements OnInit, OnDestroy {
     });
     // this.connection = this.bluetoothService.getDevices().subscribe(devices => {
     //   this.devices = devices;
+    // });
+  }
+
+  connectDevice( mac: String ) {
+    // this.bluetoothService.connectDevice().subscribe(device => {
+
     // });
   }
   
