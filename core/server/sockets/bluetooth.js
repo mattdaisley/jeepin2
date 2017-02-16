@@ -32,7 +32,12 @@ bluetooth = {
         console.log('blue.bluetoothEvents.Device: ');
         console.log(devices);
         bluetooth.devices = devices;
-        bluetooth.checkConnectedDevice(devices);
+        
+        var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
+        console.log('connectedDevice', connectedDevice);
+        if ( connectedDevice.lenth > 0 ) {
+          respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
+        }
 
         respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
       });
@@ -91,14 +96,6 @@ bluetooth = {
       respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
     }
 
-  },
-
-  checkConnectedDevice: function checkConnectedDevice(devices) {
-    var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
-    console.log('connectedDevice', connectedDevice);
-    if ( connectedDevice.lenth > 0 ) {
-      respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
-    }
   },
 
   connectDevice: function connectDevice(socket, data) {
