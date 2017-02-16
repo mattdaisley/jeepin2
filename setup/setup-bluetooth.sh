@@ -19,7 +19,7 @@ echo 'if [ -f /lib/systemd/system/bluetooth.service ]; then'
 echo '  sudo mv /lib/systemd/system/bluetooth.service /lib/systemd/system/bluetooth.service.deac'
 echo 'fi'
 if [ -f /lib/systemd/system/bluetooth.service ]; then
-  sudo mv /lib/systemd/system/bluetooth.service /lib/systemd/system/bluetooth.service
+  sudo mv /lib/systemd/system/bluetooth.service /lib/systemd/system/bluetooth.service.deac
 fi
 
 echo 'sudo cp /home/pi/jeepin2/setup/bluetooth.service /lib/systemd/system/bluetooth.service'
