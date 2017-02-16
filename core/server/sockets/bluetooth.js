@@ -87,6 +87,7 @@ bluetooth = {
           "trycount": 0
         },
       ];
+      respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
       respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
     }
 
