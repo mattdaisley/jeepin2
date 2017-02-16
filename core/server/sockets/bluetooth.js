@@ -95,6 +95,7 @@ bluetooth = {
 
   checkConnectedDevice: function checkConnectedDevice(devices) {
     var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
+    console.log('connectedDevice', connectedDevice);
     if ( connectedDevice.lenth > 0 ) {
       music.setMac(connectedDevice[0].mac);
       music.pollMusic();
