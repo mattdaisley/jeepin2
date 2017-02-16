@@ -14,3 +14,13 @@ sudo hciconfig hci0 up
 sudo hciconfig hci0 class 0x200420
 
 sudo mv /etc/xdg/autostart/pulseaudio.desktop /etc/xdg/autostart/pulseaudio.desktop.deac
+
+echo 'if [ -f /lib/systemd/system/bluetooth.service ]; then'
+echo '  sudo mv /lib/systemd/system/bluetooth.service /lib/systemd/system/bluetooth.service.deac'
+echo 'fi'
+if [ -f /lib/systemd/system/bluetooth.service ]; then
+  sudo mv /lib/systemd/system/bluetooth.service /lib/systemd/system/bluetooth.service
+fi
+
+echo 'sudo cp /home/pi/jeepin2/setup/bluetooth.service /lib/systemd/system/bluetooth.service'
+sudo cp /home/pi/jeepin2/setup/bluetooth.service /lib/systemd/system/bluetooth.service
