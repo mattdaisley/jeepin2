@@ -97,6 +97,17 @@ bluetooth = {
       resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
 
     });
+  },
+
+  disconnectDevice: function disconnectDevice(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('new device connection requested for mac: ', data);
+      blue.disconnect(data);
+
+      resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+
+    });
   }
 };
 
