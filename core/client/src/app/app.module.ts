@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { SocketService } from './shared/socket-service/socket.service';
+import { MusicService } from './pages/music/music.service';
 
 import { AppComponent } from './app.component';
 import { AppRoutesModule } from './app-routes.module';
@@ -15,7 +16,10 @@ import { StatusBarComponent } from './status-bar/status-bar.component';
 
 
 @NgModule({
-  providers: [ SocketService ],
+  providers: [ 
+    SocketService,
+    MusicService
+  ],
   imports: [
     BrowserModule,
     FormsModule,

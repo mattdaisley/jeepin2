@@ -24,31 +24,31 @@ music = {
       socket.leave(channels.music);
       socket.join(channels.music);
 
-      resolve( {'channel': channels.music, 'emit': 'music/devices', 'content': this.devices} );
+      resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
     });
   },
 
   pollMusic: function pollMusic(respond) {
     console.log('setting up music');
-    if ( this.mac ) {
-      this.setupDBus(respond);
+    if ( music.mac ) {
+      music.setupDBus(respond);
     }
 
   },
 
   setupDBus: function setupDBus(respond) {
 
-    if ( this.bus && this.bus.connection ) this.bus.disconnect();
-    this.bus = DBus.getBus('system');
+    if ( music.bus && music.bus.connection ) music.bus.disconnect();
+    music.bus = DBus.getBus('system');
 
-    this.setupDBusPropertyListener(respond);
+    music.setupDBusPropertyListener(respond);
   },
 
   setupDBusPropertyListener: function setupDBusPropertyListener(respond) {
-    let mac = this.mac.split(":").join("_");
+    let mac = music.mac.split(":").join("_");
 
-    this.bus.getInterface(
+    music.bus.getInterface(
       'org.bluez',
       '/org/bluez/hci0/dev_'+mac+'/player0',
       'org.bluez.MediaPlayer1',
@@ -58,7 +58,7 @@ music = {
           console.log('org.bluez.MediaPlayer1 props:');
           console.log(props);
           merge(properties, props);
-          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': this.properties} );
+          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
         });
 
@@ -66,7 +66,7 @@ music = {
           console.log('org.freedesktop.DBus.Properties PropertiesChanged');
           console.log(props);
           merge(properties, props);
-          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': this.properties} );
+          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
         });
 
 

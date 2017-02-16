@@ -27,12 +27,17 @@ handle = function handle( io, socket, socketMethod, next ) {
     return socketMethod(socket, data)
       .then(function (response) {
         console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
-        io.in(response.channel).emit(response.emit, {content: response.content});
-      }).catch(function (error) {
-      // To be handled by the API middleware
-      console.log(error);
-      next(error);
-    });
+        if ( response.channel === 'broadcast' ) {
+          io.broadcast.emit(response.emit, {content: response.content});
+        } else {
+          io.in(response.channel).emit(response.emit, {content: response.content});
+        }
+      })
+      .catch(function (error) {
+        // To be handled by the API middleware
+        console.log(error);
+        next(error);
+      });
   };
 };
 

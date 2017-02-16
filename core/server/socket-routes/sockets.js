@@ -26,6 +26,7 @@ socketListeners = function socketListeners(socket) {
   socket.on('bluetooth/device/connect', sockets.handle(io, socket, sockets.bluetooth.connectDevice));
   socket.on('bluetooth/device/disconnect', sockets.handle(io, socket, sockets.bluetooth.disconnectDevice));
 
+  socket.on('music/connected', sockets.handle(io, socket, sockets.music.newConnection));
   socket.on('music/setup', function() { sockets.poll(io, sockets.music.pollMusic); });
 
   // socket.on('add-message', function(data) {

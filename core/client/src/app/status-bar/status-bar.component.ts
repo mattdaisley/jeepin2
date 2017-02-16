@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { MusicService } from '../pages/music/music.service';
+
 @Component({
   selector: 'app-status-bar',
   templateUrl: './status-bar.component.html',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatusBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private musicService:MusicService) {
+    this.musicService.connect();
+  }
 
   ngOnInit() {
   }

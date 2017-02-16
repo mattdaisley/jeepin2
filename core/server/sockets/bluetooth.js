@@ -32,10 +32,11 @@ bluetooth = {
         console.log('blue.bluetoothEvents.Device: ');
         console.log(devices);
         bluetooth.devices = devices;
-        
+
         var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
         console.log('connectedDevice', connectedDevice);
         if ( connectedDevice.lenth > 0 ) {
+          console.log('sending music setup command');
           respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
         }
 
@@ -92,7 +93,6 @@ bluetooth = {
           "trycount": 0
         },
       ];
-      respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
       respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
     }
 
