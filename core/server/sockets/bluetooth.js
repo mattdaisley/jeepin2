@@ -29,15 +29,13 @@ bluetooth = {
 
     if ( hasBluetooth ) {
       blue.on(blue.bluetoothEvents.Device, (devices) => {
+        console.log('blue.bluetoothEvents.Device: ');
         console.log(devices);
         this.devices = devices;
-        respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
 
-        var connectedDevice = this.devices.filter( (device) => device.connected === 'yes' );
-        if ( connectedDevice.lenth > 0 ) {
-          music.setMac(connectedDevice[0].mac);
-          music.pollMusic();
-        }
+        this.checkConnectedDevice(devices);
+
+        respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
       });
     } else {
       this.devices = [
@@ -93,6 +91,14 @@ bluetooth = {
       respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
     }
 
+  },
+
+  checkConnectedDevice: function checkConnectedDevice(devices) {
+    var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
+    if ( connectedDevice.lenth > 0 ) {
+      music.setMac(connectedDevice[0].mac);
+      music.pollMusic();
+    }
   },
 
   connectDevice: function connectDevice(socket, data) {

@@ -13,6 +13,7 @@ music = {
   properties: {},
 
   setMac: function setMac(mac) {
+    console.log('setting mac', mac);
     this.mac = mac;
   },
 
