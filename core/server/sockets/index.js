@@ -24,26 +24,28 @@ handle = function handle( io, socket, socketMethod, next ) {
 
   return function socketsHandler(data) {
 
-  return socketMethod(socket, data)
-    .then(function (response) {
-      console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
-      io.in(response.channel).emit(response.emit, {content: response.content});
-    }).catch(function (error) {
-    // To be handled by the API middleware
-    console.log(error);
-    next(error);
+    return socketMethod(socket, data)
+      .then(function (response) {
+        console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
+        io.in(response.channel).emit(response.emit, {content: response.content});
+      }).catch(function (error) {
+      // To be handled by the API middleware
+      console.log(error);
+      next(error);
     });
   };
 };
 
-poll = function poll( io, socketMethod ) {
+poll = function poll( io, socketMethod, next ) {
   
   function respond(response) {
     // console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
     io.in(response.channel).emit(response.emit, {content: response.content});
   }
 
-  return socketMethod(respond);
+  return new Promise(function (resolve, reject) {
+    socketMethod(respond);
+  });
 }
 
 /**
