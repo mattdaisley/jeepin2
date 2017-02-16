@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get -y install bluez blueman alsa-utils pulseaudio-module-bluetooth bluez-tools
+sudo apt-get -y install bluez blueman alsa-utils pulseaudio-module-bluetooth bluez-tools libbluetooth-dev libdbus-1-dev libglib2.0-dev
 
 sudo sed -i '$ a Class = 0x200420' /etc/bluetooth/main.conf
 

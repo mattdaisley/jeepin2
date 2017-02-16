@@ -7,6 +7,7 @@
 var _             = require('lodash'),
   gyro            = require('./gyro'),
   bluetooth       = require('./bluetooth'),
+  music           = require('./music'),
 
   handle;
 
@@ -53,5 +54,6 @@ module.exports = {
   handle: handle,
   poll: poll,
   gyro: gyro,
-  bluetooth: bluetooth
+  bluetooth: bluetooth,
+  music: music
 };

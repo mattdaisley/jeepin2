@@ -1,6 +1,7 @@
 // # API routes
 var blue      = require('bluetoothctl'),
   channels    = require('./channels'),
+  music       = require('./music'),
   bluetooth;
 
 
@@ -31,6 +32,12 @@ bluetooth = {
         console.log(devices);
         this.devices = devices;
         respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': this.devices} );
+
+        var connectedDevice = this.devices.filter( (device) => device.connected === 'yes' );
+        if ( connectedDevice.lenth > 0 ) {
+          music.setMac(connectedDevice[0].mac);
+          music.pollMusic();
+        }
       });
     } else {
       this.devices = [
