@@ -51,8 +51,8 @@ music = {
 
     music.bus.getInterface(
       'org.bluez',
-      '/org/bluez/hci0/dev_'+mac+'/player0',
-      'org.bluez.MediaPlayer1',
+      '/org/bluez/hci0/dev_'+mac,
+      'org.bluez.MediaControl1',
       ( err, iface ) => {
 
         iface.getProperties( ( err, props ) => {
