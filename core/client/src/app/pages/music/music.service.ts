@@ -33,4 +33,8 @@ export class MusicService {
   play() {
     this.socket.emit('music/play', '');
   }
+
+  pause() {
+    this.socket.emit('music/pause', '');
+  }
 }

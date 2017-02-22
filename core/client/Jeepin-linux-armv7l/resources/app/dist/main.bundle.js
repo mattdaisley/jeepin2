@@ -148,6 +148,9 @@ var MusicService = (function () {
     MusicService.prototype.play = function () {
         this.socket.emit('music/play', '');
     };
+    MusicService.prototype.pause = function () {
+        this.socket.emit('music/pause', '');
+    };
     MusicService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__["a" /* SocketService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__["a" /* SocketService */]) === 'function' && _a) || Object])
@@ -226,6 +229,9 @@ var MusicComponent = (function () {
     };
     MusicComponent.prototype.play = function () {
         this.musicService.play();
+    };
+    MusicComponent.prototype.pause = function () {
+        this.musicService.pause();
     };
     MusicComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
@@ -1261,7 +1267,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "{{properties|json}}\n\n<button (click)=\"play()\">Play</button>"
+module.exports = "{{properties|json}}\n\n<button (click)=\"play()\">Play</button>\n<button (click)=\"pause()\">Pause</button>"
 
 /***/ }),
 

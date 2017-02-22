@@ -11,13 +11,18 @@ var DBus      = require('dbus'),
 
 music = {
 
-  bus: undefined,
   mac: '70:70:0D:70:97:EC',
   properties: {},
 
+  bus: undefined,
+  serviceName: 'org.bluez', 
+  objectPath: '/org/bluez/hci0/dev_70_70_0D_70_97_EC', 
+  interfaceName: 'org.bluez.MediaControl1',
+
   setMac: function setMac(mac) {
     console.log('setting mac', mac);
-    this.mac = mac;
+    music.mac = mac;
+    music.objectPath = '/org/bluez/hci0/dev_' + music.mac.split(":").join("_");
   },
 
   newConnection: function newConnection(socket, data) {
@@ -49,12 +54,9 @@ music = {
   },
 
   setupDBusPropertyListener: function setupDBusPropertyListener(respond) {
-    let mac = music.mac.split(":").join("_");
 
     music.bus.getInterface(
-      'org.bluez',
-      '/org/bluez/hci0/dev_'+mac,
-      'org.bluez.MediaControl1',
+      music.serviceName, music.objectPath,  music.interfaceName,
       ( err, iface ) => {
 
         iface.getProperties( ( err, props ) => {
@@ -72,33 +74,23 @@ music = {
           respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
         });
 
-
       }
     );
   },
 
   play: function play() {
     return new Promise(function (resolve, reject) {
-      let mac = music.mac.split(":").join("_");
 
       music.bus.getInterface(
-        'org.bluez',
-        '/org/bluez/hci0/dev_' + mac,
-        'org.bluez.MediaControl1',
-        function( err, iface ) {
-          //console.log(iface);
-          //console.log("\n");
-          iface.Play('', function(err, result) {
+        music.serviceName, music.objectPath,  music.interfaceName,
+        ( err, iface ) => {
+          iface.Play('', (err, result) => {
             if (err) {
-              //bus.disconnect( enablePulseaudio );
-              //bus = DBus.getBus('system');
-              console.log(err);
-              music.enablePulseaudio( respond )
+              music.enablePulseaudio( respond, music.play )
                 .then( (response) => {
                   resolve(response);
                 });
             } else {
-              
               resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
             }
           });
@@ -109,17 +101,39 @@ music = {
     });
   },
 
-  enablePulseaudio: function enablePulseaudio( respond ) {
+  pause: function pause() {
+    return new Promise(function (resolve, reject) {
+
+      music.bus.getInterface(
+        music.serviceName, music.objectPath,  music.interfaceName,
+        ( err, iface ) => {
+          iface.Pause('', (err, result) => {
+            if (err) {
+              music.enablePulseaudio( respond, music.pause )
+                .then( (response) => {
+                  resolve(response);
+                });
+            } else {
+              resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+            }
+          });
+        }
+
+      );
+
+    });
+  },
+
+  enablePulseaudio: function enablePulseaudio( respond, next ) {
     return new Promise(function (resolve, reject) {
       var cmd = 'pulseaudio --start';
 
       exec(cmd, function(error, stdout, stderr) {
-        // command output is in stdout
         console.log(error, stdout, stderr);
-        //bus.reconnect();
-        //bus = DBus.getBus('system');
+        
         bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
-        music.play()
+
+        next()
           .then( (response) => {
             resolve(response);
           });

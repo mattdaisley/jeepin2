@@ -29,6 +29,7 @@ socketListeners = function socketListeners(socket) {
   socket.on('music/connected', sockets.handle(io, socket, sockets.music.newConnection));
   socket.on('music/setup', function() { sockets.poll(io, sockets.music.pollMusic); });
   socket.on('music/play', sockets.handle(io, socket, sockets.music.play));
+  socket.on('music/pause', sockets.handle(io, socket, sockets.music.pause));
 
   // socket.on('add-message', function(data) {
   //   // console.log('add-message:', data);
