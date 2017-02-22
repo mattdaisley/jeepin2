@@ -5,6 +5,7 @@ var DBus      = require('dbus'),
   exec        = require('child_process').exec,
   // sockets     = require('./index'),
   channels    = require('./channels'),
+  bluetooth   = require('./bluetooth'),
   music;
 
 
@@ -114,7 +115,7 @@ music = {
       //bus.reconnect();
       //bus = DBus.getBus('system');
       music.play(respond);
-      sockets.bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
+      bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
     });
   },
 };
