@@ -29,4 +29,8 @@ export class MusicService {
     })     
     return observable;
   }  
+
+  play() {
+    this.socket.emit('music/play', '');
+  }
 }

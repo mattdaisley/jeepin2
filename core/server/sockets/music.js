@@ -2,15 +2,15 @@
 
 var DBus      = require('dbus'),
   merge       = require('merge'),
-  sockets     = require('./'),
-  // sockets.channels    = require('./sockets.channels'),
+  // sockets     = require('./index'),
+  channels    = require('./channels'),
   music;
 
 
 music = {
 
   bus: undefined,
-  mac: undefined,
+  mac: '70:70:0D:70:97:EC',
   properties: {},
 
   setMac: function setMac(mac) {
@@ -22,10 +22,10 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('new music connection: ', data);
-      socket.leave(sockets.channels.music);
-      socket.join(sockets.channels.music);
+      socket.leave(channels.music);
+      socket.join(channels.music);
 
-      resolve( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
+      resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
     });
   },
@@ -59,7 +59,7 @@ music = {
           console.log('org.bluez.MediaPlayer1 props:');
           console.log(props);
           merge(music.properties, props);
-          respond( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
         });
 
@@ -67,7 +67,7 @@ music = {
           console.log('org.freedesktop.DBus.Properties PropertiesChanged');
           console.log(props);
           merge(music.properties, props);
-          respond( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
         });
 
 
@@ -94,7 +94,7 @@ music = {
           }
           bus.disconnect();
           blue.disconnect();
-          respond( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
         });
       }
 

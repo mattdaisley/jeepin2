@@ -26,4 +26,8 @@ export class MusicComponent implements OnInit, OnDestroy {
     console.log('music component destroyed');
     this.connection.unsubscribe();
   }
+
+  play() {
+    this.musicService.play();
+  }
 }

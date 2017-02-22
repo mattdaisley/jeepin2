@@ -5,6 +5,7 @@
 // from a theme, an app, or from an external app, you'll use the Ghost JSON API to do so.
 
 var _             = require('lodash'),
+  channels        = require('./channels'),
   gyro            = require('./gyro'),
   bluetooth       = require('./bluetooth'),
   music           = require('./music'),
@@ -60,6 +61,7 @@ module.exports = {
   // Extras
   handle: handle,
   poll: poll,
+  channels: channels,
   gyro: gyro,
   bluetooth: bluetooth,
   music: music
