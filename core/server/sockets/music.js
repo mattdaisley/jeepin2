@@ -92,12 +92,13 @@ music = {
             if (err) {
               //bus.disconnect( enablePulseaudio );
               //bus = DBus.getBus('system');
-              music.enablePulseaudio( respond );
-              return console.log(err);
+              console.log(err);
+              resolve(music.enablePulseaudio( respond ));
+            } else {
+              music.bus.disconnect();
+              
+              resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
             }
-            music.bus.disconnect();
-            
-            respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
           });
         }
 
@@ -107,15 +108,17 @@ music = {
   },
 
   enablePulseaudio: function enablePulseaudio( respond ) {
-    var cmd = 'pulseaudio --start';
+    return new Promise(function (resolve, reject) {
+      var cmd = 'pulseaudio --start';
 
-    exec(cmd, function(error, stdout, stderr) {
-      // command output is in stdout
-      console.log(error, stdout, stderr);
-      //bus.reconnect();
-      //bus = DBus.getBus('system');
-      music.play(respond);
-      bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
+      exec(cmd, function(error, stdout, stderr) {
+        // command output is in stdout
+        console.log(error, stdout, stderr);
+        //bus.reconnect();
+        //bus = DBus.getBus('system');
+        bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
+        resolve(music.play());
+      });
     });
   },
 };
