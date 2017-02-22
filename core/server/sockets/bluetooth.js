@@ -35,7 +35,7 @@ bluetooth = {
 
         var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
         console.log('connectedDevice', connectedDevice);
-        if ( connectedDevice.lenth > 0 ) {
+        if ( connectedDevice.length > 0 ) {
           console.log('sending music setup command');
           respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
         }

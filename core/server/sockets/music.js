@@ -2,7 +2,8 @@
 
 var DBus      = require('dbus'),
   merge       = require('merge'),
-  channels    = require('./channels'),
+  sockets     = require('./'),
+  // sockets.channels    = require('./sockets.channels'),
   music;
 
 
@@ -21,10 +22,10 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('new music connection: ', data);
-      socket.leave(channels.music);
-      socket.join(channels.music);
+      socket.leave(sockets.channels.music);
+      socket.join(sockets.channels.music);
 
-      resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+      resolve( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
     });
   },
@@ -57,22 +58,59 @@ music = {
         iface.getProperties( ( err, props ) => {
           console.log('org.bluez.MediaPlayer1 props:');
           console.log(props);
-          merge(properties, props);
-          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          merge(music.properties, props);
+          respond( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
         });
 
         iface.on('PropertiesChanged', ( err, props ) => {
           console.log('org.freedesktop.DBus.Properties PropertiesChanged');
           console.log(props);
-          merge(properties, props);
-          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          merge(music.properties, props);
+          respond( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
         });
 
 
       }
     );
-  }
+  },
+
+  play: function play(respond) {
+    let mac = music.mac.split(":").join("_");
+
+    music.bus.getInterface(
+      'org.bluez',
+      '/org/bluez/hci0/dev_' + mac,
+      'org.bluez.MediaControl1',
+      function( err, iface ) {
+        //console.log(iface);
+        //console.log("\n");
+        iface.Play('', function(err, result) {
+          if (err) {
+            //bus.disconnect( enablePulseaudio );
+            //bus = DBus.getBus('system');
+            music.enablePulseaudio( respond );
+            return console.log(err);
+          }
+          bus.disconnect();
+          blue.disconnect();
+          respond( {'channel': sockets.channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        });
+      }
+
+    );
+  },
+
+  enablePulseaudio: function enablePulseaudio( respond ) {
+    exec(cmd, function(error, stdout, stderr) {
+      // command output is in stdout
+      console.log(error, stdout, stderr);
+      //bus.reconnect();
+      //bus = DBus.getBus('system');
+      //play();
+      sockets.bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
+    });
+  },
 };
 
 module.exports = music;
