@@ -77,7 +77,7 @@ music = {
     );
   },
 
-  play: function play(respond) {
+  play: function play() {
     return new Promise(function (resolve, reject) {
       let mac = music.mac.split(":").join("_");
 
@@ -93,9 +93,11 @@ music = {
               //bus.disconnect( enablePulseaudio );
               //bus = DBus.getBus('system');
               console.log(err);
-              resolve(music.enablePulseaudio( respond ));
+              music.enablePulseaudio( respond )
+                .then( (response) => {
+                  resolve(response);
+                });
             } else {
-              music.bus.disconnect();
               
               resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
             }
@@ -117,7 +119,10 @@ music = {
         //bus.reconnect();
         //bus = DBus.getBus('system');
         bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
-        resolve(music.play());
+        music.play()
+          .then( (response) => {
+            resolve(response);
+          });
       });
     });
   },
