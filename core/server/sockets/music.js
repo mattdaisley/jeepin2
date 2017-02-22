@@ -95,8 +95,8 @@ music = {
               music.enablePulseaudio( respond );
               return console.log(err);
             }
-            bus.disconnect();
-            blue.disconnect();
+            music.bus.disconnect();
+            
             respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
           });
         }
