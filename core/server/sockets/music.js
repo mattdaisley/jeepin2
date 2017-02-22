@@ -2,6 +2,7 @@
 
 var DBus      = require('dbus'),
   merge       = require('merge'),
+  exec        = require('child_process').exec,
   // sockets     = require('./index'),
   channels    = require('./channels'),
   music;
@@ -105,6 +106,8 @@ music = {
   },
 
   enablePulseaudio: function enablePulseaudio( respond ) {
+    var cmd = 'pulseaudio --start';
+
     exec(cmd, function(error, stdout, stderr) {
       // command output is in stdout
       console.log(error, stdout, stderr);
