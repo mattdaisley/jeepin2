@@ -1204,7 +1204,7 @@ module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #f
 /***/ 721:
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "span {\n  color: #fff; }\n"
 
 /***/ }),
 
@@ -1267,7 +1267,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "{{properties|json}}\n\n<button (click)=\"play()\">Play</button>\n<button (click)=\"pause()\">Pause</button>"
+module.exports = "<span>{{properties|json}}</span>\n\n<button (click)=\"play()\">Play</button>\n<button (click)=\"pause()\">Pause</button>"
 
 /***/ }),
 
