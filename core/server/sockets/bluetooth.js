@@ -37,7 +37,8 @@ bluetooth = {
         console.log('connectedDevice', connectedDevice);
         if ( connectedDevice.length > 0 ) {
           console.log('sending music setup command');
-          respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
+          sockets.music.pollMusic( respond );
+          // respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
         }
 
         respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
