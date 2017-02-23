@@ -50,7 +50,7 @@ music = {
 
     if ( music.bus && music.bus.connection ) { 
       console.log('disconnecting old bus'); 
-      music.bus.disconnect(); 
+      // music.bus.disconnect(); 
       music.bus.reconnect();
     } else {
       music.bus = DBus.getBus('system');
