@@ -141,9 +141,10 @@ music = {
       exec(cmd, function(error, stdout, stderr) {
         console.log(error, stdout, stderr);
         
-        bluetooth.connectDevice({}, '70:70:0D:70:97:EC');
-
-        next()
+        bluetooth.connectDevice({}, '70:70:0D:70:97:EC')
+          .then( () => {
+            return next;
+          })
           .then( (response) => {
             resolve(response);
           });
