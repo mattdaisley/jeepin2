@@ -56,7 +56,7 @@ music = {
   setupDBusPropertyListener: function setupDBusPropertyListener(respond) {
 
     music.bus.getInterface(
-      music.serviceName, music.objectPath,  music.interfaceName,
+      music.serviceName, music.objectPath + '/player0',  music.interfaceName,
       ( err, iface ) => {
 
         iface.getProperties( ( err, props ) => {
