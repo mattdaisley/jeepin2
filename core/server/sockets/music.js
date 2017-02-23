@@ -91,7 +91,7 @@ music = {
         ( err, iface ) => {
           iface.Play('', (err, result) => {
             if (err) {
-              music.enablePulseaudio( respond, music.play )
+              music.enablePulseaudio( music.play )
                 .then( (response) => {
                   resolve(response);
                 });
@@ -114,7 +114,7 @@ music = {
         ( err, iface ) => {
           iface.Pause('', (err, result) => {
             if (err) {
-              music.enablePulseaudio( respond, music.pause )
+              music.enablePulseaudio( music.pause )
                 .then( (response) => {
                   resolve(response);
                 });
@@ -129,7 +129,7 @@ music = {
     });
   },
 
-  enablePulseaudio: function enablePulseaudio( respond, next ) {
+  enablePulseaudio: function enablePulseaudio( next ) {
     return new Promise(function (resolve, reject) {
       var cmd = 'pulseaudio --start';
 
