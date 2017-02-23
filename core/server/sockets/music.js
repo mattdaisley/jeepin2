@@ -59,21 +59,25 @@ music = {
     music.bus.getInterface(
       music.serviceName, music.objectPath + '/player0',  music.mediaPlayerInterfaceName,
       ( err, iface ) => {
+        if ( !err ) {
 
-        iface.getProperties( ( err, props ) => {
-          console.log('org.bluez.MediaPlayer1 props:');
-          console.log(props);
-          merge(music.properties, props);
-          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          iface.getProperties( ( err, props ) => {
+            console.log('org.bluez.MediaPlayer1 props:');
+            console.log(props);
+            merge(music.properties, props);
+            respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
 
-        });
+          });
 
-        iface.on('PropertiesChanged', ( err, props ) => {
-          console.log('org.freedesktop.DBus.Properties PropertiesChanged');
-          console.log(props);
-          merge(music.properties, props);
-          respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        });
+          iface.on('PropertiesChanged', ( err, props ) => {
+            console.log('org.freedesktop.DBus.Properties PropertiesChanged');
+            console.log(props);
+            merge(music.properties, props);
+            respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+          });
+        } else {
+          console.log(err);
+        }
 
       }
     );
