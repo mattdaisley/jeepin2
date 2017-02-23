@@ -17,7 +17,8 @@ music = {
   bus: undefined,
   serviceName: 'org.bluez', 
   objectPath: '/org/bluez/hci0/dev_70_70_0D_70_97_EC', 
-  interfaceName: 'org.bluez.MediaControl1',
+  mediaControlInterfaceName: 'org.bluez.MediaControl1',
+  mediaPlayerInterfaceName: 'org.bluez.MediaPlayer1',
 
   setMac: function setMac(mac) {
     console.log('setting mac', mac);
@@ -56,7 +57,7 @@ music = {
   setupDBusPropertyListener: function setupDBusPropertyListener(respond) {
 
     music.bus.getInterface(
-      music.serviceName, music.objectPath + '/player0',  music.interfaceName,
+      music.serviceName, music.objectPath + '/player0',  music.mediaPlayerInterfaceName,
       ( err, iface ) => {
 
         iface.getProperties( ( err, props ) => {
@@ -82,7 +83,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       music.bus.getInterface(
-        music.serviceName, music.objectPath,  music.interfaceName,
+        music.serviceName, music.objectPath,  music.mediaControlInterfaceName,
         ( err, iface ) => {
           iface.Play('', (err, result) => {
             if (err) {
@@ -105,7 +106,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       music.bus.getInterface(
-        music.serviceName, music.objectPath,  music.interfaceName,
+        music.serviceName, music.objectPath,  music.mediaControlInterfaceName,
         ( err, iface ) => {
           iface.Pause('', (err, result) => {
             if (err) {
