@@ -48,7 +48,7 @@ music = {
 
   setupDBus: function setupDBus(respond) {
 
-    if ( music.bus && music.bus.connection ) music.bus.disconnect();
+    if ( music.bus && music.bus.connection ) { console.log('disconnecting old bus'); music.bus.disconnect(); }
     music.bus = DBus.getBus('system');
 
     music.setupDBusPropertyListener(respond);
