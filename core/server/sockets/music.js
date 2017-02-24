@@ -63,7 +63,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('connecting...');
-      music.dbus.connect(savedMac)
+      music.dbus.connect(mac)
         .then( () => { 
         //   console.log('connected'); 
         //   return registerEvents();
