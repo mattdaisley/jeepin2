@@ -215,7 +215,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MusicComponent = (function () {
     function MusicComponent(musicService) {
         this.musicService = musicService;
-        this.musicService.connect();
     }
     MusicComponent.prototype.ngOnInit = function () {
         var _this = this;

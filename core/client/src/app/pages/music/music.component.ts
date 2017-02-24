@@ -12,9 +12,7 @@ export class MusicComponent implements OnInit, OnDestroy {
   properties;
   connection;
   
-  constructor(private musicService:MusicService) {
-    this.musicService.connect();
-  }
+  constructor(private musicService:MusicService) { }
 
   ngOnInit() {
     this.connection = this.musicService.getMessages().subscribe(properties => {
