@@ -105,6 +105,42 @@ music = {
     });
   },
 
+  next: function next() {
+    return new Promise(function (resolve, reject) {
+      console.log('music/next');
+      music.dbus.next()
+        .then( () => {
+          console.log('getting player props');
+          return music.dbus.getPlayerProperties() ;
+        })
+        .then( (props) => {
+          console.log('current player properties:', props);
+          merge(music.properties, props);
+          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        })
+        .catch( (err) => {} );
+
+    });
+  },
+
+  previous: function previous() {
+    return new Promise(function (resolve, reject) {
+      console.log('music/previous');
+      music.dbus.previous()
+        .then( () => {
+          console.log('getting player props');
+          return music.dbus.getPlayerProperties() ;
+        })
+        .then( (props) => {
+          console.log('current player properties:', props);
+          merge(music.properties, props);
+          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        })
+        .catch( (err) => {} );
+
+    });
+  },
+
   enablePulseaudio: function enablePulseaudio( next ) {
     return new Promise(function (resolve, reject) {
       var cmd = 'pulseaudio --start';

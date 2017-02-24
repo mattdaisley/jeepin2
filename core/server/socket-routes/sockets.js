@@ -30,6 +30,8 @@ socketListeners = function socketListeners(socket) {
   socket.on('music/setup', function() { sockets.poll(io, sockets.music.pollMusic); });
   socket.on('music/play', sockets.handle(io, socket, sockets.music.play));
   socket.on('music/pause', sockets.handle(io, socket, sockets.music.pause));
+  socket.on('music/next', sockets.handle(io, socket, sockets.music.next));
+  socket.on('music/previous', sockets.handle(io, socket, sockets.music.previous));
 
   // socket.on('add-message', function(data) {
   //   // console.log('add-message:', data);
