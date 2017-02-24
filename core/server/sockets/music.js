@@ -43,12 +43,12 @@ music = {
         .then( () => {
           console.log('playing in 1 sec...');
           return new Promise( (resolve, reject) => {
-            setTimeout( () => resolve(dbus.play()), 1000); 
+            setTimeout( () => resolve(music.dbus.play()), 1000); 
           });
         })
         .then( () => {
           console.log('getting player props');
-          return dbus.getPlayerProperties() ;
+          return music.dbus.getPlayerProperties() ;
         })
         .then( (props) => {
           console.log('current player properties:', props);
@@ -63,12 +63,12 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('connecting...');
-      dbus.connect(savedMac)
+      music.dbus.connect(savedMac)
         .then( () => { 
-          console.log('connected'); 
-          return registerEvents();
-        })
-        .then( () => {
+        //   console.log('connected'); 
+        //   return registerEvents();
+        // })
+        // .then( () => {
           resolve();
         })
         .catch( (err) => reject(err) );
