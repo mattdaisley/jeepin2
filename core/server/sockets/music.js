@@ -71,7 +71,7 @@ music = {
 
   play: function play() {
     return new Promise(function (resolve, reject) {
-
+      console.log('music/play');
       music.dbus.play()
         .then( () => {
           console.log('getting player props');
@@ -88,7 +88,7 @@ music = {
 
   pause: function pause() {
     return new Promise(function (resolve, reject) {
-
+      console.log('music/pause');
       music.dbus.pause()
         .then( () => {
           console.log('getting player props');
