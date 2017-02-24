@@ -31,4 +31,12 @@ export class MusicComponent implements OnInit, OnDestroy {
   pause() {
     this.musicService.pause();
   }
+
+  next() {
+    this.musicService.next();
+  }
+
+  previous() {
+    this.musicService.previous();
+  }
 }
