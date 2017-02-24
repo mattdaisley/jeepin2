@@ -136,7 +136,7 @@ ctrl = {
 
   play: function play() {
     return new Promise(function (resolve, reject) {
-
+      console.log(ctrl.serviceName, ctrl.playerObjectPath, ctrl.mediaPlayerIface);
       ctrl.bus.getInterface(
         ctrl.serviceName,
         ctrl.playerObjectPath,
@@ -168,7 +168,7 @@ ctrl = {
 
   pause: function pause() {
     return new Promise(function (resolve, reject) {
-
+      console.log(ctrl.serviceName, ctrl.playerObjectPath, ctrl.mediaPlayerIface);
       ctrl.bus.getInterface(
         ctrl.serviceName,
         ctrl.playerObjectPath,
