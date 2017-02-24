@@ -197,6 +197,70 @@ ctrl = {
 
     });
   },
+
+  next: function next() {
+    return new Promise(function (resolve, reject) {
+      console.log(ctrl.serviceName, ctrl.playerObjectPath, ctrl.mediaPlayerIface);
+      ctrl.bus.getInterface(
+        ctrl.serviceName,
+        ctrl.playerObjectPath,
+        ctrl.mediaPlayerIface,
+        (err, iface) => {
+
+          if ( err ) { 
+            console.log('next err 1:', err); 
+            reject(err);
+            return;
+          }
+          
+          iface.Next( '', (err, response) => {
+
+            if ( err ) { 
+              console.log('next err 2:', err); 
+              reject(err);
+              return;
+            }
+            
+            resolve();
+          });
+
+        }
+      );
+
+    });
+  },
+
+  previous: function previous() {
+    return new Promise(function (resolve, reject) {
+      console.log(ctrl.serviceName, ctrl.playerObjectPath, ctrl.mediaPlayerIface);
+      ctrl.bus.getInterface(
+        ctrl.serviceName,
+        ctrl.playerObjectPath,
+        ctrl.mediaPlayerIface,
+        (err, iface) => {
+
+          if ( err ) { 
+            console.log('previous err 1:', err); 
+            reject(err);
+            return;
+          }
+          
+          iface.Previous( '', (err, response) => {
+
+            if ( err ) { 
+              console.log('previous err 2:', err); 
+              reject(err);
+              return;
+            }
+            
+            resolve();
+          });
+
+        }
+      );
+
+    });
+  },
   
   // bus event wrappers
   handleDeviceProperties: function handleDeviceProperties( callback ) {
