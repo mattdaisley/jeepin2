@@ -34,7 +34,8 @@ import { StatusBarComponent } from './status-bar/status-bar.component';
     StatusBarComponent
   ],
   bootstrap: [ 
-    AppComponent
+    AppComponent,
+    // [ MusicService ]
   ]
 })
 

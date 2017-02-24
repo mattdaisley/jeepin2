@@ -35,10 +35,10 @@ music = {
       socket.leave(channels.music);
       socket.join(channels.music);
 
-      music.dbus = dbusCtrl.setupBus();
+      //music.dbus = dbusCtrl.setupBus();
 
       var savedMac = '70:70:0D:70:97:EC';
-
+/*
       music.establishConnection(savedMac)
         .then( () => {
           console.log('playing in 1 sec...');
@@ -48,7 +48,7 @@ music = {
         })
         .then( ( response ) => {
           resolve( response );
-        });
+        });*/
 
     });
   },

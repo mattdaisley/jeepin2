@@ -5,8 +5,7 @@ import { MusicService }  from './music.service';
 @Component({
   selector: 'music',
   templateUrl: './music.component.html',
-  styleUrls: ['./music.component.scss'],
-  providers: [ MusicService ]
+  styleUrls: ['./music.component.scss']
 })
 export class MusicComponent implements OnInit, OnDestroy {
   properties;

@@ -236,8 +236,7 @@ var MusicComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'music',
             template: __webpack_require__(730),
-            styles: [__webpack_require__(721)],
-            providers: [__WEBPACK_IMPORTED_MODULE_1__music_service__["a" /* MusicService */]]
+            styles: [__webpack_require__(721)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__music_service__["a" /* MusicService */]) === 'function' && _a) || Object])
     ], MusicComponent);
@@ -625,7 +624,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_10__status_bar_status_bar_component__["a" /* StatusBarComponent */]
             ],
             bootstrap: [
-                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */]
+                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
             ]
         }), 
         __metadata('design:paramtypes', [])
