@@ -34,14 +34,6 @@ bluetooth = {
         console.log(devices);
         bluetooth.devices = devices;
 
-        var connectedDevice = devices.filter( (device) => device.connected === 'yes' );
-        console.log('connectedDevice', connectedDevice);
-        if ( connectedDevice.length > 0 ) {
-          console.log('sending music setup command');
-          music.pollMusic( respond );
-          // respond( {'channel': channels.music, 'emit': 'music/setup', 'content': ''} );
-        }
-
         respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
       });
     } else {
