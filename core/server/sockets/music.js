@@ -81,7 +81,8 @@ music = {
           console.log('current player properties:', props);
           merge(music.properties, props);
           resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        });
+        })
+        .catch( (err) => {} );
 
     });
   },
@@ -98,7 +99,8 @@ music = {
           console.log('current player properties:', props);
           merge(music.properties, props);
           resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        });
+        })
+        .catch( (err) => {} );
 
     });
   },
