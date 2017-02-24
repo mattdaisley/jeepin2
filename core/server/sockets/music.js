@@ -43,17 +43,11 @@ music = {
         .then( () => {
           console.log('playing in 1 sec...');
           return new Promise( (resolve, reject) => {
-            setTimeout( () => resolve(music.dbus.play()), 1000); 
+            setTimeout( () => resolve(music.play()), 1000); 
           });
         })
-        .then( () => {
-          console.log('getting player props');
-          return music.dbus.getPlayerProperties() ;
-        })
-        .then( (props) => {
-          console.log('current player properties:', props);
-          merge(music.properties, props);
-          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        .then( ( response ) => {
+          resolve( response );
         });
 
     });
@@ -73,56 +67,6 @@ music = {
         })
         .catch( (err) => reject(err) );
     });
-  },
-
-  pollMusic: function pollMusic(respond) {
-    console.log('setting up music');
-    if ( music.mac ) {
-      music.setupDBus(respond);
-    }
-
-  },
-
-  setupDBus: function setupDBus(respond) {
-
-    if ( music.bus && music.bus.connection ) { 
-      console.log('disconnecting old bus'); 
-      // music.bus.disconnect(); 
-      music.bus.reconnect();
-    } else {
-      music.bus = DBus.getBus('system');
-    }
-
-    music.setupDBusPropertyListener(respond);
-  },
-
-  setupDBusPropertyListener: function setupDBusPropertyListener(respond) {
-
-    music.bus.getInterface(
-      music.serviceName, music.objectPath + '/player0',  music.mediaPlayerInterfaceName,
-      ( err, iface ) => {
-        if ( !err ) {
-
-          iface.getProperties( ( err, props ) => {
-            console.log('org.bluez.MediaPlayer1 props:');
-            console.log(props);
-            merge(music.properties, props);
-            respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-
-          });
-
-          iface.on('PropertiesChanged', ( err, props ) => {
-            console.log('org.freedesktop.DBus.Properties PropertiesChanged');
-            console.log(props);
-            merge(music.properties, props);
-            respond( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-          });
-        } else {
-          console.log(err);
-        }
-
-      }
-    );
   },
 
   play: function play() {
