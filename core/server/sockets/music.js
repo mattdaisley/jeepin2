@@ -128,22 +128,16 @@ music = {
   play: function play() {
     return new Promise(function (resolve, reject) {
 
-      music.bus.getInterface(
-        music.serviceName, music.objectPath,  music.mediaControlInterfaceName,
-        ( err, iface ) => {
-          iface.Play('', (err, result) => {
-            if (err) {
-              music.enablePulseaudio( music.play )
-                .then( (response) => {
-                  resolve(response);
-                });
-            } else {
-              resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-            }
-          });
-        }
-
-      );
+      music.dbus.play()
+        .then( () => {
+          console.log('getting player props');
+          return music.dbus.getPlayerProperties() ;
+        })
+        .then( (props) => {
+          console.log('current player properties:', props);
+          merge(music.properties, props);
+          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        });
 
     });
   },
@@ -151,22 +145,16 @@ music = {
   pause: function pause() {
     return new Promise(function (resolve, reject) {
 
-      music.bus.getInterface(
-        music.serviceName, music.objectPath,  music.mediaControlInterfaceName,
-        ( err, iface ) => {
-          iface.Pause('', (err, result) => {
-            if (err) {
-              music.enablePulseaudio( music.pause )
-                .then( (response) => {
-                  resolve(response);
-                });
-            } else {
-              resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-            }
-          });
-        }
-
-      );
+      music.dbus.pause()
+        .then( () => {
+          console.log('getting player props');
+          return music.dbus.getPlayerProperties() ;
+        })
+        .then( (props) => {
+          console.log('current player properties:', props);
+          merge(music.properties, props);
+          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        });
 
     });
   },
