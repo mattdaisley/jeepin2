@@ -6,6 +6,7 @@ var DBus      = require('dbus'),
   // sockets     = require('./index'),
   channels    = require('./channels'),
   bluetooth   = require('./bluetooth'),
+  dbusCtrl    = require('../utils/dbus-controller'),
   music;
 
 
@@ -15,6 +16,7 @@ music = {
   properties: {},
 
   bus: undefined,
+  dbus: undefined,
   serviceName: 'org.bluez', 
   objectPath: '/org/bluez/hci0/dev_70_70_0D_70_97_EC', 
   mediaControlInterfaceName: 'org.bluez.MediaControl1',
@@ -29,12 +31,45 @@ music = {
   newConnection: function newConnection(socket, data) {
     return new Promise(function (resolve, reject) {
 
-      console.log('new music connection: ', data);
+      console.log('music/connected:', data);
       socket.leave(channels.music);
       socket.join(channels.music);
 
-      resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+      music.dbus = dbusCtrl.setupBus();
 
+      music.establishConnection(savedMac)
+        .then( () => {
+          console.log('playing in 1 sec...');
+          return new Promise( (resolve, reject) => {
+            setTimeout( () => resolve(dbus.play()), 1000); 
+          });
+        })
+        .then( () => {
+          console.log('getting player props');
+          return dbus.getPlayerProperties() ;
+        })
+        .then( (props) => {
+          console.log('current player properties:', props);
+          merge(music.properties, props);
+          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+        });
+
+    });
+  },
+    
+  establishConnection: function establishConnection( mac ) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('connecting...');
+      dbus.connect(savedMac)
+        .then( () => { 
+          console.log('connected'); 
+          return registerEvents();
+        })
+        .then( () => {
+          resolve();
+        })
+        .catch( (err) => reject(err) );
     });
   },
 
