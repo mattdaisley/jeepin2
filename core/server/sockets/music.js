@@ -37,6 +37,8 @@ music = {
 
       music.dbus = dbusCtrl.setupBus();
 
+      var savedMac = '70:70:0D:70:97:EC';
+
       music.establishConnection(savedMac)
         .then( () => {
           console.log('playing in 1 sec...');
