@@ -14,7 +14,8 @@
     "bluetoothctl": "^1.0.1",
     "dbus": "^1.0.0",
     "python-shell": "^0.4.0",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "xmljson": "^0.2.0"
   },
   "devDependencies": {
     "bcryptjs": "^2.3.0",

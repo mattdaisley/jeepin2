@@ -26,15 +26,17 @@ handle = function handle( io, socket, socketMethod, next ) {
   return function socketsHandler(data) {
 
     return socketMethod(socket, data)
-      .then(function (response) {
-        console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
-        if ( response.channel === 'broadcast' ) {
-          io.broadcast.emit(response.emit, {content: response.content});
-        } else {
-          io.in(response.channel).emit(response.emit, {content: response.content});
+      .then( response => {
+        if ( response ) {
+          console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
+          if ( response.channel === 'broadcast' ) {
+            io.broadcast.emit(response.emit, {content: response.content});
+          } else {
+            io.in(response.channel).emit(response.emit, {content: response.content});
+          }
         }
       })
-      .catch(function (error) {
+      .catch( error => {
         // To be handled by the API middleware
         console.log(error);
         next(error);
@@ -49,7 +51,7 @@ poll = function poll( io, socketMethod, next ) {
     io.in(response.channel).emit(response.emit, {content: response.content});
   }
 
-  return new Promise(function (resolve, reject) {
+  return new Promise( (resolve, reject) => {
     socketMethod(respond);
   });
 }

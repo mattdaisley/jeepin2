@@ -17,7 +17,7 @@ export class MusicService {
   
   getMessages() {
     let observable = new Observable(observer => {
-      this.socket.on('music/properties', (data) => {
+      this.socket.on('music/device', (data) => {
         console.log(data.content);
         var properties = data.content;
         properties.test = 'testing';

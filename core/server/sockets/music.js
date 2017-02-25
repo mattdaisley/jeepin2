@@ -12,152 +12,251 @@ var DBus      = require('dbus'),
 
 music = {
 
-  mac: '70:70:0D:70:97:EC',
-  properties: {},
+  socketRespond: undefined,
 
-  bus: undefined,
-  dbus: undefined,
-  serviceName: 'org.bluez', 
-  objectPath: '/org/bluez/hci0/dev_70_70_0D_70_97_EC', 
-  mediaControlInterfaceName: 'org.bluez.MediaControl1',
-  mediaPlayerInterfaceName: 'org.bluez.MediaPlayer1',
+  setup: function setup(respond) {
+    dbus = dbusCtrl.setupBus();
 
-  setMac: function setMac(mac) {
-    console.log('setting mac', mac);
-    music.mac = mac;
-    music.objectPath = '/org/bluez/hci0/dev_' + music.mac.split(":").join("_");
+    music.socketRespond = respond;
+
+    dbus.handleRootInterfaceEvents(music.eventHandler);
+    dbus.handleBasePropertyEvents(music.eventHandler);
+
+    music.establishConnection()
+      .then( () => dbus.getConnectedDevice() )
+      .then( device => {
+        dbus.handleDevicePropertyEvents(device.objectPath, music.eventHandler);
+        dbus.handlePlayerPropertyEvents(device.player.objectPath, music.eventHandler);
+        dbus.getProperties(device.objectPath)
+          .then( props => {
+            console.log('send deviced properties');
+            music.respond( {'channel': channels.music, 'emit': 'music/device', 'content': props} );
+          });
+        dbus.getPlayerProperties(device.player.objectPath)
+          .then( props => {
+            dbus.play();
+            console.log('send player properties');
+            music.respond( {'channel': channels.music, 'emit': 'music/player', 'content': props} );
+          });
+      })
+      .catch( err => {} );
+  },
+
+  // connect 
+  establishConnection: function establishConnection( ) {
+    return new Promise(function (resolve, reject) {
+      dbus.getPairedDevices()
+        .then( devices => {
+          // console.log(devices); resolve(devices);
+          device = devices.filter( dev => dev.properties.Address === '70:70:0D:70:97:EC' );
+          if ( device.length > 0 ) {
+            // console.log('found device', device[0]);
+            return dbus.connect(device[0].objectPath);
+          }
+        })
+        .then( device => resolve(device) )
+        .catch( err => console.log(err) );
+    });
+  },
+
+  eventHandler: function eventHandler( event ) {
+    // console.log(event.event);
+    switch(event.event) {
+      case 'InterfaceAdded':
+        if ( dbus.checkDeviceInterface(event.Interface) ) {
+          dbus.handleDevicePropertyEvents(event.Interface, music.eventHandler);
+          return;
+        }
+
+        if ( dbus.checkPlayerInterface(event.Interface) ) {
+          dbus.handlePlayerPropertyEvents(event.Interface, music.eventHandler);
+          return;
+        }
+        break;
+      case 'InterfaceRemoved':
+        break;
+      case 'DevicePropertiesChanged':
+        console.log('send', event.event);
+        music.respond( {'channel': channels.music, 'emit': 'music/device', 'content': event.Properties} );
+        break;
+      case 'PlayerPropertiesChanged':
+        console.log('send', event.event);
+        music.respond( {'channel': channels.music, 'emit': 'music/player', 'content': event.Properties} );
+        break;
+    }
   },
 
   newConnection: function newConnection(socket, data) {
     return new Promise(function (resolve, reject) {
 
-      console.log('music/connected:', data);
-      socket.leave(channels.music);
-      socket.join(channels.music);
+      console.log('newConnection requested: ', data);
+      console.log(music.setup);
 
-      music.dbus = dbusCtrl.setupBus();
-
-      var savedMac = '70:70:0D:70:97:EC';
-
-      music.establishConnection(savedMac)
-        .then( () => {
-          console.log('playing in 1 sec...');
-          return new Promise( (resolve, reject) => {
-            setTimeout( () => resolve(music.play()), 1000); 
-          });
-        })
-        .then( ( response ) => {
-          resolve( response );
-        });
+      resolve();
 
     });
   },
+
+  play: function play(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('play requested: ', data);
+      console.log(music.setup);
+
+      resolve();
+
+    });
+  }
+
+
+
+
+  // mac: '70:70:0D:70:97:EC',
+  // properties: {},
+
+  // bus: undefined,
+  // dbus: undefined,
+  // serviceName: 'org.bluez', 
+  // objectPath: '/org/bluez/hci0/dev_70_70_0D_70_97_EC', 
+  // mediaControlInterfaceName: 'org.bluez.MediaControl1',
+  // mediaPlayerInterfaceName: 'org.bluez.MediaPlayer1',
+
+  // setMac: function setMac(mac) {
+  //   console.log('setting mac', mac);
+  //   music.mac = mac;
+  //   music.objectPath = '/org/bluez/hci0/dev_' + music.mac.split(":").join("_");
+  // },
+
+  // newConnection: function newConnection(socket, data) {
+  //   return new Promise(function (resolve, reject) {
+
+  //     console.log('music/connected:', data);
+  //     socket.leave(channels.music);
+  //     socket.join(channels.music);
+
+  //     music.dbus = dbusCtrl.setupBus();
+
+  //     var savedMac = '70:70:0D:70:97:EC';
+
+  //     music.establishConnection(savedMac)
+  //       .then( () => {
+  //         console.log('playing in 1 sec...');
+  //         return new Promise( (resolve, reject) => {
+  //           setTimeout( () => resolve(music.play()), 1000); 
+  //         });
+  //       })
+  //       .then( ( response ) => {
+  //         resolve( response );
+  //       });
+
+  //   });
+  // },
     
-  establishConnection: function establishConnection( mac ) {
-    return new Promise(function (resolve, reject) {
+  // establishConnection: function establishConnection( mac ) {
+  //   return new Promise(function (resolve, reject) {
 
-      console.log('connecting...');
-      music.dbus.connect(mac)
-        .then( () => { 
-        //   console.log('connected'); 
-        //   return registerEvents();
-        // })
-        // .then( () => {
-          resolve();
-        })
-        .catch( (err) => reject(err) );
-    });
-  },
+  //     console.log('connecting...');
+  //     music.dbus.connect(mac)
+  //       .then( () => { 
+  //       //   console.log('connected'); 
+  //       //   return registerEvents();
+  //       // })
+  //       // .then( () => {
+  //         resolve();
+  //       })
+  //       .catch( (err) => reject(err) );
+  //   });
+  // },
 
-  play: function play() {
-    return new Promise(function (resolve, reject) {
-      console.log('music/play');
-      music.dbus.play()
-        .then( () => {
-          console.log('getting player props');
-          return music.dbus.getPlayerProperties() ;
-        })
-        .then( (props) => {
-          console.log('current player properties:', props);
-          merge(music.properties, props);
-          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        })
-        .catch( (err) => {} );
+  // play: function play() {
+  //   return new Promise(function (resolve, reject) {
+  //     console.log('music/play');
+  //     music.dbus.play()
+  //       .then( () => {
+  //         console.log('getting player props');
+  //         return music.dbus.getPlayerProperties() ;
+  //       })
+  //       .then( (props) => {
+  //         console.log('current player properties:', props);
+  //         merge(music.properties, props);
+  //         resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+  //       })
+  //       .catch( (err) => {} );
 
-    });
-  },
+  //   });
+  // },
 
-  pause: function pause() {
-    return new Promise(function (resolve, reject) {
-      console.log('music/pause');
-      music.dbus.pause()
-        .then( () => {
-          console.log('getting player props');
-          return music.dbus.getPlayerProperties() ;
-        })
-        .then( (props) => {
-          console.log('current player properties:', props);
-          merge(music.properties, props);
-          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        })
-        .catch( (err) => {} );
+  // pause: function pause() {
+  //   return new Promise(function (resolve, reject) {
+  //     console.log('music/pause');
+  //     music.dbus.pause()
+  //       .then( () => {
+  //         console.log('getting player props');
+  //         return music.dbus.getPlayerProperties() ;
+  //       })
+  //       .then( (props) => {
+  //         console.log('current player properties:', props);
+  //         merge(music.properties, props);
+  //         resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+  //       })
+  //       .catch( (err) => {} );
 
-    });
-  },
+  //   });
+  // },
 
-  next: function next() {
-    return new Promise(function (resolve, reject) {
-      console.log('music/next');
-      music.dbus.next()
-        .then( () => {
-          console.log('getting player props');
-          return music.dbus.getPlayerProperties() ;
-        })
-        .then( (props) => {
-          console.log('current player properties:', props);
-          merge(music.properties, props);
-          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        })
-        .catch( (err) => {} );
+  // next: function next() {
+  //   return new Promise(function (resolve, reject) {
+  //     console.log('music/next');
+  //     music.dbus.next()
+  //       .then( () => {
+  //         console.log('getting player props');
+  //         return music.dbus.getPlayerProperties() ;
+  //       })
+  //       .then( (props) => {
+  //         console.log('current player properties:', props);
+  //         merge(music.properties, props);
+  //         resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+  //       })
+  //       .catch( (err) => {} );
 
-    });
-  },
+  //   });
+  // },
 
-  previous: function previous() {
-    return new Promise(function (resolve, reject) {
-      console.log('music/previous');
-      music.dbus.previous()
-        .then( () => {
-          console.log('getting player props');
-          return music.dbus.getPlayerProperties() ;
-        })
-        .then( (props) => {
-          console.log('current player properties:', props);
-          merge(music.properties, props);
-          resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
-        })
-        .catch( (err) => {} );
+  // previous: function previous() {
+  //   return new Promise(function (resolve, reject) {
+  //     console.log('music/previous');
+  //     music.dbus.previous()
+  //       .then( () => {
+  //         console.log('getting player props');
+  //         return music.dbus.getPlayerProperties() ;
+  //       })
+  //       .then( (props) => {
+  //         console.log('current player properties:', props);
+  //         merge(music.properties, props);
+  //         resolve( {'channel': channels.music, 'emit': 'music/properties', 'content': music.properties} );
+  //       })
+  //       .catch( (err) => {} );
 
-    });
-  },
+  //   });
+  // },
 
-  enablePulseaudio: function enablePulseaudio( next ) {
-    return new Promise(function (resolve, reject) {
-      var cmd = 'pulseaudio --start';
+  // enablePulseaudio: function enablePulseaudio( next ) {
+  //   return new Promise(function (resolve, reject) {
+  //     var cmd = 'pulseaudio --start';
 
-      exec(cmd, function(error, stdout, stderr) {
-        console.log(error, stdout, stderr);
+  //     exec(cmd, function(error, stdout, stderr) {
+  //       console.log(error, stdout, stderr);
         
-        bluetooth.connectDevice({}, '70:70:0D:70:97:EC')
-          .then( () => {
-            return next;
-          })
-          .then( (response) => {
-            resolve(response);
-          });
-      });
-    });
-  },
+  //       bluetooth.connectDevice({}, '70:70:0D:70:97:EC')
+  //         .then( () => {
+  //           return next;
+  //         })
+  //         .then( (response) => {
+  //           resolve(response);
+  //         });
+  //     });
+  //   });
+  // },
 };
 
 module.exports = music;

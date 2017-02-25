@@ -9,8 +9,8 @@ setupMiddleware = function setupMiddleware(serverIO) {
   io.on('connection', socketListeners);
 
   sockets.poll(io, sockets.gyro.pollSensor);
-  // sockets.poll(io, sockets.music.pollMusic);
   sockets.poll(io, sockets.bluetooth.pollDevices);
+  sockets.poll(io, sockets.music.setup);
 }
 
 socketListeners = function socketListeners(socket) {

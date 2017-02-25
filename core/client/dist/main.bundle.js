@@ -133,7 +133,7 @@ var MusicService = (function () {
     MusicService.prototype.getMessages = function () {
         var _this = this;
         var observable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
-            _this.socket.on('music/properties', function (data) {
+            _this.socket.on('music/device', function (data) {
                 console.log(data.content);
                 var properties = data.content;
                 properties.test = 'testing';
