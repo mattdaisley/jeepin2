@@ -47,7 +47,7 @@ handle = function handle( io, socket, socketMethod, next ) {
 poll = function poll( io, socketMethod, next ) {
   
   function respond(response) {
-    // console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
+    console.log('io.in('+response.channel+').emit('+response.emit+', {content: response.content});');
     io.in(response.channel).emit(response.emit, {content: response.content});
   }
 
