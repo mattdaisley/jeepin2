@@ -13,7 +13,7 @@ bluetooth = {
   newConnection: function newConnection(socket, data) {
     return new Promise(function (resolve, reject) {
 
-      console.log('new bluetooth connection: ', data);
+      // console.log('new bluetooth connection: ', data);
       socket.leave(channels.bluetooth);
       socket.join(channels.bluetooth);
 
@@ -30,8 +30,8 @@ bluetooth = {
 
     if ( hasBluetooth ) {
       blue.on(blue.bluetoothEvents.Device, (devices) => {
-        console.log('blue.bluetoothEvents.Device: ');
-        console.log(devices);
+        // console.log('blue.bluetoothEvents.Device: ');
+        // console.log(devices);
         bluetooth.devices = devices;
 
         respond( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
@@ -95,7 +95,7 @@ bluetooth = {
   connectDevice: function connectDevice(socket, data) {
     return new Promise(function (resolve, reject) {
 
-      console.log('new device connection requested for mac: ', data);
+      // console.log('new device connection requested for mac: ', data);
       blue.connect(data);
 
       resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
@@ -106,7 +106,7 @@ bluetooth = {
   disconnectDevice: function disconnectDevice(socket, data) {
     return new Promise(function (resolve, reject) {
 
-      console.log('new device connection requested for mac: ', data);
+      // console.log('new device connection requested for mac: ', data);
       blue.disconnect(data);
 
       resolve( {'channel': channels.bluetooth, 'emit': 'bluetooth/devices', 'content': bluetooth.devices} );
