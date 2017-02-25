@@ -30,13 +30,13 @@ music = {
         dbus.getProperties(device.objectPath)
           .then( props => {
             console.log('send deviced properties');
-            music.respond( {'channel': channels.music, 'emit': 'music/device', 'content': props} );
+            music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': props} );
           });
         dbus.getPlayerProperties(device.player.objectPath)
           .then( props => {
             dbus.play();
             console.log('send player properties');
-            music.respond( {'channel': channels.music, 'emit': 'music/player', 'content': props} );
+            music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': props} );
           });
       })
       .catch( err => {} );
@@ -77,11 +77,11 @@ music = {
         break;
       case 'DevicePropertiesChanged':
         console.log('send', event.event);
-        music.respond( {'channel': channels.music, 'emit': 'music/device', 'content': event.Properties} );
+        music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': event.Properties} );
         break;
       case 'PlayerPropertiesChanged':
         console.log('send', event.event);
-        music.respond( {'channel': channels.music, 'emit': 'music/player', 'content': event.Properties} );
+        music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': event.Properties} );
         break;
     }
   },
