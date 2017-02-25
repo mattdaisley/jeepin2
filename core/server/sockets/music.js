@@ -12,29 +12,30 @@ var DBus      = require('dbus'),
 
 music = {
 
+  dbus: undefined,
   socketRespond: undefined,
 
   setup: function setup(respond) {
-    dbus = dbusCtrl.setupBus();
+    music.dbus = dbusCtrl.setupBus();
 
     music.socketRespond = respond;
 
-    dbus.handleRootInterfaceEvents(music.eventHandler);
-    dbus.handleBasePropertyEvents(music.eventHandler);
+    music.dbus.handleRootInterfaceEvents(music.eventHandler);
+    music.dbus.handleBasePropertyEvents(music.eventHandler);
 
     music.establishConnection()
-      .then( () => dbus.getConnectedDevice() )
+      .then( () => music.dbus.getConnectedDevice() )
       .then( device => {
-        dbus.handleDevicePropertyEvents(device.objectPath, music.eventHandler);
-        dbus.handlePlayerPropertyEvents(device.player.objectPath, music.eventHandler);
-        dbus.getProperties(device.objectPath)
+        music.dbus.handleDevicePropertyEvents(device.objectPath, music.eventHandler);
+        music.dbus.handlePlayerPropertyEvents(device.player.objectPath, music.eventHandler);
+        music.dbus.getProperties(device.objectPath)
           .then( props => {
             console.log('send deviced properties');
             music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': props} );
           });
-        dbus.getPlayerProperties(device.player.objectPath)
+        music.dbus.getPlayerProperties(device.player.objectPath)
           .then( props => {
-            dbus.play();
+            music.dbus.play();
             console.log('send player properties');
             music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': props} );
           });
@@ -45,13 +46,13 @@ music = {
   // connect 
   establishConnection: function establishConnection( ) {
     return new Promise(function (resolve, reject) {
-      dbus.getPairedDevices()
+      music.dbus.getPairedDevices()
         .then( devices => {
           // console.log(devices); resolve(devices);
           device = devices.filter( dev => dev.properties.Address === '70:70:0D:70:97:EC' );
           if ( device.length > 0 ) {
             // console.log('found device', device[0]);
-            return dbus.connect(device[0].objectPath);
+            return music.dbus.connect(device[0].objectPath);
           }
         })
         .then( device => resolve(device) )
@@ -63,13 +64,13 @@ music = {
     // console.log(event.event);
     switch(event.event) {
       case 'InterfaceAdded':
-        if ( dbus.checkDeviceInterface(event.Interface) ) {
-          dbus.handleDevicePropertyEvents(event.Interface, music.eventHandler);
+        if ( music.dbus.checkDeviceInterface(event.Interface) ) {
+          music.dbus.handleDevicePropertyEvents(event.Interface, music.eventHandler);
           return;
         }
 
-        if ( dbus.checkPlayerInterface(event.Interface) ) {
-          dbus.handlePlayerPropertyEvents(event.Interface, music.eventHandler);
+        if ( music.dbus.checkPlayerInterface(event.Interface) ) {
+          music.dbus.handlePlayerPropertyEvents(event.Interface, music.eventHandler);
           return;
         }
         break;
@@ -156,7 +157,7 @@ music = {
   //   return new Promise(function (resolve, reject) {
 
   //     console.log('connecting...');
-  //     music.dbus.connect(mac)
+  //     music.music.dbus.connect(mac)
   //       .then( () => { 
   //       //   console.log('connected'); 
   //       //   return registerEvents();
@@ -171,10 +172,10 @@ music = {
   // play: function play() {
   //   return new Promise(function (resolve, reject) {
   //     console.log('music/play');
-  //     music.dbus.play()
+  //     music.music.dbus.play()
   //       .then( () => {
   //         console.log('getting player props');
-  //         return music.dbus.getPlayerProperties() ;
+  //         return music.music.dbus.getPlayerProperties() ;
   //       })
   //       .then( (props) => {
   //         console.log('current player properties:', props);
@@ -189,10 +190,10 @@ music = {
   // pause: function pause() {
   //   return new Promise(function (resolve, reject) {
   //     console.log('music/pause');
-  //     music.dbus.pause()
+  //     music.music.dbus.pause()
   //       .then( () => {
   //         console.log('getting player props');
-  //         return music.dbus.getPlayerProperties() ;
+  //         return music.music.dbus.getPlayerProperties() ;
   //       })
   //       .then( (props) => {
   //         console.log('current player properties:', props);
@@ -207,10 +208,10 @@ music = {
   // next: function next() {
   //   return new Promise(function (resolve, reject) {
   //     console.log('music/next');
-  //     music.dbus.next()
+  //     music.music.dbus.next()
   //       .then( () => {
   //         console.log('getting player props');
-  //         return music.dbus.getPlayerProperties() ;
+  //         return music.music.dbus.getPlayerProperties() ;
   //       })
   //       .then( (props) => {
   //         console.log('current player properties:', props);
@@ -225,10 +226,10 @@ music = {
   // previous: function previous() {
   //   return new Promise(function (resolve, reject) {
   //     console.log('music/previous');
-  //     music.dbus.previous()
+  //     music.music.dbus.previous()
   //       .then( () => {
   //         console.log('getting player props');
-  //         return music.dbus.getPlayerProperties() ;
+  //         return music.music.dbus.getPlayerProperties() ;
   //       })
   //       .then( (props) => {
   //         console.log('current player properties:', props);
