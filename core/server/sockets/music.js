@@ -89,6 +89,9 @@ music = {
 
   newConnection: function newConnection(socket, data) {
     return new Promise(function (resolve, reject) {
+      
+      socket.leave(channels.music);
+      socket.join(channels.music);
 
       console.log('newConnection requested: ', data);
       console.log(music.setup);
