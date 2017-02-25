@@ -130,10 +130,25 @@ var MusicService = (function () {
         this.socket = this.socketService.connect();
         this.socket.emit('music/connected', 'request music/connection');
     };
-    MusicService.prototype.getMessages = function () {
+    MusicService.prototype.getDeviceProperties = function () {
         var _this = this;
         var observable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
             _this.socket.on('music/device', function (data) {
+                console.log(data.content);
+                var properties = data.content;
+                properties.test = 'testing';
+                observer.next(properties);
+            });
+            return function () {
+                _this.socket.disconnect();
+            };
+        });
+        return observable;
+    };
+    MusicService.prototype.getPlayerProperties = function () {
+        var _this = this;
+        var observable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
+            _this.socket.on('music/player', function (data) {
                 console.log(data.content);
                 var properties = data.content;
                 properties.test = 'testing';
@@ -224,13 +239,17 @@ var MusicComponent = (function () {
     }
     MusicComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.connection = this.musicService.getMessages().subscribe(function (properties) {
-            _this.properties = properties;
+        this.connection = this.musicService.getDeviceProperties().subscribe(function (properties) {
+            _this.device = properties;
+        });
+        this.connection2 = this.musicService.getPlayerProperties().subscribe(function (properties) {
+            _this.player = properties;
         });
     };
     MusicComponent.prototype.ngOnDestroy = function () {
         console.log('music component destroyed');
         this.connection.unsubscribe();
+        this.connection2.unsubscribe();
     };
     MusicComponent.prototype.play = function () {
         this.musicService.play();
@@ -1277,7 +1296,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<span>{{properties|json}}</span>\n\n<button (click)=\"previous()\">Previous</button>\n<button (click)=\"play()\">Play</button>\n<button (click)=\"pause()\">Pause</button>\n<button (click)=\"next()\">Next</button>"
+module.exports = "<div>\n<span>{{device|json}}</span>\n</div>\n\n<div>\n<span>{{player|json}}</span>\n</div>\n\n<button (click)=\"previous()\">Previous</button>\n<button (click)=\"play()\">Play</button>\n<button (click)=\"pause()\">Pause</button>\n<button (click)=\"next()\">Next</button>"
 
 /***/ }),
 

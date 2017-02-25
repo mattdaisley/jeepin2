@@ -8,20 +8,27 @@ import { MusicService }  from './music.service';
   styleUrls: ['./music.component.scss']
 })
 export class MusicComponent implements OnInit, OnDestroy {
-  properties;
+  device;
+  player;
   connection;
+  connection2;
   
   constructor(private musicService:MusicService) { }
 
   ngOnInit() {
-    this.connection = this.musicService.getMessages().subscribe(properties => {
-      this.properties = properties;
+    this.connection = this.musicService.getDeviceProperties().subscribe(properties => {
+      this.device = properties;
+    });
+
+    this.connection2 = this.musicService.getPlayerProperties().subscribe(properties => {
+      this.player = properties;
     });
   }
   
   ngOnDestroy() {
     console.log('music component destroyed');
     this.connection.unsubscribe();
+    this.connection2.unsubscribe();
   }
 
   play() {
