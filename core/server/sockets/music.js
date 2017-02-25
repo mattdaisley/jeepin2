@@ -20,6 +20,9 @@ music = {
 
     music.socketRespond = respond;
 
+    music.deviceProperties = {};
+    music.playerProperties = {};
+
     music.dbus.handleRootInterfaceEvents(music.eventHandler);
     music.dbus.handleBasePropertyEvents(music.eventHandler);
 
@@ -31,13 +34,15 @@ music = {
         music.dbus.getProperties(device.objectPath)
           .then( props => {
             console.log('send deviced properties');
-            music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': props} );
+            merge(music.deviceProperties, props);
+            music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': music.deviceProperties} );
           });
         music.dbus.getPlayerProperties(device.player.objectPath)
           .then( props => {
             music.dbus.play();
             console.log('send player properties');
-            music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': props} );
+            merge(music.playerProperties, props);
+            music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': music.playerProperties} );
           });
       })
       .catch( err => {} );
@@ -78,18 +83,20 @@ music = {
         break;
       case 'DevicePropertiesChanged':
         console.log('send', event.event);
-        music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': event.Properties} );
+        merge(music.deviceProperties, event.Properties);
+        music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': music.deviceProperties} );
         break;
       case 'PlayerPropertiesChanged':
         console.log('send', event.event);
-        music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': event.Properties} );
+        merge(music.playerProperties, event.Properties);
+        music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': music.playerProperties} );
         break;
     }
   },
 
   newConnection: function newConnection(socket, data) {
     return new Promise(function (resolve, reject) {
-      
+
       socket.leave(channels.music);
       socket.join(channels.music);
 
