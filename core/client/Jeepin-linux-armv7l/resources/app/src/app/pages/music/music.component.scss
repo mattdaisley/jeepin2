@@ -1,7 +1,7 @@
 span { color: #fff; }
 
 div.content-wrapper {
-  height: calc(100% - 100px);
+  height: calc(100% - 120px);
   position: relative;
   padding: 30px;
   color: #fff;
@@ -10,8 +10,31 @@ div.content-wrapper {
 
 div.player {
   display: flex;
-  height: 100px;
+  height: 120px;
   display: flex;
+  position: relative;
+  align-items: center;
+
+  div.player-progress-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+
+    div.player-progress {
+      background-color: white;
+      height: 1px;
+      position: relative;
+
+      div.progress {
+        position: absolute;
+        height: 6px;
+        background-color: rgba(150,222,255,1);
+      }
+    }
+  }
 
   div.player-left { 
     flex: 1;
@@ -24,8 +47,8 @@ div.player {
       font-size: 1em;
       margin: 0 15px;
       padding: 15px;
-      width: 86px;
-      height: 86px;
+      width: 75px;
+      height: 75px;
       display: inline-block;
     }
 

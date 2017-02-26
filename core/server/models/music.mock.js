@@ -30,7 +30,7 @@ module.exports = {
     "Name": "Play Music", 
     "Type": "Audio", 
     "Subtype": "None", 
-    "Position": 100, 
+    "Position": 100000, 
     "Status": "playing", 
     "Repeat": "off", 
     "Shuffle": "off", 

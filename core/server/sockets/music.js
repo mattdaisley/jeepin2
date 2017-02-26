@@ -158,7 +158,12 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('play requested: ', data);
-      if ( music.hasBluetooth ) music.dbus.play();
+      if ( music.hasBluetooth ) {
+        music.dbus.play();
+      } else {
+        mockData.playerProperties.Status = 'playing';
+        music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': mockData.playerProperties} );
+      }
 
       resolve();
 
@@ -169,7 +174,12 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('pause requested: ', data);
-      if ( music.hasBluetooth ) music.dbus.pause();
+      if ( music.hasBluetooth ) {
+        music.dbus.pause();
+      } else {
+        mockData.playerProperties.Status = 'paused';
+        music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': mockData.playerProperties} );
+      }
 
       resolve();
 

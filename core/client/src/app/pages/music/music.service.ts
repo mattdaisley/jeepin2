@@ -12,6 +12,8 @@ export class MusicService {
   public device = {};
   public player: Player;
   public playerStatus: string = 'paused';
+  public progressInterval;
+  public progressPercent: number = 0;
 
   connection;
   connection2;
@@ -29,6 +31,12 @@ export class MusicService {
     this.connection2 = this.getPlayerProperties().subscribe(properties => {
       this.player = properties;
       this.playerStatus = this.player.Status;
+      if ( this.playerStatus === 'playing' ) {
+        this.setupProgressInterval();
+      } else if ( this.playerStatus === 'paused' ) {
+        clearInterval(this.progressInterval);
+        this.getProgressPercent();
+      }
     });
   }
   
@@ -59,6 +67,24 @@ export class MusicService {
     })     
     return observable;
   }  
+
+  setupProgressInterval() {
+    this.progressInterval = setInterval( () => {
+      if ( this.player && this.player.Track && this.player.Position ) {
+        this.player.Position += 1000;
+        this.getProgressPercent();
+      }
+    }, 1000);
+  }
+
+  getProgressPercent() {
+    if ( this.player && this.player.Track && this.player.Position ) {
+      console.log(this.player.Position, this.player.Track.Duration,((this.player.Position/this.player.Track.Duration) * 100 ));
+      this.progressPercent = ((this.player.Position/this.player.Track.Duration) * 100 );
+    } else {
+      this.progressPercent = 0;
+    }
+  }
 
   play() {
     this.socket.emit('music/play', '');

@@ -127,6 +127,7 @@ var MusicService = (function () {
         this.socketService = socketService;
         this.device = {};
         this.playerStatus = 'paused';
+        this.progressPercent = 0;
     }
     MusicService.prototype.connect = function () {
         var _this = this;
@@ -138,6 +139,13 @@ var MusicService = (function () {
         this.connection2 = this.getPlayerProperties().subscribe(function (properties) {
             _this.player = properties;
             _this.playerStatus = _this.player.Status;
+            if (_this.playerStatus === 'playing') {
+                _this.setupProgressInterval();
+            }
+            else if (_this.playerStatus === 'paused') {
+                clearInterval(_this.progressInterval);
+                _this.getProgressPercent();
+            }
         });
     };
     MusicService.prototype.getDeviceProperties = function () {
@@ -167,6 +175,24 @@ var MusicService = (function () {
             };
         });
         return observable;
+    };
+    MusicService.prototype.setupProgressInterval = function () {
+        var _this = this;
+        this.progressInterval = setInterval(function () {
+            if (_this.player && _this.player.Track && _this.player.Position) {
+                _this.player.Position += 1000;
+                _this.getProgressPercent();
+            }
+        }, 1000);
+    };
+    MusicService.prototype.getProgressPercent = function () {
+        if (this.player && this.player.Track && this.player.Position) {
+            console.log(this.player.Position, this.player.Track.Duration, ((this.player.Position / this.player.Track.Duration) * 100));
+            this.progressPercent = ((this.player.Position / this.player.Track.Duration) * 100);
+        }
+        else {
+            this.progressPercent = 0;
+        }
     };
     MusicService.prototype.play = function () {
         this.socket.emit('music/play', '');
@@ -242,25 +268,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MusicComponent = (function () {
-    // device = {};
-    // player: Player;
-    // playerStatus: string = 'paused';
-    // connection;
-    // connection2;
     function MusicComponent(musicService) {
         this.musicService = musicService;
     }
     MusicComponent.prototype.ngOnInit = function () {
-        // this.connection = this.musicService.getDeviceProperties().subscribe(properties => {
-        //   this.device = properties;
-        // });
-        // this.connection2 = this.musicService.getPlayerProperties().subscribe(properties => {
-        //   this.player = properties;
-        //   this.playerStatus = this.player.Status;
-        // });
-        // this.device = this.musicService.device;
-        // this.player = this.musicService.player;
-        // this.playerStatus = this.musicService.playerStatus;
     };
     MusicComponent.prototype.ngOnDestroy = function () {
         console.log('music component destroyed');
@@ -1251,7 +1262,7 @@ module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #f
 /***/ 721:
 /***/ (function(module, exports) {
 
-module.exports = "span {\n  color: #fff; }\n\ndiv.content-wrapper {\n  height: calc(100% - 100px);\n  position: relative;\n  padding: 30px;\n  color: #fff;\n  box-sizing: border-box; }\n\ndiv.player {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 100px;\n  display: flex; }\n  div.player div.player-left {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n  div.player div.player-middle {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    div.player div.player-middle button {\n      font-size: 1em;\n      margin: 0 15px;\n      padding: 15px;\n      width: 86px;\n      height: 86px;\n      display: inline-block; }\n    div.player div.player-middle .player-play-pause {\n      border-radius: 100px;\n      text-align: center;\n      border-width: 0;\n      background: #96deff;\n      background: -webkit-radial-gradient(center ellipse, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%);\n      background: radial-gradient(ellipse at center, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%); }\n    div.player div.player-middle .player-previous-next {\n      border: none;\n      background-color: transparent; }\n  div.player div.player-right {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n"
+module.exports = "span {\n  color: #fff; }\n\ndiv.content-wrapper {\n  height: calc(100% - 120px);\n  position: relative;\n  padding: 30px;\n  color: #fff;\n  box-sizing: border-box; }\n\ndiv.player {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 120px;\n  display: flex;\n  position: relative;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div.player div.player-progress-wrapper {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    padding: 0 30px;\n    box-sizing: border-box; }\n    div.player div.player-progress-wrapper div.player-progress {\n      background-color: white;\n      height: 1px;\n      position: relative; }\n      div.player div.player-progress-wrapper div.player-progress div.progress {\n        position: absolute;\n        height: 6px;\n        background-color: #96deff; }\n  div.player div.player-left {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n  div.player div.player-middle {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    div.player div.player-middle button {\n      font-size: 1em;\n      margin: 0 15px;\n      padding: 15px;\n      width: 75px;\n      height: 75px;\n      display: inline-block; }\n    div.player div.player-middle .player-play-pause {\n      border-radius: 100px;\n      text-align: center;\n      border-width: 0;\n      background: #96deff;\n      background: -webkit-radial-gradient(center ellipse, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%);\n      background: radial-gradient(ellipse at center, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%); }\n    div.player div.player-middle .player-previous-next {\n      border: none;\n      background-color: transparent; }\n  div.player div.player-right {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n"
 
 /***/ }),
 
@@ -1314,7 +1325,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{musicService.device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{musicService.player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
+module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{musicService.device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{musicService.player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-progress-wrapper\">\n    <div class=\"player-progress\">\n      <div class=\"progress\" [ngStyle]=\"{width: musicService.progressPercent + '%'}\"></div>\n    </div>\n  </div>\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
 
 /***/ }),
 
