@@ -17,6 +17,6 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-NODE_ENV=dev /usr/bin/node /home/pi/jeepin2/index.js > /home/pi/jeepin2.log 2>&1
+NODE_ENV=dev /usr/bin/node /home/pi/jeepin2/index.js > /home/pi/jeepin2/jeepin2.log 2>&1
 
 exit 0
