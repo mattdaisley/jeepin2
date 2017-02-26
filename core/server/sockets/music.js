@@ -113,6 +113,7 @@ music = {
 
       console.log('play requested: ', data);
       console.log(music.setup);
+      music.dbus.play();
 
       resolve();
 
@@ -124,6 +125,7 @@ music = {
 
       console.log('pause requested: ', data);
       console.log(music.setup);
+      music.dbus.pause();
 
       resolve();
 
