@@ -103,19 +103,25 @@ music = {
       console.log('newConnection requested: ', data);
       console.log(music.setup);
     
-      music.dbus.getProperties(device.objectPath)
-        .then( props => {
-          console.log('send deviced properties');
-          merge(music.deviceProperties, props);
-          music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': music.deviceProperties} );
-        });
-      music.dbus.getPlayerProperties(device.player.objectPath)
-        .then( props => {
-          music.dbus.play();
-          console.log('send player properties');
-          merge(music.playerProperties, props);
-          music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': music.playerProperties} );
-        });
+      music.dbus.getConnectedDevice()
+        .then( device => {
+          music.dbus.getProperties(device.objectPath)
+            .then( props => {
+              console.log('send deviced properties');
+              merge(music.deviceProperties, props);
+              music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': music.deviceProperties} );
+            })
+            .catch( err => console.log(err) );
+          music.dbus.getPlayerProperties(device.player.objectPath)
+            .then( props => {
+              music.dbus.play();
+              console.log('send player properties');
+              merge(music.playerProperties, props);
+              music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': music.playerProperties} );
+            })
+            .catch( err => console.log(err) );
+        })
+        .catch( err => {} );
 
       resolve();
 
