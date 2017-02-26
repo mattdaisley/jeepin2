@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MusicService }  from './music.service';
+import { Player } from './music.player.interface';
 
 @Component({
   selector: 'music',
@@ -9,7 +10,7 @@ import { MusicService }  from './music.service';
 })
 export class MusicComponent implements OnInit, OnDestroy {
   device = {};
-  player = {};
+  player:Player;
   connection;
   connection2;
   
@@ -32,10 +33,12 @@ export class MusicComponent implements OnInit, OnDestroy {
   }
 
   play() {
+    this.player.Status = 'playing';
     this.musicService.play();
   }
 
   pause() {
+    this.player.Status = 'paused';
     this.musicService.pause();
   }
 

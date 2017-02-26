@@ -236,7 +236,6 @@ var MusicComponent = (function () {
     function MusicComponent(musicService) {
         this.musicService = musicService;
         this.device = {};
-        this.player = {};
     }
     MusicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -253,9 +252,11 @@ var MusicComponent = (function () {
         this.connection2.unsubscribe();
     };
     MusicComponent.prototype.play = function () {
+        this.player.Status = 'playing';
         this.musicService.play();
     };
     MusicComponent.prototype.pause = function () {
+        this.player.Status = 'paused';
         this.musicService.pause();
     };
     MusicComponent.prototype.next = function () {

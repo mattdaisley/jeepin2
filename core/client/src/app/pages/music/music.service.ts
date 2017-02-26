@@ -3,6 +3,7 @@ import { Subject }    from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
 import { SocketService } from '../../shared/socket-service/socket.service';
+import { Player } from './music.player.interface';
 
 @Injectable()
 export class MusicService {
@@ -30,7 +31,7 @@ export class MusicService {
     return observable;
   }  
   
-  getPlayerProperties() {
+  getPlayerProperties():Observable<Player> {
     let observable = new Observable(observer => {
       this.socket.on('music/player', (data) => {
         console.log(data.content);
