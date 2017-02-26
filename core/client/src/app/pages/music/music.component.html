@@ -17,8 +17,8 @@
   <div class="player-left"></div>
   <div class="player-middle">
     <button class="player-previous-next" (click)="previous()"><i class="fa fa-backward fa-2x" aria-hidden="true"> </i></button>
-    <button class="player-play-pause" *ngIf="player.Status !== 'playing'" (click)="play()"><i class="fa fa-play fa-2x" aria-hidden="true"> </i></button>
-    <button class="player-play-pause" *ngIf="player.Status === 'playing'" (click)="pause()"><i class="fa fa-pause fa-2x" aria-hidden="true"> </i></button>
+    <button class="player-play-pause" *ngIf="playerStatus !== 'playing'" (click)="play()"><i class="fa fa-play fa-2x" aria-hidden="true"> </i></button>
+    <button class="player-play-pause" *ngIf="playerStatus === 'playing'" (click)="pause()"><i class="fa fa-pause fa-2x" aria-hidden="true"> </i></button>
     <button class="player-previous-next" (click)="next()"><i class="fa fa-forward fa-2x" aria-hidden="true"> </i></button>
   </div>
   <div class="player-right"></div>

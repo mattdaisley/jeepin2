@@ -236,6 +236,7 @@ var MusicComponent = (function () {
     function MusicComponent(musicService) {
         this.musicService = musicService;
         this.device = {};
+        this.playerStatus = 'paused';
     }
     MusicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -244,6 +245,7 @@ var MusicComponent = (function () {
         });
         this.connection2 = this.musicService.getPlayerProperties().subscribe(function (properties) {
             _this.player = properties;
+            _this.playerStatus = _this.player.Status;
         });
     };
     MusicComponent.prototype.ngOnDestroy = function () {
@@ -252,11 +254,11 @@ var MusicComponent = (function () {
         this.connection2.unsubscribe();
     };
     MusicComponent.prototype.play = function () {
-        this.player.Status = 'playing';
+        this.playerStatus = 'playing';
         this.musicService.play();
     };
     MusicComponent.prototype.pause = function () {
-        this.player.Status = 'paused';
+        this.playerStatus = 'paused';
         this.musicService.pause();
     };
     MusicComponent.prototype.next = function () {
@@ -1298,7 +1300,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"player.Status !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"player.Status === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
+module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
 
 /***/ }),
 

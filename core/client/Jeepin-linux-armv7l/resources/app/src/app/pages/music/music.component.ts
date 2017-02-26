@@ -10,7 +10,8 @@ import { Player } from './music.player.interface';
 })
 export class MusicComponent implements OnInit, OnDestroy {
   device = {};
-  player:Player;
+  player: Player;
+  playerStatus: string = 'paused';
   connection;
   connection2;
   
@@ -23,6 +24,7 @@ export class MusicComponent implements OnInit, OnDestroy {
 
     this.connection2 = this.musicService.getPlayerProperties().subscribe(properties => {
       this.player = properties;
+      this.playerStatus = this.player.Status;
     });
   }
   
@@ -33,12 +35,12 @@ export class MusicComponent implements OnInit, OnDestroy {
   }
 
   play() {
-    this.player.Status = 'playing';
+    this.playerStatus = 'playing';
     this.musicService.play();
   }
 
   pause() {
-    this.player.Status = 'paused';
+    this.playerStatus = 'paused';
     this.musicService.pause();
   }
 
