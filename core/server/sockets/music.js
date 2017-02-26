@@ -130,6 +130,30 @@ music = {
       resolve();
 
     });
+  },
+
+  previous: function previous(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('previous requested: ', data);
+      console.log(music.setup);
+      music.dbus.previous();
+
+      resolve();
+
+    });
+  },
+
+  next: function next(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('next requested: ', data);
+      console.log(music.setup);
+      music.dbus.next();
+
+      resolve();
+
+    });
   }
 
 
