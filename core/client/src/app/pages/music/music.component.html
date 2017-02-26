@@ -1,12 +1,25 @@
-<div>
-<span>{{device|json}}</span>
+<div class="content-wrapper">
+
+  <div>
+    Device Details:
+  <span>{{device|json}}</span>
+  </div>
+
+  <div>
+    Player Details:
+  <span>{{player|json}}</span>
+  </div>
+
 </div>
 
-<div>
-<span>{{player|json}}</span>
-</div>
 
-<button (click)="previous()">Previous</button>
-<button (click)="play()">Play</button>
-<button (click)="pause()">Pause</button>
-<button (click)="next()">Next</button>
+<div class="player">
+  <div class="player-left"></div>
+  <div class="player-middle">
+    <button class="player-previous-next" (click)="previous()"><i class="fa fa-backward fa-2x" aria-hidden="true"> </i></button>
+    <button class="player-play-pause" *ngIf="player.Status !== 'playing'" (click)="play()"><i class="fa fa-play fa-2x" aria-hidden="true"> </i></button>
+    <button class="player-play-pause" *ngIf="player.Status === 'playing'" (click)="pause()"><i class="fa fa-pause fa-2x" aria-hidden="true"> </i></button>
+    <button class="player-previous-next" (click)="next()"><i class="fa fa-forward fa-2x" aria-hidden="true"> </i></button>
+  </div>
+  <div class="player-right"></div>
+</div>

@@ -8,8 +8,8 @@ import { MusicService }  from './music.service';
   styleUrls: ['./music.component.scss']
 })
 export class MusicComponent implements OnInit, OnDestroy {
-  device;
-  player;
+  device = {};
+  player = {};
   connection;
   connection2;
   

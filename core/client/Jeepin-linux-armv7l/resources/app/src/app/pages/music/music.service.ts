@@ -35,7 +35,6 @@ export class MusicService {
       this.socket.on('music/player', (data) => {
         console.log(data.content);
         var properties = data.content;
-        properties.test = 'testing';
         observer.next(properties);    
       });
       return () => {

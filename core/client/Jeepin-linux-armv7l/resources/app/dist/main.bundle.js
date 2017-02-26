@@ -151,7 +151,6 @@ var MusicService = (function () {
             _this.socket.on('music/player', function (data) {
                 console.log(data.content);
                 var properties = data.content;
-                properties.test = 'testing';
                 observer.next(properties);
             });
             return function () {
@@ -236,6 +235,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MusicComponent = (function () {
     function MusicComponent(musicService) {
         this.musicService = musicService;
+        this.device = {};
+        this.player = {};
     }
     MusicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1212,7 +1213,7 @@ var environment = {
 /***/ 718:
 /***/ (function(module, exports) {
 
-module.exports = ".wrapper {\n  height: 100%;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: #000; }\n  .wrapper .container {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    max-width: 100%;\n    height: 100%;\n    max-height: 100%;\n    /*border: 1px solid #ccc;*/\n    overflow: hidden; }\n  .wrapper .menu {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    max-width: 80px;\n    height: 100%;\n    max-height: 100%;\n    background: black;\n    /*border-width: 1px 0 1px 1px;\n    border-style: solid;\n    border-color: #ccc;*/ }\n  .wrapper .main-wrapper {\n    width: 100%;\n    height: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -ms-flex-line-pack: stretch;\n        align-content: stretch;\n    position: relative; }\n    .wrapper .main-wrapper app-status-bar {\n      position: absolute;\n      width: 100%;\n      background-color: #000; }\n    .wrapper .main-wrapper .main-content {\n      background: -webkit-linear-gradient(115deg, #035584, black, black, #035584);\n      background: linear-gradient(-25deg, #035584, black, black, #035584);\n      position: absolute;\n      box-sizing: border-box;\n      padding: 110px 30px 30px;\n      height: 100%;\n      width: 100%; }\n"
+module.exports = ".wrapper {\n  height: 100%;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: #000; }\n  .wrapper .container {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    max-width: 100%;\n    height: 100%;\n    max-height: 100%;\n    /*border: 1px solid #ccc;*/\n    overflow: hidden; }\n  .wrapper .menu {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    max-width: 80px;\n    height: 100%;\n    max-height: 100%;\n    background: black;\n    /*border-width: 1px 0 1px 1px;\n    border-style: solid;\n    border-color: #ccc;*/ }\n  .wrapper .main-wrapper {\n    width: 100%;\n    height: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -ms-flex-line-pack: stretch;\n        align-content: stretch;\n    position: relative; }\n    .wrapper .main-wrapper app-status-bar {\n      position: absolute;\n      width: 100%;\n      background-color: #000; }\n    .wrapper .main-wrapper .main-content {\n      background: -webkit-linear-gradient(115deg, #035584, black, black, #035584);\n      background: linear-gradient(-25deg, #035584, black, black, #035584);\n      position: absolute;\n      box-sizing: border-box;\n      padding-top: 80px;\n      height: 100%;\n      width: 100%; }\n"
 
 /***/ }),
 
@@ -1233,7 +1234,7 @@ module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #f
 /***/ 721:
 /***/ (function(module, exports) {
 
-module.exports = "span {\n  color: #fff; }\n"
+module.exports = "span {\n  color: #fff; }\n\ndiv.content-wrapper {\n  height: calc(100% - 80px);\n  position: relative;\n  padding: 30px;\n  color: #fff;\n  box-sizing: border-box; }\n\ndiv.player {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 80px;\n  display: flex; }\n  div.player div.player-left {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n  div.player div.player-middle {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    div.player div.player-middle button {\n      font-size: 1em;\n      margin: 0 15px;\n      padding: 15px;\n      width: 66px;\n      height: 66px;\n      display: inline-block; }\n    div.player div.player-middle .player-play-pause {\n      border-radius: 100px;\n      text-align: center;\n      border-width: 0;\n      background: #96deff;\n      background: -webkit-radial-gradient(center ellipse, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%);\n      background: radial-gradient(ellipse at center, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%); }\n    div.player div.player-middle .player-previous-next {\n      border: none;\n      background-color: transparent; }\n  div.player div.player-right {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n"
 
 /***/ }),
 
@@ -1296,7 +1297,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n<span>{{device|json}}</span>\n</div>\n\n<div>\n<span>{{player|json}}</span>\n</div>\n\n<button (click)=\"previous()\">Previous</button>\n<button (click)=\"play()\">Play</button>\n<button (click)=\"pause()\">Pause</button>\n<button (click)=\"next()\">Next</button>"
+module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"player.Status !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"player.Status === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
 
 /***/ }),
 
