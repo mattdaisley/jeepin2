@@ -117,6 +117,17 @@ music = {
       resolve();
 
     });
+  },
+
+  pause: function pause(socket, data) {
+    return new Promise(function (resolve, reject) {
+
+      console.log('pause requested: ', data);
+      console.log(music.setup);
+
+      resolve();
+
+    });
   }
 
 
