@@ -31,10 +31,12 @@ export class MusicService {
     this.connection2 = this.getPlayerProperties().subscribe(properties => {
       this.player = properties;
       this.playerStatus = this.player.Status;
-      if ( this.playerStatus === 'playing' ) {
+      if ( this.playerStatus === 'playing' && !this.progressInterval ) {
+        console.log(this.progressInterval);
         this.setupProgressInterval();
-      } else if ( this.playerStatus === 'paused' ) {
+      } else if ( this.playerStatus === 'paused' && this.progressInterval ) {
         clearInterval(this.progressInterval);
+        delete this.progressInterval;
         this.getProgressPercent();
       }
     });
@@ -79,7 +81,6 @@ export class MusicService {
 
   getProgressPercent() {
     if ( this.player && this.player.Track && this.player.Position ) {
-      console.log(this.player.Position, this.player.Track.Duration,((this.player.Position/this.player.Track.Duration) * 100 ));
       this.progressPercent = ((this.player.Position/this.player.Track.Duration) * 100 );
     } else {
       this.progressPercent = 0;

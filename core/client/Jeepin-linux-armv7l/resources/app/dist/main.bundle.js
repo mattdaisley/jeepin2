@@ -139,11 +139,13 @@ var MusicService = (function () {
         this.connection2 = this.getPlayerProperties().subscribe(function (properties) {
             _this.player = properties;
             _this.playerStatus = _this.player.Status;
-            if (_this.playerStatus === 'playing') {
+            if (_this.playerStatus === 'playing' && !_this.progressInterval) {
+                console.log(_this.progressInterval);
                 _this.setupProgressInterval();
             }
-            else if (_this.playerStatus === 'paused') {
+            else if (_this.playerStatus === 'paused' && _this.progressInterval) {
                 clearInterval(_this.progressInterval);
+                delete _this.progressInterval;
                 _this.getProgressPercent();
             }
         });
@@ -187,7 +189,6 @@ var MusicService = (function () {
     };
     MusicService.prototype.getProgressPercent = function () {
         if (this.player && this.player.Track && this.player.Position) {
-            console.log(this.player.Position, this.player.Track.Duration, ((this.player.Position / this.player.Track.Duration) * 100));
             this.progressPercent = ((this.player.Position / this.player.Track.Duration) * 100);
         }
         else {
