@@ -146,7 +146,6 @@ var MusicService = (function () {
             else if (_this.playerStatus === 'paused' && _this.progressInterval) {
                 clearInterval(_this.progressInterval);
                 delete _this.progressInterval;
-                _this.getProgressPercent();
             }
         });
     };

@@ -37,7 +37,6 @@ export class MusicService {
       } else if ( this.playerStatus === 'paused' && this.progressInterval ) {
         clearInterval(this.progressInterval);
         delete this.progressInterval;
-        this.getProgressPercent();
       }
     });
   }
