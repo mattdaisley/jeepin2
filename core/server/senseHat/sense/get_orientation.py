@@ -19,4 +19,4 @@ while True:
     # print(json.dumps( {'result':{'pitch':pitch, 'roll': roll}} ))
     print(json.dumps( { 'result': sense.get_orientation() } ))
     sys.stdout.flush()
-    time.sleep(.1)
+    time.sleep(.5)
