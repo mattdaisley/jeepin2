@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "NODE_ENV=dev node index.js",
-    "runpi": "NODE_ENV=dev /usr/bin/node /home/pi/jeepin2/index.js",
-    "viewlog": "watch -n .1 tail -n 15 jeepin2.log"
+    "viewlog": "watch -n .1 tail -n 15 /home/pi/jeepin2/jeepin2.log",
+    "pi": "NODE_ENV=dev /usr/bin/node /home/pi/jeepin2/index.js > /home/pi/jeepin2/jeepin2.log 2>&1 && run viewlog"
   },
   "author": "",
   "license": "ISC",
