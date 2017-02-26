@@ -3,10 +3,12 @@
 var DBus      = require('dbus'),
   merge       = require('merge'),
   exec        = require('child_process').exec,
+  blue        = require('bluetoothctl'),
   // sockets     = require('./index'),
   channels    = require('./channels'),
   bluetooth   = require('./bluetooth'),
   dbusCtrl    = require('../utils/dbus-controller'),
+  mockData    = require('../models/music.mock'),
   music;
 
 
@@ -16,12 +18,31 @@ music = {
   socketRespond: undefined,
 
   setup: function setup(respond) {
-    music.dbus = dbusCtrl.setupBus();
+    // blue.Bluetooth();
+    // music.hasBluetooth = blue.checkBluetoothController();
 
     music.socketRespond = respond;
 
     music.deviceProperties = {};
     music.playerProperties = {};
+
+    try {
+      music.dbus = dbusCtrl.setupBus();
+      music.hasBluetooth = true;
+      music.setupDbus();
+    } catch(err) {
+      // console.log(err);
+      music.hasBluetooth = false;
+    }
+
+    // if ( music.hasBluetooth ) {
+    //   music.setupDbus();
+    // } else {
+    //   music.setupMockDbus();
+    // }
+  },
+
+  setupDbus: function setupDbus() {
 
     music.dbus.handleRootInterfaceEvents(music.eventHandler);
     music.dbus.handleBasePropertyEvents(music.eventHandler);
@@ -103,25 +124,30 @@ music = {
       console.log('newConnection requested: ', data);
       console.log(music.setup);
     
-      music.dbus.getConnectedDevice()
-        .then( device => {
-          music.dbus.getProperties(device.objectPath)
-            .then( props => {
-              console.log('send deviced properties');
-              merge(music.deviceProperties, props);
-              music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': music.deviceProperties} );
-            })
-            .catch( err => console.log(err) );
-          music.dbus.getPlayerProperties(device.player.objectPath)
-            .then( props => {
-              music.dbus.play();
-              console.log('send player properties');
-              merge(music.playerProperties, props);
-              music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': music.playerProperties} );
-            })
-            .catch( err => console.log(err) );
-        })
-        .catch( err => {} );
+      if ( music.hasBluetooth ) {
+        music.dbus.getConnectedDevice()
+          .then( device => {
+            music.dbus.getProperties(device.objectPath)
+              .then( props => {
+                console.log('send deviced properties');
+                merge(music.deviceProperties, props);
+                music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': music.deviceProperties} );
+              })
+              .catch( err => console.log(err) );
+            music.dbus.getPlayerProperties(device.player.objectPath)
+              .then( props => {
+                music.dbus.play();
+                console.log('send player properties');
+                merge(music.playerProperties, props);
+                music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': music.playerProperties} );
+              })
+              .catch( err => console.log(err) );
+          })
+          .catch( err => {} );
+      } else {
+          music.socketRespond( {'channel': channels.music, 'emit': 'music/device', 'content': mockData.deviceProperties} );
+          music.socketRespond( {'channel': channels.music, 'emit': 'music/player', 'content': mockData.playerProperties} );
+      }
 
       resolve();
 
@@ -132,8 +158,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('play requested: ', data);
-      console.log(music.setup);
-      music.dbus.play();
+      if ( music.hasBluetooth ) music.dbus.play();
 
       resolve();
 
@@ -144,8 +169,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('pause requested: ', data);
-      console.log(music.setup);
-      music.dbus.pause();
+      if ( music.hasBluetooth ) music.dbus.pause();
 
       resolve();
 
@@ -156,8 +180,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('previous requested: ', data);
-      console.log(music.setup);
-      music.dbus.previous();
+      if ( music.hasBluetooth ) music.dbus.previous();
 
       resolve();
 
@@ -168,8 +191,7 @@ music = {
     return new Promise(function (resolve, reject) {
 
       console.log('next requested: ', data);
-      console.log(music.setup);
-      music.dbus.next();
+      if ( music.hasBluetooth ) music.dbus.next();
 
       resolve();
 

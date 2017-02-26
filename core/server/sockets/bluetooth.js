@@ -23,7 +23,7 @@ bluetooth = {
   },
 
   pollDevices: function pollDevices(respond) {
-    blue.Bluetooth()
+    blue.Bluetooth();
 
     var hasBluetooth = blue.checkBluetoothController();
     console.log('system has bluetooth controller:' + hasBluetooth);
