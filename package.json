@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "NODE_ENV=dev node index.js",
     "viewlog": "watch -n .1 tail -n 15 /home/pi/jeepin2/jeepin2.log",
-    "pi": "NODE_ENV=dev /usr/bin/node /home/pi/jeepin2/index.js > /home/pi/jeepin2/jeepin2.log 2>&1 && run viewlog"
+    "pi": "NODE_ENV=dev /usr/bin/node /home/pi/jeepin2/index.js > /home/pi/jeepin2/jeepin2.log 2>&1"
   },
   "author": "",
   "license": "ISC",
