@@ -1,7 +1,7 @@
 span { color: #fff; }
 
 div.content-wrapper {
-  height: calc(100% - 80px);
+  height: calc(100% - 100px);
   position: relative;
   padding: 30px;
   color: #fff;
@@ -10,7 +10,7 @@ div.content-wrapper {
 
 div.player {
   display: flex;
-  height: 80px;
+  height: 100px;
   display: flex;
 
   div.player-left { 
@@ -24,8 +24,8 @@ div.player {
       font-size: 1em;
       margin: 0 15px;
       padding: 15px;
-      width: 66px;
-      height: 66px;
+      width: 86px;
+      height: 86px;
       display: inline-block;
     }
 
