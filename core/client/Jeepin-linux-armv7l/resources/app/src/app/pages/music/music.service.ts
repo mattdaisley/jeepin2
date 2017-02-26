@@ -9,11 +9,27 @@ import { Player } from './music.player.interface';
 export class MusicService {
   private socket;
 
+  public device = {};
+  public player: Player;
+  public playerStatus: string = 'paused';
+
+  connection;
+  connection2;
+
   constructor( private socketService: SocketService ) { }
 
   connect() {
     this.socket = this.socketService.connect();
     this.socket.emit('music/connected', 'request music/connection');
+
+    this.connection = this.getDeviceProperties().subscribe(properties => {
+      this.device = properties;
+    });
+
+    this.connection2 = this.getPlayerProperties().subscribe(properties => {
+      this.player = properties;
+      this.playerStatus = this.player.Status;
+    });
   }
   
   getDeviceProperties() {
@@ -21,7 +37,6 @@ export class MusicService {
       this.socket.on('music/device', (data) => {
         console.log(data.content);
         var properties = data.content;
-        properties.test = 'testing';
         observer.next(properties);    
       });
       return () => {

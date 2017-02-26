@@ -125,10 +125,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MusicService = (function () {
     function MusicService(socketService) {
         this.socketService = socketService;
+        this.device = {};
+        this.playerStatus = 'paused';
     }
     MusicService.prototype.connect = function () {
+        var _this = this;
         this.socket = this.socketService.connect();
         this.socket.emit('music/connected', 'request music/connection');
+        this.connection = this.getDeviceProperties().subscribe(function (properties) {
+            _this.device = properties;
+        });
+        this.connection2 = this.getPlayerProperties().subscribe(function (properties) {
+            _this.player = properties;
+            _this.playerStatus = _this.player.Status;
+        });
     };
     MusicService.prototype.getDeviceProperties = function () {
         var _this = this;
@@ -136,7 +146,6 @@ var MusicService = (function () {
             _this.socket.on('music/device', function (data) {
                 console.log(data.content);
                 var properties = data.content;
-                properties.test = 'testing';
                 observer.next(properties);
             });
             return function () {
@@ -233,32 +242,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MusicComponent = (function () {
+    // device = {};
+    // player: Player;
+    // playerStatus: string = 'paused';
+    // connection;
+    // connection2;
     function MusicComponent(musicService) {
         this.musicService = musicService;
-        this.device = {};
-        this.playerStatus = 'paused';
     }
     MusicComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.connection = this.musicService.getDeviceProperties().subscribe(function (properties) {
-            _this.device = properties;
-        });
-        this.connection2 = this.musicService.getPlayerProperties().subscribe(function (properties) {
-            _this.player = properties;
-            _this.playerStatus = _this.player.Status;
-        });
+        // this.connection = this.musicService.getDeviceProperties().subscribe(properties => {
+        //   this.device = properties;
+        // });
+        // this.connection2 = this.musicService.getPlayerProperties().subscribe(properties => {
+        //   this.player = properties;
+        //   this.playerStatus = this.player.Status;
+        // });
+        // this.device = this.musicService.device;
+        // this.player = this.musicService.player;
+        // this.playerStatus = this.musicService.playerStatus;
     };
     MusicComponent.prototype.ngOnDestroy = function () {
         console.log('music component destroyed');
-        this.connection.unsubscribe();
-        this.connection2.unsubscribe();
+        // this.connection.unsubscribe();
+        // this.connection2.unsubscribe();
     };
     MusicComponent.prototype.play = function () {
-        this.playerStatus = 'playing';
+        this.musicService.playerStatus = 'playing';
         this.musicService.play();
     };
     MusicComponent.prototype.pause = function () {
-        this.playerStatus = 'paused';
+        this.musicService.playerStatus = 'paused';
         this.musicService.pause();
     };
     MusicComponent.prototype.next = function () {
@@ -1300,7 +1314,7 @@ module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkAct
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
+module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{musicService.device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{musicService.player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
 
 /***/ }),
 
