@@ -1,13 +1,18 @@
 <div class="content-wrapper">
 
   <div>
-    Device Details:
-  <span>{{musicService.device|json}}</span>
+    <!--Device Details:-->
+    <!--<span>{{musicService.device|json}}</span>-->
+    <div>Playing music from {{musicService.device.Name}}</div>
   </div>
-
+  <div><br></div>
   <div>
-    Player Details:
-  <span>{{musicService.player|json}}</span>
+    <!--Player Details:-->
+    <!--<span>{{musicService.player|json}}</span>-->
+    <div>Source: {{(musicService.player && musicService.player.Name) ? musicService.player.Name : ''}}</div>
+    <div>Track Title: {{(musicService.player && musicService.player.Track && musicService.player.Track.Title) ? musicService.player.Track.Title : ''}}</div>
+    <div>Artist: {{(musicService.player && musicService.player.Track && musicService.player.Track.Artist) ? musicService.player.Track.Artist : ''}}</div>
+    <div>Album: {{(musicService.player && musicService.player.Track && musicService.player.Track.Album) ? musicService.player.Track.Album : ''}}</div>
   </div>
 
 </div>

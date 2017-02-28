@@ -1,13 +1,13 @@
 webpackJsonp([0,3],{
 
-/***/ 154:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__ = __webpack_require__(156);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BluetoothService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -63,12 +63,12 @@ var BluetoothService = (function () {
 
 /***/ }),
 
-/***/ 155:
+/***/ 156:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(753);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client__ = __webpack_require__(760);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_socket_io_client___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_socket_io_client__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SocketService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -101,14 +101,15 @@ var SocketService = (function () {
 
 /***/ }),
 
-/***/ 222:
+/***/ 223:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__ = __webpack_require__(156);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MusicService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -122,9 +123,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MusicService = (function () {
-    function MusicService(socketService) {
+    function MusicService(socketService, appRoutesService) {
         this.socketService = socketService;
+        this.appRoutesService = appRoutesService;
         this.device = {};
         this.playerStatus = 'paused';
         this.progressPercent = 0;
@@ -142,10 +145,14 @@ var MusicService = (function () {
             if (_this.playerStatus === 'playing' && !_this.progressInterval) {
                 console.log(_this.progressInterval);
                 _this.setupProgressInterval();
+                _this.appRoutesService.Title = _this.player.Track.Title;
+                _this.appRoutesService.Artist = _this.player.Track.Artist;
             }
             else if (_this.playerStatus === 'paused' && _this.progressInterval) {
                 clearInterval(_this.progressInterval);
                 delete _this.progressInterval;
+                _this.appRoutesService.Title = '';
+                _this.appRoutesService.Artist = '';
             }
         });
     };
@@ -208,16 +215,16 @@ var MusicService = (function () {
     };
     MusicService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__["a" /* SocketService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__["a" /* SocketService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__["a" /* SocketService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__["a" /* SocketService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
     ], MusicService);
     return MusicService;
-    var _a;
+    var _a, _b;
 }());
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/music.service.js.map
 
 /***/ }),
 
-/***/ 344:
+/***/ 345:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -238,7 +245,7 @@ var PageNotFoundComponent = (function () {
     }
     PageNotFoundComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
-            styles: [__webpack_require__(720)],
+            styles: [__webpack_require__(724)],
             template: '<div class="container"><h2>Page not found</h2></div>'
         }), 
         __metadata('design:paramtypes', [])
@@ -249,12 +256,52 @@ var PageNotFoundComponent = (function () {
 
 /***/ }),
 
-/***/ 345:
+/***/ 346:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__music_service__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var HomeComponent = (function () {
+    function HomeComponent(appRoutesService) {
+        this.appRoutesService = appRoutesService;
+    }
+    HomeComponent.prototype.ngOnInit = function () {
+        this.appRoutesService.currentPage = '';
+    };
+    HomeComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
+            styles: [__webpack_require__(725)],
+            template: '<div class="container"><h2>Page coming soon</h2></div>'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
+    ], HomeComponent);
+    return HomeComponent;
+    var _a;
+}());
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/home.component.js.map
+
+/***/ }),
+
+/***/ 347:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__music_service__ = __webpack_require__(223);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MusicComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -267,11 +314,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var MusicComponent = (function () {
-    function MusicComponent(musicService) {
+    function MusicComponent(musicService, appRoutesService) {
         this.musicService = musicService;
+        this.appRoutesService = appRoutesService;
     }
     MusicComponent.prototype.ngOnInit = function () {
+        this.appRoutesService.currentPage = 'Music';
     };
     MusicComponent.prototype.ngOnDestroy = function () {
         console.log('music component destroyed');
@@ -295,24 +345,102 @@ var MusicComponent = (function () {
     MusicComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'music',
-            template: __webpack_require__(730),
-            styles: [__webpack_require__(721)]
+            template: __webpack_require__(737),
+            styles: [__webpack_require__(726)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__music_service__["a" /* MusicService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__music_service__["a" /* MusicService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
     ], MusicComponent);
     return MusicComponent;
-    var _a;
+    var _a, _b;
 }());
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/music.component.js.map
 
 /***/ }),
 
-/***/ 346:
+/***/ 348:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bluetooth_service__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavigationComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NavigationComponent = (function () {
+    function NavigationComponent(appRoutesService) {
+        this.appRoutesService = appRoutesService;
+    }
+    NavigationComponent.prototype.ngOnInit = function () {
+        this.appRoutesService.currentPage = 'Navigation';
+    };
+    NavigationComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
+            styles: [__webpack_require__(727)],
+            template: '<div class="container"><h2>Page coming soon</h2></div>'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
+    ], NavigationComponent);
+    return NavigationComponent;
+    var _a;
+}());
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/navigation.component.js.map
+
+/***/ }),
+
+/***/ 349:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ODBComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var ODBComponent = (function () {
+    function ODBComponent(appRoutesService) {
+        this.appRoutesService = appRoutesService;
+    }
+    ODBComponent.prototype.ngOnInit = function () {
+        this.appRoutesService.currentPage = 'ODB-II';
+    };
+    ODBComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
+            styles: [__webpack_require__(728)],
+            template: '<div class="container"><h2>Page coming soon</h2></div>'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
+    ], ODBComponent);
+    return ODBComponent;
+    var _a;
+}());
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/odb.component.js.map
+
+/***/ }),
+
+/***/ 350:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bluetooth_service__ = __webpack_require__(155);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BluetoothComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -352,8 +480,8 @@ var BluetoothComponent = (function () {
     BluetoothComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'app-bluetooth',
-            template: __webpack_require__(731),
-            styles: [__webpack_require__(722)]
+            template: __webpack_require__(738),
+            styles: [__webpack_require__(729)]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__bluetooth_service__["a" /* BluetoothService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__bluetooth_service__["a" /* BluetoothService */]) === 'function' && _a) || Object])
     ], BluetoothComponent);
@@ -364,7 +492,7 @@ var BluetoothComponent = (function () {
 
 /***/ }),
 
-/***/ 347:
+/***/ 351:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -411,8 +539,8 @@ var SettingsHomeComponent = (function () {
     SettingsHomeComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'app-settings-home',
-            template: __webpack_require__(734),
-            styles: [__webpack_require__(727)]
+            template: __webpack_require__(741),
+            styles: [__webpack_require__(734)]
         }), 
         __metadata('design:paramtypes', [])
     ], SettingsHomeComponent);
@@ -422,11 +550,12 @@ var SettingsHomeComponent = (function () {
 
 /***/ }),
 
-/***/ 348:
+/***/ 352:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -438,29 +567,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var SettingsComponent = (function () {
-    function SettingsComponent() {
+    function SettingsComponent(appRoutesService) {
+        this.appRoutesService = appRoutesService;
     }
+    SettingsComponent.prototype.ngOnInit = function () {
+        this.appRoutesService.currentPage = 'Settings';
+    };
     SettingsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'app-settings',
-            template: __webpack_require__(735),
-            styles: [__webpack_require__(724)]
+            template: __webpack_require__(742),
+            styles: [__webpack_require__(731)]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
     ], SettingsComponent);
     return SettingsComponent;
+    var _a;
 }());
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/settings.component.js.map
 
 /***/ }),
 
-/***/ 349:
+/***/ 353:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__ = __webpack_require__(543);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__ = __webpack_require__(547);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TiltGaugesComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -473,9 +609,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var TiltGaugesComponent = (function () {
-    function TiltGaugesComponent(tiltGaugesService) {
+    function TiltGaugesComponent(tiltGaugesService, appRoutesService) {
         this.tiltGaugesService = tiltGaugesService;
+        this.appRoutesService = appRoutesService;
         this.messages = [];
         this.pitchOffset = 0;
         this.rollOffset = 0;
@@ -483,6 +621,7 @@ var TiltGaugesComponent = (function () {
     }
     TiltGaugesComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.appRoutesService.currentPage = 'Tilt Gauge';
         this.connection = this.tiltGaugesService.getMessages().subscribe(function (message) {
             _this.pitch = message.pitch;
             _this.roll = message.roll;
@@ -499,20 +638,20 @@ var TiltGaugesComponent = (function () {
     TiltGaugesComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'tiltGauges',
-            template: __webpack_require__(736),
-            styles: [__webpack_require__(725)],
-            providers: [__WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__["a" /* TiltGaugesService */]]
+            template: __webpack_require__(743),
+            styles: [__webpack_require__(732)],
+            providers: [__WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */]]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__["a" /* TiltGaugesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_service__["a" /* TiltGaugesService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
     ], TiltGaugesComponent);
     return TiltGaugesComponent;
-    var _a;
+    var _a, _b;
 }());
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/tilt-gauges.component.js.map
 
 /***/ }),
 
-/***/ 415:
+/***/ 419:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -521,21 +660,51 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 415;
+webpackEmptyContext.id = 419;
 
 
 /***/ }),
 
-/***/ 416:
+/***/ 42:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutesService; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var AppRoutesService = (function () {
+    function AppRoutesService() {
+        this.currentPage = '';
+    }
+    AppRoutesService = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(), 
+        __metadata('design:paramtypes', [])
+    ], AppRoutesService);
+    return AppRoutesService;
+}());
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/app-routes.service.js.map
+
+/***/ }),
+
+/***/ 420:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(546);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(501);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(550);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(505);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(545);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(533);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(549);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(537);
 
 
 
@@ -549,13 +718,13 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ }),
 
-/***/ 531:
+/***/ 535:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(338);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_pages_routes_module__ = __webpack_require__(535);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_pages_routes_module__ = __webpack_require__(539);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutesModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -590,7 +759,7 @@ var AppRoutesModule = (function () {
 
 /***/ }),
 
-/***/ 532:
+/***/ 536:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -613,8 +782,8 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__(728),
-            styles: [__webpack_require__(718)],
+            template: __webpack_require__(735),
+            styles: [__webpack_require__(722)],
             providers: []
         }), 
         __metadata('design:paramtypes', [])
@@ -625,21 +794,22 @@ var AppComponent = (function () {
 
 /***/ }),
 
-/***/ 533:
+/***/ 537:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(320);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_socket_service_socket_service__ = __webpack_require__(155);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_music_music_service__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(532);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_routes_module__ = __webpack_require__(531);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_pages_module__ = __webpack_require__(536);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__menu_menu_component__ = __webpack_require__(534);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__status_bar_status_bar_component__ = __webpack_require__(544);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_socket_service_socket_service__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_music_music_service__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(536);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_routes_module__ = __webpack_require__(535);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_pages_module__ = __webpack_require__(540);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__menu_menu_component__ = __webpack_require__(538);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__status_bar_status_bar_component__ = __webpack_require__(548);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -661,30 +831,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
             providers: [
-                __WEBPACK_IMPORTED_MODULE_4__shared_socket_service_socket_service__["a" /* SocketService */],
-                __WEBPACK_IMPORTED_MODULE_5__pages_music_music_service__["a" /* MusicService */]
+                __WEBPACK_IMPORTED_MODULE_4__app_routes_service__["a" /* AppRoutesService */],
+                __WEBPACK_IMPORTED_MODULE_5__shared_socket_service_socket_service__["a" /* SocketService */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_music_music_service__["a" /* MusicService */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
                 // PageRoutesModule,
-                __WEBPACK_IMPORTED_MODULE_8__pages_pages_module__["a" /* PagesModule */],
-                __WEBPACK_IMPORTED_MODULE_7__app_routes_module__["a" /* AppRoutesModule */]
+                __WEBPACK_IMPORTED_MODULE_9__pages_pages_module__["a" /* PagesModule */],
+                __WEBPACK_IMPORTED_MODULE_8__app_routes_module__["a" /* AppRoutesModule */]
             ],
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__menu_menu_component__["a" /* MenuComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__status_bar_status_bar_component__["a" /* StatusBarComponent */]
+                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__menu_menu_component__["a" /* MenuComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__status_bar_status_bar_component__["a" /* StatusBarComponent */]
             ],
             bootstrap: [
-                __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__app_component__["a" /* AppComponent */],
             ]
         }), 
         __metadata('design:paramtypes', [])
@@ -695,7 +867,7 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 534:
+/***/ 538:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -719,8 +891,8 @@ var MenuComponent = (function () {
     MenuComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'app-menu',
-            template: __webpack_require__(729),
-            styles: [__webpack_require__(719)]
+            template: __webpack_require__(736),
+            styles: [__webpack_require__(723)]
         }), 
         __metadata('design:paramtypes', [])
     ], MenuComponent);
@@ -730,38 +902,50 @@ var MenuComponent = (function () {
 
 /***/ }),
 
-/***/ 535:
+/***/ 539:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__music_music_component__ = __webpack_require__(345);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_tilt_gauges_component__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__error_pages_page_not_found_component__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_home_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__music_music_component__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_tilt_gauges_component__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navigation_navigation_component__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__odb_odb_component__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__error_pages_page_not_found_component__ = __webpack_require__(345);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pageRoutes; });
 
 
 
+
+
+
 var pageRoutes = [
-    { path: 'music', component: __WEBPACK_IMPORTED_MODULE_0__music_music_component__["a" /* MusicComponent */] },
-    { path: 'tilt-gauges', component: __WEBPACK_IMPORTED_MODULE_1__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */] },
-    { path: '**', component: __WEBPACK_IMPORTED_MODULE_2__error_pages_page_not_found_component__["a" /* PageNotFoundComponent */] }
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_0__home_home_component__["a" /* HomeComponent */] },
+    { path: 'music', component: __WEBPACK_IMPORTED_MODULE_1__music_music_component__["a" /* MusicComponent */] },
+    { path: 'tilt-gauges', component: __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */] },
+    { path: 'nav', component: __WEBPACK_IMPORTED_MODULE_3__navigation_navigation_component__["a" /* NavigationComponent */] },
+    { path: 'odb', component: __WEBPACK_IMPORTED_MODULE_4__odb_odb_component__["a" /* ODBComponent */] },
+    { path: '**', component: __WEBPACK_IMPORTED_MODULE_5__error_pages_page_not_found_component__["a" /* PageNotFoundComponent */] }
 ];
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/pages-routes.module.js.map
 
 /***/ }),
 
-/***/ 536:
+/***/ 540:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(320);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__music_music_component__ = __webpack_require__(345);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tilt_gauges_tilt_gauges_component__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__error_pages_page_not_found_component__ = __webpack_require__(344);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__settings_settings_module__ = __webpack_require__(542);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__music_music_component__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tilt_gauges_tilt_gauges_component__ = __webpack_require__(353);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__navigation_navigation_component__ = __webpack_require__(348);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__odb_odb_component__ = __webpack_require__(349);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__error_pages_page_not_found_component__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__settings_settings_module__ = __webpack_require__(546);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PagesModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -780,6 +964,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
+
 var PagesModule = (function () {
     function PagesModule() {
     }
@@ -789,13 +976,16 @@ var PagesModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_7__settings_settings_module__["a" /* SettingsModule */]
+                __WEBPACK_IMPORTED_MODULE_10__settings_settings_module__["a" /* SettingsModule */]
             ],
             providers: [],
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__error_pages_page_not_found_component__["a" /* PageNotFoundComponent */],
-                __WEBPACK_IMPORTED_MODULE_4__music_music_component__["a" /* MusicComponent */]
+                __WEBPACK_IMPORTED_MODULE_4__home_home_component__["a" /* HomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_5__music_music_component__["a" /* MusicComponent */],
+                __WEBPACK_IMPORTED_MODULE_6__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__navigation_navigation_component__["a" /* NavigationComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__odb_odb_component__["a" /* ODBComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__error_pages_page_not_found_component__["a" /* PageNotFoundComponent */]
             ],
             exports: []
         }), 
@@ -807,17 +997,17 @@ var PagesModule = (function () {
 
 /***/ }),
 
-/***/ 537:
+/***/ 541:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bluetooth_service__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__bluetooth_component__ = __webpack_require__(346);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bt_device_bt_device_component__ = __webpack_require__(539);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bt_device_list_bt_device_list_component__ = __webpack_require__(538);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bluetooth_service__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__bluetooth_component__ = __webpack_require__(350);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__bt_device_bt_device_component__ = __webpack_require__(543);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bt_device_list_bt_device_list_component__ = __webpack_require__(542);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BluetoothModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -862,7 +1052,7 @@ var BluetoothModule = (function () {
 
 /***/ }),
 
-/***/ 538:
+/***/ 542:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -888,8 +1078,8 @@ var BtDeviceListComponent = (function () {
     BtDeviceListComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'bt-device-list',
-            template: __webpack_require__(732),
-            styles: [__webpack_require__(723)]
+            template: __webpack_require__(739),
+            styles: [__webpack_require__(730)]
         }), 
         __metadata('design:paramtypes', [])
     ], BtDeviceListComponent);
@@ -899,14 +1089,14 @@ var BtDeviceListComponent = (function () {
 
 /***/ }),
 
-/***/ 539:
+/***/ 543:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bt_device_interface__ = __webpack_require__(540);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bt_device_interface__ = __webpack_require__(544);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__bt_device_interface___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__bt_device_interface__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bluetooth_service__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__bluetooth_service__ = __webpack_require__(155);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BtDeviceComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -938,7 +1128,7 @@ var BtDeviceComponent = (function () {
     BtDeviceComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'bt-device',
-            template: __webpack_require__(733),
+            template: __webpack_require__(740),
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__bluetooth_service__["a" /* BluetoothService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__bluetooth_service__["a" /* BluetoothService */]) === 'function' && _b) || Object])
     ], BtDeviceComponent);
@@ -949,22 +1139,22 @@ var BtDeviceComponent = (function () {
 
 /***/ }),
 
-/***/ 540:
+/***/ 544:
 /***/ (function(module, exports) {
 
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/bt-device.interface.js.map
 
 /***/ }),
 
-/***/ 541:
+/***/ 545:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(338);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__settings_home_settings_home_component__ = __webpack_require__(347);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__bluetooth_bluetooth_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__settings_component__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__settings_home_settings_home_component__ = __webpack_require__(351);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__bluetooth_bluetooth_component__ = __webpack_require__(350);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsRoutingModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1016,18 +1206,18 @@ var SettingsRoutingModule = (function () {
 
 /***/ }),
 
-/***/ 542:
+/***/ 546:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bluetooth_bluetooth_service__ = __webpack_require__(154);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__settings_routes_module__ = __webpack_require__(541);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__settings_component__ = __webpack_require__(348);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bluetooth_bluetooth_module__ = __webpack_require__(537);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__settings_home_settings_home_component__ = __webpack_require__(347);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__bluetooth_bluetooth_service__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__settings_routes_module__ = __webpack_require__(545);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__settings_component__ = __webpack_require__(352);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__bluetooth_bluetooth_module__ = __webpack_require__(541);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__settings_home_settings_home_component__ = __webpack_require__(351);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1074,14 +1264,14 @@ var SettingsModule = (function () {
 
 /***/ }),
 
-/***/ 543:
+/***/ 547:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_socket_service_socket_service__ = __webpack_require__(156);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TiltGaugesService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1130,12 +1320,13 @@ var TiltGaugesService = (function () {
 
 /***/ }),
 
-/***/ 544:
+/***/ 548:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pages_music_music_service__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__ = __webpack_require__(223);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusBarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1148,9 +1339,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var StatusBarComponent = (function () {
-    function StatusBarComponent(musicService) {
+    function StatusBarComponent(musicService, appRoutesService) {
         this.musicService = musicService;
+        this.appRoutesService = appRoutesService;
         this.musicService.connect();
     }
     StatusBarComponent.prototype.ngOnInit = function () {
@@ -1158,19 +1351,19 @@ var StatusBarComponent = (function () {
     StatusBarComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             selector: 'app-status-bar',
-            template: __webpack_require__(737),
-            styles: [__webpack_require__(726)]
+            template: __webpack_require__(744),
+            styles: [__webpack_require__(733)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__pages_music_music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__pages_music_music_service__["a" /* MusicService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__["a" /* MusicService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
     ], StatusBarComponent);
     return StatusBarComponent;
-    var _a;
+    var _a, _b;
 }());
 //# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/status-bar.component.js.map
 
 /***/ }),
 
-/***/ 545:
+/***/ 549:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1182,41 +1375,41 @@ var environment = {
 
 /***/ }),
 
-/***/ 546:
+/***/ 550:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(565);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(569);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(558);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(562);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(554);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(558);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(560);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(564);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(559);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(563);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(557);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(561);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(556);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(560);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(564);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(568);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(553);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(557);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(552);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(556);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(562);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(566);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(555);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(559);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(563);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(567);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(561);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(565);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(566);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(570);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(762);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(769);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -1238,160 +1431,181 @@ var environment = {
 
 /***/ }),
 
-/***/ 718:
+/***/ 722:
 /***/ (function(module, exports) {
 
 module.exports = ".wrapper {\n  height: 100%;\n  width: 100%;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  background-color: #000; }\n  .wrapper .container {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    max-width: 100%;\n    height: 100%;\n    max-height: 100%;\n    /*border: 1px solid #ccc;*/\n    overflow: hidden; }\n  .wrapper .menu {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    max-width: 80px;\n    height: 100%;\n    max-height: 100%;\n    background: black;\n    /*border-width: 1px 0 1px 1px;\n    border-style: solid;\n    border-color: #ccc;*/ }\n  .wrapper .main-wrapper {\n    width: 100%;\n    height: 100%;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n        -ms-flex-direction: column;\n            flex-direction: column;\n    -ms-flex-line-pack: stretch;\n        align-content: stretch;\n    position: relative; }\n    .wrapper .main-wrapper app-status-bar {\n      position: absolute;\n      width: 100%;\n      background-color: #000; }\n    .wrapper .main-wrapper .main-content {\n      background: -webkit-linear-gradient(115deg, #035584, black, black, #035584);\n      background: linear-gradient(-25deg, #035584, black, black, #035584);\n      position: absolute;\n      box-sizing: border-box;\n      padding-top: 80px;\n      height: 100%;\n      width: 100%; }\n"
 
 /***/ }),
 
-/***/ 719:
+/***/ 723:
 /***/ (function(module, exports) {
 
 module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 10px;\n  text-align: center;\n  overflow: hidden;\n  height: 100%;\n  box-sizing: border-box; }\n\n.container i {\n  max-width: 100%;\n  height: auto;\n  color: #fff;\n  margin: 15px 0; }\n"
 
 /***/ }),
 
-/***/ 720:
-/***/ (function(module, exports) {
-
-module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #fff;\n  margin: 15px 0; }\n"
-
-/***/ }),
-
-/***/ 721:
-/***/ (function(module, exports) {
-
-module.exports = "span {\n  color: #fff; }\n\ndiv.content-wrapper {\n  height: calc(100% - 120px);\n  position: relative;\n  padding: 30px;\n  color: #fff;\n  box-sizing: border-box; }\n\ndiv.player {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 120px;\n  display: flex;\n  position: relative;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div.player div.player-progress-wrapper {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    padding: 0 30px;\n    box-sizing: border-box; }\n    div.player div.player-progress-wrapper div.player-progress {\n      background-color: white;\n      height: 1px;\n      position: relative; }\n      div.player div.player-progress-wrapper div.player-progress div.progress {\n        position: absolute;\n        height: 6px;\n        background-color: #96deff; }\n  div.player div.player-left {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n  div.player div.player-middle {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    div.player div.player-middle button {\n      font-size: 1em;\n      margin: 0 15px;\n      padding: 15px;\n      width: 75px;\n      height: 75px;\n      display: inline-block; }\n    div.player div.player-middle .player-play-pause {\n      border-radius: 100px;\n      text-align: center;\n      border-width: 0;\n      background: #96deff;\n      background: -webkit-radial-gradient(center ellipse, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%);\n      background: radial-gradient(ellipse at center, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%); }\n    div.player div.player-middle .player-previous-next {\n      border: none;\n      background-color: transparent; }\n  div.player div.player-right {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n"
-
-/***/ }),
-
-/***/ 722:
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ 723:
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
 /***/ 724:
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #fff;\n  padding: 15px;\n  box-sizing: border-box; }\n"
 
 /***/ }),
 
 /***/ 725:
 /***/ (function(module, exports) {
 
-module.exports = ".container-column {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%; }\n\n.cluster-wrapper {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  height: 100%; }\n\n.cluster {\n  /*height: 100%;*/\n  /*max-height: 450px; */\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative; }\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position: relative;\n  max-width: 800px;\n  padding: 15px; }\n\n.guage:before {\n  content: \"\";\n  display: block;\n  padding-top: 100%;\n  /* initial ratio of 1:1*/ }\n\n.guage .content {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0; }\n\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition: .2s ease-in-out;\n  transition: .2s ease-in-out; }\n\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%; }\n\n.guage .deg {\n  position: absolute;\n  left: 37.5%;\n  top: 67%;\n  width: 25%;\n  height: 25%;\n  font-size: 3em;\n  color: #ffffff;\n  text-align: center; }\n\n.button-menu {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  max-height: 80px;\n  text-align: center; }\n\n.button-menu .button-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  height: 100%;\n  border-top: 1px solid #ccc;\n  margin: 0 25px; }\n"
+module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #fff;\n  padding: 15px;\n  box-sizing: border-box; }\n"
 
 /***/ }),
 
 /***/ 726:
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  padding: 20px;\n  text-align: center;\n  overflow: hidden;\n  height: 80px;\n  box-sizing: border-box;\n  color: #fff;\n  font-size: 3em; }\n"
+module.exports = "span {\n  color: #fff; }\n\ndiv.content-wrapper {\n  height: calc(100% - 120px);\n  position: relative;\n  padding: 30px;\n  color: #fff;\n  box-sizing: border-box; }\n\ndiv.player {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  height: 120px;\n  display: flex;\n  position: relative;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n  div.player div.player-progress-wrapper {\n    position: absolute;\n    top: 0;\n    left: 0;\n    width: 100%;\n    padding: 0 30px;\n    box-sizing: border-box; }\n    div.player div.player-progress-wrapper div.player-progress {\n      background-color: white;\n      height: 1px;\n      position: relative; }\n      div.player div.player-progress-wrapper div.player-progress div.progress {\n        position: absolute;\n        height: 6px;\n        background-color: #96deff; }\n  div.player div.player-left {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n  div.player div.player-middle {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    div.player div.player-middle button {\n      font-size: 1em;\n      margin: 0 15px;\n      padding: 15px;\n      width: 75px;\n      height: 75px;\n      display: inline-block; }\n    div.player div.player-middle .player-play-pause {\n      border-radius: 100px;\n      text-align: center;\n      border-width: 0;\n      background: #96deff;\n      background: -webkit-radial-gradient(center ellipse, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%);\n      background: radial-gradient(ellipse at center, rgba(5, 124, 192, 0.51) 0%, rgba(5, 124, 192, 0.51) 32%, rgba(5, 124, 192, 0.67) 54%, rgba(150, 222, 255, 0.94) 92%, #96deff 100%); }\n    div.player div.player-middle .player-previous-next {\n      border: none;\n      background-color: transparent; }\n  div.player div.player-right {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1; }\n"
 
 /***/ }),
 
 /***/ 727:
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #fff;\n  padding: 15px;\n  box-sizing: border-box; }\n"
 
 /***/ }),
 
 /***/ 728:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"wrapper\">\n  <app-menu class=\"menu\"></app-menu>\n\n\n  <div class=\"container\">\n    <div class=\"main-wrapper\">\n\n      <div class=\"main-content\">\n        <router-outlet></router-outlet>\n      </div>\n      \n      <app-status-bar></app-status-bar>\n    </div>\n  </div>\n</div>"
+module.exports = ".container {\n  max-width: 100%;\n  height: auto;\n  color: #fff;\n  padding: 15px;\n  box-sizing: border-box; }\n"
 
 /***/ }),
 
 /***/ 729:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkActive=\"active\"><i class=\"fa fa-home fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/music\" routerLinkActive=\"active\"><i class=\"fa fa-music fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/tilt-gauges\" routerLinkActive=\"active\"><i class=\"fa fa-tachometer fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/nav\" routerLinkActive=\"active\"><i class=\"fa fa-map-o fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/obd\" routerLinkActive=\"active\"><i class=\"fa fa-car fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/settings\" routerLinkActive=\"active\"><i class=\"fa fa-gear fa-3x\" aria-hidden=\"true\"> </i></a>\n</div>"
+module.exports = ""
 
 /***/ }),
 
 /***/ 730:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    Device Details:\n  <span>{{musicService.device|json}}</span>\n  </div>\n\n  <div>\n    Player Details:\n  <span>{{musicService.player|json}}</span>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-progress-wrapper\">\n    <div class=\"player-progress\">\n      <div class=\"progress\" [ngStyle]=\"{width: musicService.progressPercent + '%'}\"></div>\n    </div>\n  </div>\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
+module.exports = ""
 
 /***/ }),
 
 /***/ 731:
 /***/ (function(module, exports) {
 
-module.exports = "<bt-device-list [devices]=\"devices\"></bt-device-list>"
+module.exports = ".container {\n  padding: 15px;\n  height: 100%;\n  width: 100%;\n  box-sizing: border-box; }\n"
 
 /***/ }),
 
 /***/ 732:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"list\">\n  <div class=\"list-item\" *ngFor=\"let device of devices\">\n    <bt-device [device]=\"device\"></bt-device>\n  </div>\n</div>"
+module.exports = ".container-column {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%; }\n\n.cluster-wrapper {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  height: 100%; }\n\n.cluster {\n  /*height: 100%;*/\n  /*max-height: 450px; */\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative; }\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position: relative;\n  max-width: 800px;\n  padding: 15px; }\n\n.guage:before {\n  content: \"\";\n  display: block;\n  padding-top: 100%;\n  /* initial ratio of 1:1*/ }\n\n.guage .content {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0; }\n\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition: .2s ease-in-out;\n  transition: .2s ease-in-out; }\n\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%; }\n\n.guage .deg {\n  position: absolute;\n  left: 37.5%;\n  top: 67%;\n  width: 25%;\n  height: 25%;\n  font-size: 3em;\n  color: #ffffff;\n  text-align: center; }\n\n.button-menu {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  max-height: 80px;\n  text-align: center; }\n\n.button-menu .button-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  height: 100%;\n  border-top: 1px solid #ccc;\n  margin: 0 25px; }\n"
 
 /***/ }),
 
 /***/ 733:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"list-item-content\">\n  <div class=\"list-item-text\">\n    {{device.name}} {{(device.connected == 'yes') ? 'Connected' : ''}}\n    <span>{{device.mac}}</span>\n  </div>\n\n  <button *ngIf=\"device.paired === 'no'\">Pair</button>\n  <button *ngIf=\"device.paired === 'yes'\">Forget</button>\n  <button (click)=\"connect()\" *ngIf=\"device.connected === 'no'\">Connect{{(connectingStatus == 'connecting') ? 'ing...' : ''}}</button>\n  <button *ngIf=\"device.connected === 'yes'\">Disconnect</button>\n</div>"
+module.exports = ".container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 20px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  overflow: hidden;\n  height: 80px;\n  box-sizing: border-box;\n  color: #fff;\n  font-size: 2em; }\n  .container div.status-left {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    text-align: left; }\n  .container div.status-middle {\n    font-size: 1.2em;\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    text-align: center; }\n  .container div.status-right {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    text-align: right;\n    font-size: .7em; }\n    .container div.status-right .artist {\n      font-size: .85em; }\n"
 
 /***/ }),
 
 /***/ 734:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-column\">\n\n  <button routerLink=\"./bluetooth\" routerLinkActive=\"active\">Bluetooth Settings</button>\n  <button (click)=\"toggleFullScreen()\" [disabled]=\"!toggleFullScreenEnabled\">Toggle FullScreen</button>\n\n</div>"
+module.exports = ""
 
 /***/ }),
 
 /***/ 735:
 /***/ (function(module, exports) {
 
-module.exports = "<router-outlet></router-outlet>"
+module.exports = "<div class=\"wrapper\">\n  <app-menu class=\"menu\"></app-menu>\n\n\n  <div class=\"container\">\n    <div class=\"main-wrapper\">\n\n      <div class=\"main-content\">\n        <router-outlet></router-outlet>\n      </div>\n      \n      <app-status-bar></app-status-bar>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 736:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-column\">\n  <div class=\"cluster-wrapper\">\n    <div class=\"cluster\">\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"button-menu\">\n    <div class=\"button-wrapper\">\n      <button (click)=\"updateOffset()\">Reset Gyro to 0</button>\n      <button (click)=\"updateOffset()\">Button 2</button>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <a routerLink=\"/\" routerLinkActive=\"active\"><i class=\"fa fa-home fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/music\" routerLinkActive=\"active\"><i class=\"fa fa-music fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/tilt-gauges\" routerLinkActive=\"active\"><i class=\"fa fa-tachometer fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/nav\" routerLinkActive=\"active\"><i class=\"fa fa-map-o fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/odb\" routerLinkActive=\"active\"><i class=\"fa fa-car fa-3x\" aria-hidden=\"true\"> </i></a>\n  <a routerLink=\"/settings\" routerLinkActive=\"active\"><i class=\"fa fa-gear fa-3x\" aria-hidden=\"true\"> </i></a>\n</div>"
 
 /***/ }),
 
 /***/ 737:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  10:10\n</div>"
+module.exports = "<div class=\"content-wrapper\">\n\n  <div>\n    <!--Device Details:-->\n    <!--<span>{{musicService.device|json}}</span>-->\n    <div>Playing music from {{musicService.device.Name}}</div>\n  </div>\n  <div><br></div>\n  <div>\n    <!--Player Details:-->\n    <!--<span>{{musicService.player|json}}</span>-->\n    <div>Source: {{(musicService.player && musicService.player.Name) ? musicService.player.Name : ''}}</div>\n    <div>Track Title: {{(musicService.player && musicService.player.Track && musicService.player.Track.Title) ? musicService.player.Track.Title : ''}}</div>\n    <div>Artist: {{(musicService.player && musicService.player.Track && musicService.player.Track.Artist) ? musicService.player.Track.Artist : ''}}</div>\n    <div>Album: {{(musicService.player && musicService.player.Track && musicService.player.Track.Album) ? musicService.player.Track.Album : ''}}</div>\n  </div>\n\n</div>\n\n\n<div class=\"player\">\n  <div class=\"player-progress-wrapper\">\n    <div class=\"player-progress\">\n      <div class=\"progress\" [ngStyle]=\"{width: musicService.progressPercent + '%'}\"></div>\n    </div>\n  </div>\n  <div class=\"player-left\"></div>\n  <div class=\"player-middle\">\n    <button class=\"player-previous-next\" (click)=\"previous()\"><i class=\"fa fa-backward fa-2x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus !== 'playing'\" (click)=\"play()\"><i class=\"fa fa-play fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-play-pause\" *ngIf=\"musicService.playerStatus === 'playing'\" (click)=\"pause()\"><i class=\"fa fa-pause fa-3x\" aria-hidden=\"true\"> </i></button>\n    <button class=\"player-previous-next\" (click)=\"next()\"><i class=\"fa fa-forward fa-2x\" aria-hidden=\"true\"> </i></button>\n  </div>\n  <div class=\"player-right\"></div>\n</div>"
 
 /***/ }),
 
-/***/ 763:
+/***/ 738:
+/***/ (function(module, exports) {
+
+module.exports = "<bt-device-list [devices]=\"devices\"></bt-device-list>"
+
+/***/ }),
+
+/***/ 739:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"list\">\n  <div class=\"list-item\" *ngFor=\"let device of devices\">\n    <bt-device [device]=\"device\"></bt-device>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ 740:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"list-item-content\">\n  <div class=\"list-item-text\">\n    {{device.name}} {{(device.connected == 'yes') ? 'Connected' : ''}}\n    <span>{{device.mac}}</span>\n  </div>\n\n  <button *ngIf=\"device.paired === 'no'\">Pair</button>\n  <button *ngIf=\"device.paired === 'yes'\">Forget</button>\n  <button (click)=\"connect()\" *ngIf=\"device.connected === 'no'\">Connect{{(connectingStatus == 'connecting') ? 'ing...' : ''}}</button>\n  <button *ngIf=\"device.connected === 'yes'\">Disconnect</button>\n</div>"
+
+/***/ }),
+
+/***/ 741:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-column\">\n\n  <button routerLink=\"./bluetooth\" routerLinkActive=\"active\">Bluetooth Settings</button>\n  <button (click)=\"toggleFullScreen()\" [disabled]=\"!toggleFullScreenEnabled\">Toggle FullScreen</button>\n\n</div>"
+
+/***/ }),
+
+/***/ 742:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n  <router-outlet></router-outlet>\n</div>"
+
+/***/ }),
+
+/***/ 743:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container-column\">\n  <div class=\"cluster-wrapper\">\n    <div class=\"cluster\">\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"button-menu\">\n    <div class=\"button-wrapper\">\n      <button (click)=\"updateOffset()\">Reset Gyro to 0</button>\n      <button (click)=\"updateOffset()\">Button 2</button>\n    </div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ 744:
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n  <div class=\"status-left\">\n    {{appRoutesService.currentPage}}\n  </div>\n  <div class=\"status-middle\">\n    10:10\n  </div>\n  <div class=\"status-right\">\n    {{appRoutesService.Title}}<br>\n    <div class=\"artist\">{{appRoutesService.Artist}}</div>\n  </div>\n</div>"
+
+/***/ }),
+
+/***/ 770:
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
 
-/***/ 764:
+/***/ 771:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(416);
+module.exports = __webpack_require__(420);
 
 
 /***/ })
 
-},[764]);
+},[771]);
 //# sourceMappingURL=main.bundle.map

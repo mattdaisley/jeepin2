@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AppRoutesService } from '../app-routes.service';
 import { MusicService } from '../pages/music/music.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { MusicService } from '../pages/music/music.service';
 })
 export class StatusBarComponent implements OnInit {
 
-  constructor(private musicService:MusicService) {
+  constructor(private musicService:MusicService, private appRoutesService:AppRoutesService) {
     this.musicService.connect();
   }
 

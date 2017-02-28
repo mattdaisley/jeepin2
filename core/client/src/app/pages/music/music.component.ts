@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
+import { AppRoutesService }  from '../../app-routes.service';
 import { MusicService }  from './music.service';
 import { Player } from './music.player.interface';
 
@@ -10,10 +11,10 @@ import { Player } from './music.player.interface';
 })
 export class MusicComponent implements OnInit, OnDestroy {
   
-  constructor(private musicService:MusicService) { }
+  constructor(private musicService:MusicService, private appRoutesService:AppRoutesService) { }
 
   ngOnInit() {
-    
+    this.appRoutesService.currentPage = 'Music';
   }
   
   ngOnDestroy() {
