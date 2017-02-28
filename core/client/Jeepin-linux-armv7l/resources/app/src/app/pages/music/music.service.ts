@@ -33,18 +33,20 @@ export class MusicService {
     this.connection2 = this.getPlayerProperties().subscribe(properties => {
       this.player = properties;
       this.playerStatus = this.player.Status;
+      if ( this.playerStatus === 'playing') {
+        this.appRoutesService.Title = this.player.Track.Title;
+        this.appRoutesService.Artist = this.player.Track.Artist;
+      } else {
+        this.appRoutesService.Title = '';
+        this.appRoutesService.Artist = '';
+      }
+
       if ( this.playerStatus === 'playing' && !this.progressInterval ) {
         console.log(this.progressInterval);
         this.setupProgressInterval();
-
-        this.appRoutesService.Title = this.player.Track.Title;
-        this.appRoutesService.Artist = this.player.Track.Artist;
       } else if ( this.playerStatus === 'paused' && this.progressInterval ) {
         clearInterval(this.progressInterval);
         delete this.progressInterval;
-
-        this.appRoutesService.Title = '';
-        this.appRoutesService.Artist = '';
       }
     });
   }

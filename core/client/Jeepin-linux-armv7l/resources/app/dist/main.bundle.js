@@ -142,17 +142,21 @@ var MusicService = (function () {
         this.connection2 = this.getPlayerProperties().subscribe(function (properties) {
             _this.player = properties;
             _this.playerStatus = _this.player.Status;
+            if (_this.playerStatus === 'playing') {
+                _this.appRoutesService.Title = _this.player.Track.Title;
+                _this.appRoutesService.Artist = _this.player.Track.Artist;
+            }
+            else {
+                _this.appRoutesService.Title = '';
+                _this.appRoutesService.Artist = '';
+            }
             if (_this.playerStatus === 'playing' && !_this.progressInterval) {
                 console.log(_this.progressInterval);
                 _this.setupProgressInterval();
-                _this.appRoutesService.Title = _this.player.Track.Title;
-                _this.appRoutesService.Artist = _this.player.Track.Artist;
             }
             else if (_this.playerStatus === 'paused' && _this.progressInterval) {
                 clearInterval(_this.progressInterval);
                 delete _this.progressInterval;
-                _this.appRoutesService.Title = '';
-                _this.appRoutesService.Artist = '';
             }
         });
     };
