@@ -3,16 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { StatusBarService } from '../../status-bar/status-bar.service';
 
 @Component({
-  styleUrls: ['./navigation.component.scss'],
+  styleUrls: ['./dashboard.component.scss'],
   template: '<div class="container"><h2>Page coming soon</h2></div>'
 })
 
-export class NavigationComponent {
+export class DashboardComponent {
 
-  constructor(private statusBarService:StatusBarService) { }
+  constructor(private appRoutesService:StatusBarService) { }
 
   ngOnInit() {
-    this.statusBarService.currentPage = 'Navigation';
+    this.appRoutesService.currentPage = '';
   }
 
 }

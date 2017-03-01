@@ -3,7 +3,7 @@ import { NgModule }           from '@angular/core';
 import { FormsModule }        from '@angular/forms';
 import { HttpModule }         from '@angular/http';
 
-import { HomeComponent }         from './home/home.component';
+import { DashboardComponent }         from './dashboard/dashboard.component';
 import { MusicComponent }        from './music/music.component';
 import { TiltGaugesComponent }   from './tilt-gauges/tilt-gauges.component';
 import { NavigationComponent }   from './navigation/navigation.component';
@@ -23,7 +23,7 @@ import { SettingsModule } from './settings/settings.module';
   providers: [ ],
 
   declarations: [
-    HomeComponent,
+    DashboardComponent,
     MusicComponent,
     TiltGaugesComponent,
     NavigationComponent,

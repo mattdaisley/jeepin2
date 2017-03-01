@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AppRoutesService } from '../../app-routes.service'
+import { StatusBarService } from '../../status-bar/status-bar.service';
 
 @Component({
   styleUrls: ['./navigation.component.scss'],
@@ -9,10 +9,10 @@ import { AppRoutesService } from '../../app-routes.service'
 
 export class NavigationComponent {
 
-  constructor(private appRoutesService:AppRoutesService) { }
+  constructor(private statusBarService:StatusBarService) { }
 
   ngOnInit() {
-    this.appRoutesService.currentPage = 'Navigation';
+    this.statusBarService.currentPage = 'Navigation';
   }
 
 }

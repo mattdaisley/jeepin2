@@ -1,7 +1,7 @@
 import { NgModule }              from '@angular/core';
 import { RouterModule, Routes }  from '@angular/router';
 
-import { HomeComponent }         from './home/home.component';
+import { DashboardComponent }         from './dashboard/dashboard.component';
 import { MusicComponent }        from './music/music.component';
 import { TiltGaugesComponent }   from './tilt-gauges/tilt-gauges.component';
 import { NavigationComponent }   from './navigation/navigation.component';
@@ -10,7 +10,7 @@ import { PageNotFoundComponent } from './error-pages/page-not-found.component';
 
 export const pageRoutes: Routes = [
 
-  { path: '', component: HomeComponent },
+  { path: '', component: DashboardComponent },
   { path: 'music', component: MusicComponent },
   { path: 'tilt-gauges', component: TiltGaugesComponent },
   { path: 'nav', component: NavigationComponent },

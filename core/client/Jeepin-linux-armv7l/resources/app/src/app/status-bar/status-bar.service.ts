@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { Player } from './pages/music/music.player.interface';
+import { Player } from '../pages/music/music.player.interface';
 
 @Injectable()
-export class AppRoutesService {
+export class StatusBarService {
 
   public currentPage: string;
   public player: Player;

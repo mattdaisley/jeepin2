@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AppRoutesService } from '../../app-routes.service'
+import { StatusBarService } from '../../status-bar/status-bar.service';
 
 declare var electron: any;
 
@@ -11,10 +11,10 @@ declare var electron: any;
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private appRoutesService:AppRoutesService) { }
+  constructor(private statusBarService:StatusBarService) { }
 
   ngOnInit() {
-    this.appRoutesService.currentPage = 'Settings';
+    this.statusBarService.currentPage = 'Settings';
   }
 
 }

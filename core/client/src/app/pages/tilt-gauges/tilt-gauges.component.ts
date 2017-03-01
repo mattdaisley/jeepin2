@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { AppRoutesService }   from '../../app-routes.service'
+import { StatusBarService } from '../../status-bar/status-bar.service';
 import { TiltGaugesService }  from './tilt-gauges.service';
 import { Gyro }               from './gyro.interface';
 
@@ -18,12 +18,12 @@ export class TiltGaugesComponent implements OnInit, OnDestroy {
   pitchOffset:number = 0;
   rollOffset:number = 0;
   
-  constructor(private tiltGaugesService:TiltGaugesService, private appRoutesService:AppRoutesService) {
+  constructor(private tiltGaugesService:TiltGaugesService, private statusBarService:StatusBarService) {
     this.tiltGaugesService.connect();
   }
 
   ngOnInit() {
-    this.appRoutesService.currentPage = 'Tilt Gauge';
+    this.statusBarService.currentPage = 'Tilt Gauge';
     this.connection = this.tiltGaugesService.getMessages().subscribe(message => {
       this.pitch = message.pitch;
       this.roll = message.roll;

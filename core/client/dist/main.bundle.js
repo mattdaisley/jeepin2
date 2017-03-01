@@ -108,7 +108,7 @@ var SocketService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__ = __webpack_require__(156);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MusicService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -125,9 +125,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MusicService = (function () {
-    function MusicService(socketService, appRoutesService) {
+    function MusicService(socketService, statusBarService) {
         this.socketService = socketService;
-        this.appRoutesService = appRoutesService;
+        this.statusBarService = statusBarService;
         this.device = {};
         this.playerStatus = 'paused';
         this.progressPercent = 0;
@@ -143,12 +143,12 @@ var MusicService = (function () {
             _this.player = properties;
             _this.playerStatus = _this.player.Status;
             if (_this.playerStatus === 'playing') {
-                _this.appRoutesService.Title = _this.player.Track.Title;
-                _this.appRoutesService.Artist = _this.player.Track.Artist;
+                _this.statusBarService.Title = _this.player.Track.Title;
+                _this.statusBarService.Artist = _this.player.Track.Artist;
             }
             else {
-                _this.appRoutesService.Title = '';
-                _this.appRoutesService.Artist = '';
+                _this.statusBarService.Title = '';
+                _this.statusBarService.Artist = '';
             }
             if (_this.playerStatus === 'playing' && !_this.progressInterval) {
                 console.log(_this.progressInterval);
@@ -219,7 +219,7 @@ var MusicService = (function () {
     };
     MusicService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__["a" /* SocketService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__["a" /* SocketService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__["a" /* SocketService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__shared_socket_service_socket_service__["a" /* SocketService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _b) || Object])
     ], MusicService);
     return MusicService;
     var _a, _b;
@@ -229,6 +229,45 @@ var MusicService = (function () {
 /***/ }),
 
 /***/ 345:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__ = __webpack_require__(42);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var DashboardComponent = (function () {
+    function DashboardComponent(appRoutesService) {
+        this.appRoutesService = appRoutesService;
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+        this.appRoutesService.currentPage = '';
+    };
+    DashboardComponent = __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
+            styles: [__webpack_require__(724)],
+            template: '<div class="container"><h2>Page coming soon</h2></div>'
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _a) || Object])
+    ], DashboardComponent);
+    return DashboardComponent;
+    var _a;
+}());
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/dashboard.component.js.map
+
+/***/ }),
+
+/***/ 346:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -249,7 +288,7 @@ var PageNotFoundComponent = (function () {
     }
     PageNotFoundComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
-            styles: [__webpack_require__(724)],
+            styles: [__webpack_require__(725)],
             template: '<div class="container"><h2>Page not found</h2></div>'
         }), 
         __metadata('design:paramtypes', [])
@@ -260,51 +299,12 @@ var PageNotFoundComponent = (function () {
 
 /***/ }),
 
-/***/ 346:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var HomeComponent = (function () {
-    function HomeComponent(appRoutesService) {
-        this.appRoutesService = appRoutesService;
-    }
-    HomeComponent.prototype.ngOnInit = function () {
-        this.appRoutesService.currentPage = '';
-    };
-    HomeComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
-            styles: [__webpack_require__(725)],
-            template: '<div class="container"><h2>Page coming soon</h2></div>'
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
-    ], HomeComponent);
-    return HomeComponent;
-    var _a;
-}());
-//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/home.component.js.map
-
-/***/ }),
-
 /***/ 347:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__music_service__ = __webpack_require__(223);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MusicComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -320,12 +320,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MusicComponent = (function () {
-    function MusicComponent(musicService, appRoutesService) {
+    function MusicComponent(musicService, statusBarService) {
         this.musicService = musicService;
-        this.appRoutesService = appRoutesService;
+        this.statusBarService = statusBarService;
     }
     MusicComponent.prototype.ngOnInit = function () {
-        this.appRoutesService.currentPage = 'Music';
+        this.statusBarService.currentPage = 'Music';
     };
     MusicComponent.prototype.ngOnDestroy = function () {
         console.log('music component destroyed');
@@ -352,7 +352,7 @@ var MusicComponent = (function () {
             template: __webpack_require__(737),
             styles: [__webpack_require__(726)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__music_service__["a" /* MusicService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__music_service__["a" /* MusicService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _b) || Object])
     ], MusicComponent);
     return MusicComponent;
     var _a, _b;
@@ -366,7 +366,7 @@ var MusicComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavigationComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -380,18 +380,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var NavigationComponent = (function () {
-    function NavigationComponent(appRoutesService) {
-        this.appRoutesService = appRoutesService;
+    function NavigationComponent(statusBarService) {
+        this.statusBarService = statusBarService;
     }
     NavigationComponent.prototype.ngOnInit = function () {
-        this.appRoutesService.currentPage = 'Navigation';
+        this.statusBarService.currentPage = 'Navigation';
     };
     NavigationComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             styles: [__webpack_require__(727)],
             template: '<div class="container"><h2>Page coming soon</h2></div>'
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _a) || Object])
     ], NavigationComponent);
     return NavigationComponent;
     var _a;
@@ -405,7 +405,7 @@ var NavigationComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ODBComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -419,18 +419,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ODBComponent = (function () {
-    function ODBComponent(appRoutesService) {
-        this.appRoutesService = appRoutesService;
+    function ODBComponent(statusBarService) {
+        this.statusBarService = statusBarService;
     }
     ODBComponent.prototype.ngOnInit = function () {
-        this.appRoutesService.currentPage = 'ODB-II';
+        this.statusBarService.currentPage = 'ODB-II';
     };
     ODBComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
             styles: [__webpack_require__(728)],
             template: '<div class="container"><h2>Page coming soon</h2></div>'
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _a) || Object])
     ], ODBComponent);
     return ODBComponent;
     var _a;
@@ -559,7 +559,7 @@ var SettingsHomeComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SettingsComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -573,11 +573,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var SettingsComponent = (function () {
-    function SettingsComponent(appRoutesService) {
-        this.appRoutesService = appRoutesService;
+    function SettingsComponent(statusBarService) {
+        this.statusBarService = statusBarService;
     }
     SettingsComponent.prototype.ngOnInit = function () {
-        this.appRoutesService.currentPage = 'Settings';
+        this.statusBarService.currentPage = 'Settings';
     };
     SettingsComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Component */])({
@@ -585,7 +585,7 @@ var SettingsComponent = (function () {
             template: __webpack_require__(742),
             styles: [__webpack_require__(731)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _a) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _a) || Object])
     ], SettingsComponent);
     return SettingsComponent;
     var _a;
@@ -599,7 +599,7 @@ var SettingsComponent = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__ = __webpack_require__(547);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TiltGaugesComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -615,9 +615,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var TiltGaugesComponent = (function () {
-    function TiltGaugesComponent(tiltGaugesService, appRoutesService) {
+    function TiltGaugesComponent(tiltGaugesService, statusBarService) {
         this.tiltGaugesService = tiltGaugesService;
-        this.appRoutesService = appRoutesService;
+        this.statusBarService = statusBarService;
         this.messages = [];
         this.pitchOffset = 0;
         this.rollOffset = 0;
@@ -625,7 +625,7 @@ var TiltGaugesComponent = (function () {
     }
     TiltGaugesComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.appRoutesService.currentPage = 'Tilt Gauge';
+        this.statusBarService.currentPage = 'Tilt Gauge';
         this.connection = this.tiltGaugesService.getMessages().subscribe(function (message) {
             _this.pitch = message.pitch;
             _this.roll = message.roll;
@@ -646,7 +646,7 @@ var TiltGaugesComponent = (function () {
             styles: [__webpack_require__(732)],
             providers: [__WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */]]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_service__["a" /* TiltGaugesService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_status_bar_service__["a" /* StatusBarService */]) === 'function' && _b) || Object])
     ], TiltGaugesComponent);
     return TiltGaugesComponent;
     var _a, _b;
@@ -674,7 +674,7 @@ webpackEmptyContext.id = 419;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppRoutesService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusBarService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -685,17 +685,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-var AppRoutesService = (function () {
-    function AppRoutesService() {
+var StatusBarService = (function () {
+    function StatusBarService() {
         this.currentPage = '';
     }
-    AppRoutesService = __decorate([
+    StatusBarService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(), 
         __metadata('design:paramtypes', [])
-    ], AppRoutesService);
-    return AppRoutesService;
+    ], StatusBarService);
+    return StatusBarService;
 }());
-//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/app-routes.service.js.map
+//# sourceMappingURL=/Users/mattdaisley/repos/jeepin2/core/client/src/status-bar.service.js.map
 
 /***/ }),
 
@@ -806,7 +806,7 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(321);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__status_bar_status_bar_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_socket_service_socket_service__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_music_music_service__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(536);
@@ -842,7 +842,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["b" /* NgModule */])({
             providers: [
-                __WEBPACK_IMPORTED_MODULE_4__app_routes_service__["a" /* AppRoutesService */],
+                __WEBPACK_IMPORTED_MODULE_4__status_bar_status_bar_service__["a" /* StatusBarService */],
                 __WEBPACK_IMPORTED_MODULE_5__shared_socket_service_socket_service__["a" /* SocketService */],
                 __WEBPACK_IMPORTED_MODULE_6__pages_music_music_service__["a" /* MusicService */]
             ],
@@ -910,12 +910,12 @@ var MenuComponent = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_home_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dashboard_dashboard_component__ = __webpack_require__(345);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__music_music_component__ = __webpack_require__(347);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_tilt_gauges_component__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__navigation_navigation_component__ = __webpack_require__(348);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__odb_odb_component__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__error_pages_page_not_found_component__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__error_pages_page_not_found_component__ = __webpack_require__(346);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return pageRoutes; });
 
 
@@ -924,7 +924,7 @@ var MenuComponent = (function () {
 
 
 var pageRoutes = [
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_0__home_home_component__["a" /* HomeComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_0__dashboard_dashboard_component__["a" /* DashboardComponent */] },
     { path: 'music', component: __WEBPACK_IMPORTED_MODULE_1__music_music_component__["a" /* MusicComponent */] },
     { path: 'tilt-gauges', component: __WEBPACK_IMPORTED_MODULE_2__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */] },
     { path: 'nav', component: __WEBPACK_IMPORTED_MODULE_3__navigation_navigation_component__["a" /* NavigationComponent */] },
@@ -943,12 +943,12 @@ var pageRoutes = [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(321);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home_component__ = __webpack_require__(346);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dashboard_dashboard_component__ = __webpack_require__(345);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__music_music_component__ = __webpack_require__(347);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tilt_gauges_tilt_gauges_component__ = __webpack_require__(353);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__navigation_navigation_component__ = __webpack_require__(348);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__odb_odb_component__ = __webpack_require__(349);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__error_pages_page_not_found_component__ = __webpack_require__(345);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__error_pages_page_not_found_component__ = __webpack_require__(346);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__settings_settings_module__ = __webpack_require__(546);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PagesModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -984,7 +984,7 @@ var PagesModule = (function () {
             ],
             providers: [],
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_4__home_home_component__["a" /* HomeComponent */],
+                __WEBPACK_IMPORTED_MODULE_4__dashboard_dashboard_component__["a" /* DashboardComponent */],
                 __WEBPACK_IMPORTED_MODULE_5__music_music_component__["a" /* MusicComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__tilt_gauges_tilt_gauges_component__["a" /* TiltGaugesComponent */],
                 __WEBPACK_IMPORTED_MODULE_7__navigation_navigation_component__["a" /* NavigationComponent */],
@@ -1329,7 +1329,7 @@ var TiltGaugesService = (function () {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_routes_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__status_bar_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__ = __webpack_require__(223);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusBarComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1345,9 +1345,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var StatusBarComponent = (function () {
-    function StatusBarComponent(musicService, appRoutesService) {
+    function StatusBarComponent(musicService, statusBarService) {
         this.musicService = musicService;
-        this.appRoutesService = appRoutesService;
+        this.statusBarService = statusBarService;
         this.musicService.connect();
     }
     StatusBarComponent.prototype.ngOnInit = function () {
@@ -1358,7 +1358,7 @@ var StatusBarComponent = (function () {
             template: __webpack_require__(744),
             styles: [__webpack_require__(733)]
         }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__["a" /* MusicService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__app_routes_service__["a" /* AppRoutesService */]) === 'function' && _b) || Object])
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__["a" /* MusicService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__pages_music_music_service__["a" /* MusicService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__status_bar_service__["a" /* StatusBarService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__status_bar_service__["a" /* StatusBarService */]) === 'function' && _b) || Object])
     ], StatusBarComponent);
     return StatusBarComponent;
     var _a, _b;
@@ -1508,7 +1508,7 @@ module.exports = ".container {\n  padding: 15px;\n  height: 100%;\n  width: 100%
 /***/ 732:
 /***/ (function(module, exports) {
 
-module.exports = ".container-column {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%; }\n\n.cluster-wrapper {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  width: 100%;\n  height: 100%; }\n\n.cluster {\n  /*height: 100%;*/\n  /*max-height: 450px; */\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  position: relative; }\n\n.guage {\n  -webkit-box-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  position: relative;\n  max-width: 800px;\n  padding: 15px; }\n\n.guage:before {\n  content: \"\";\n  display: block;\n  padding-top: 100%;\n  /* initial ratio of 1:1*/ }\n\n.guage .content {\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0; }\n\n.guage img {\n  width: 100%;\n  height: auto;\n  position: absolute;\n  top: 0;\n  left: 0;\n  -webkit-transition: .2s ease-in-out;\n  transition: .2s ease-in-out; }\n\n.guage .deg-wrapper {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%; }\n\n.guage .deg {\n  position: absolute;\n  left: 37.5%;\n  top: 67%;\n  width: 25%;\n  height: 25%;\n  font-size: 3em;\n  color: #ffffff;\n  text-align: center; }\n\n.button-menu {\n  position: absolute;\n  bottom: 0;\n  width: 100%;\n  max-height: 80px;\n  text-align: center; }\n\n.button-menu .button-wrapper {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  height: 100%;\n  border-top: 1px solid #ccc;\n  margin: 0 25px; }\n"
+module.exports = ".container-column {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  height: 100%; }\n  .container-column .cluster-wrapper {\n    -webkit-box-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    height: 100%; }\n    .container-column .cluster-wrapper .cluster {\n      position: relative;\n      width: 90%;\n      margin: 0 auto;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: justify;\n          -ms-flex-pack: justify;\n              justify-content: space-between; }\n      .container-column .cluster-wrapper .cluster .guage:before {\n        content: \"\";\n        display: block;\n        padding-top: 100%;\n        /* initial ratio of 1:1*/ }\n      .container-column .cluster-wrapper .cluster .guage {\n        -webkit-box-flex: 1;\n            -ms-flex: 1;\n                flex: 1;\n        position: relative;\n        max-width: 800px;\n        padding: 15px; }\n        .container-column .cluster-wrapper .cluster .guage .content {\n          position: absolute;\n          top: 0;\n          left: 0;\n          bottom: 0;\n          right: 0; }\n          .container-column .cluster-wrapper .cluster .guage .content img {\n            width: 100%;\n            height: auto;\n            position: absolute;\n            top: 0;\n            left: 0;\n            -webkit-transition: .2s ease-in-out;\n            transition: .2s ease-in-out; }\n        .container-column .cluster-wrapper .cluster .guage .deg-wrapper {\n          position: absolute;\n          top: 0;\n          left: 0;\n          height: 100%;\n          width: 100%; }\n          .container-column .cluster-wrapper .cluster .guage .deg-wrapper .deg {\n            position: absolute;\n            left: 37.5%;\n            top: 63%;\n            width: 25%;\n            height: 25%;\n            font-size: 3em;\n            color: #ffffff;\n            text-align: center; }\n  .container-column .button-menu {\n    position: absolute;\n    bottom: 0;\n    width: 100%;\n    max-height: 80px;\n    text-align: center; }\n    .container-column .button-menu .button-wrapper {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      height: 100%;\n      border-top: 1px solid #ccc;\n      margin: 0 25px; }\n"
 
 /***/ }),
 
@@ -1585,14 +1585,14 @@ module.exports = "<div class=\"container\">\n  <router-outlet></router-outlet>\n
 /***/ 743:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-column\">\n  <div class=\"cluster-wrapper\">\n    <div class=\"cluster\">\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"button-menu\">\n    <div class=\"button-wrapper\">\n      <button (click)=\"updateOffset()\">Reset Gyro to 0</button>\n      <button (click)=\"updateOffset()\">Button 2</button>\n    </div>\n  </div>\n</div>"
+module.exports = "<div class=\"container-column\">\n  <div class=\"cluster-wrapper\">\n    <div class=\"cluster\">\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeepside.png\" [ngStyle]=\"{'transform': 'rotate('+(roll - rollOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{roll - rollOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n      <div class=\"guage\">\n        <div class=\"content\">\n          <img src=\"assets/guage1.png\"/>\n          <img src=\"assets/guage3.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage2.png\"/>\n          <img src=\"assets/jeeprear.png\" [ngStyle]=\"{'transform': 'rotate(-'+(pitch - pitchOffset)+'deg)'}\"/>\n          <img src=\"assets/guage4.png\"/>\n          <div class=\"deg-wrapper\">\n            <div class=\"deg\">{{pitch - pitchOffset}}<sup>o</sup></div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  \n  <div class=\"button-menu\">\n    <div class=\"button-wrapper\">\n      <button (click)=\"updateOffset()\">Zero Gauges</button>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
 /***/ 744:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"status-left\">\n    {{appRoutesService.currentPage}}\n  </div>\n  <div class=\"status-middle\">\n    10:10\n  </div>\n  <div class=\"status-right\">\n    {{appRoutesService.Title}}<br>\n    <div class=\"artist\">{{appRoutesService.Artist}}</div>\n  </div>\n</div>"
+module.exports = "<div class=\"container\">\n  <div class=\"status-left\">\n    {{statusBarService.currentPage}}\n  </div>\n  <div class=\"status-middle\">\n    10:10\n  </div>\n  <div class=\"status-right\">\n    {{statusBarService.Title}}<br>\n    <div class=\"artist\">{{statusBarService.Artist}}</div>\n  </div>\n</div>"
 
 /***/ }),
 

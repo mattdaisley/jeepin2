@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 
-import { AppRoutesService }  from '../../app-routes.service';
+import { StatusBarService } from '../../status-bar/status-bar.service';
 import { SocketService } from '../../shared/socket-service/socket.service';
 
 import { Player } from './music.player.interface';
@@ -20,7 +20,7 @@ export class MusicService {
   connection;
   connection2;
 
-  constructor( private socketService: SocketService, private appRoutesService:AppRoutesService ) { }
+  constructor( private socketService: SocketService, private statusBarService:StatusBarService ) { }
 
   connect() {
     this.socket = this.socketService.connect();
@@ -34,11 +34,11 @@ export class MusicService {
       this.player = properties;
       this.playerStatus = this.player.Status;
       if ( this.playerStatus === 'playing') {
-        this.appRoutesService.Title = this.player.Track.Title;
-        this.appRoutesService.Artist = this.player.Track.Artist;
+        this.statusBarService.Title = this.player.Track.Title;
+        this.statusBarService.Artist = this.player.Track.Artist;
       } else {
-        this.appRoutesService.Title = '';
-        this.appRoutesService.Artist = '';
+        this.statusBarService.Title = '';
+        this.statusBarService.Artist = '';
       }
 
       if ( this.playerStatus === 'playing' && !this.progressInterval ) {
