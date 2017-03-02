@@ -1,7 +1,6 @@
 // # Ghost Server
 // Handles the creation of an HTTP Server for Ghost
 var fs         = require('fs'),
-  exec         = require('child_process').exec,
   socketRoutes = require('./socket-routes'),
   config  = require('./config');
 
@@ -51,9 +50,6 @@ AppServer.prototype.start = function (externalApp) {
     self.socketRoutes = socketRoutes.sockets(self.io);
 
 
-    self.startApp();
-
-
     self.httpServer.on('error', function (error) {
       if (error.errno === 'EADDRINUSE') {
         console.log(error);
@@ -63,24 +59,6 @@ AppServer.prototype.start = function (externalApp) {
       process.exit(-1);
     });
   });
-};
-
-AppServer.prototype.startApp = function() {
-  var self = this;
-
-  if ( self.trys < 10 ) {
-    console.log('starting app');
-
-    exec(self.cmd, function(error, stdout, stderr) {
-      console.log(error, stdout, stderr);
-      if ( error ) {
-        self.trys++;
-        setTimeout( self.startApp, 500 );
-      }
-    });
-
-  }
-
 };
 
 /**
