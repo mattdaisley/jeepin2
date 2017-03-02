@@ -1,6 +1,7 @@
 // # Ghost Server
 // Handles the creation of an HTTP Server for Ghost
-var fs      = require('fs')
+var fs         = require('fs'),
+  exec         = require('child_process').exec,
   socketRoutes = require('./socket-routes'),
   config  = require('./config');
 
@@ -44,6 +45,11 @@ AppServer.prototype.start = function (externalApp) {
     console.log('socket server started on port', config.web.port);
     self.io = require('socket.io')(self.httpServer);
     self.socketRoutes = socketRoutes.sockets(self.io);
+
+    var cmd = '/home/pi/jeepin2/core/client/Jeepin-linux-armv7l/Jeepin';
+    exec(cmd, function(error, stdout, stderr) {
+      console.log(error, stdout, stderr);
+    });
 
 
     self.httpServer.on('error', function (error) {
