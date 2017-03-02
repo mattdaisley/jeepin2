@@ -35,6 +35,10 @@ AppServer.prototype.start = function (externalApp) {
   var self = this,
     rootApp = externalApp ? externalApp : self.rootApp;
 
+  self.trys = 0;
+
+  self.cmd = '/home/pi/jeepin2/core/client/Jeepin-linux-armv7l/Jeepin';
+
   return new Promise(function (resolve) {
     self.httpServer = rootApp.listen(
       config.web.port,
@@ -46,11 +50,8 @@ AppServer.prototype.start = function (externalApp) {
     self.io = require('socket.io')(self.httpServer);
     self.socketRoutes = socketRoutes.sockets(self.io);
 
-    var cmd = '/home/pi/jeepin2/core/client/Jeepin-linux-armv7l/Jeepin';
-    console.log('starting app');
-    exec(cmd, function(error, stdout, stderr) {
-      console.log('app response', error, stdout, stderr);
-    });
+
+    self.startApp();
 
 
     self.httpServer.on('error', function (error) {
@@ -62,6 +63,24 @@ AppServer.prototype.start = function (externalApp) {
       process.exit(-1);
     });
   });
+};
+
+AppServer.prototype.startApp = function() {
+  var self = this;
+
+  if ( self.trys < 10 ) {
+    console.log('starting app');
+
+    exec(self.cmd, function(error, stdout, stderr) {
+      console.log(error, stdout, stderr);
+      if ( error ) {
+        self.trys++;
+        setTimeout( self.startApp, 500 );
+      }
+    });
+
+  }
+
 };
 
 /**
