@@ -47,8 +47,9 @@ AppServer.prototype.start = function (externalApp) {
     self.socketRoutes = socketRoutes.sockets(self.io);
 
     var cmd = '/home/pi/jeepin2/core/client/Jeepin-linux-armv7l/Jeepin';
+    console.log('starting app');
     exec(cmd, function(error, stdout, stderr) {
-      console.log(error, stdout, stderr);
+      console.log('app response', error, stdout, stderr);
     });
 
 
