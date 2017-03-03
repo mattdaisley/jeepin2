@@ -16,6 +16,7 @@ export class SettingsHomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log(electron);
     if ( electron !== undefined ) {
       this.toggleFullScreenEnabled = true;
 
