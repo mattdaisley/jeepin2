@@ -6,3 +6,8 @@ core/client/node_modules/*
 *.sublime-workspace
 
 jeepin2.log
+
+*.osm
+*.osm.pbf
+*.osrm*
+*.mbtiles

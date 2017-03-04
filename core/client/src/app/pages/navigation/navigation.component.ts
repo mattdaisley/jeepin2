@@ -14,10 +14,11 @@ import { LayerStyles } from './layer-styles';
 })
 export class NavigationComponent implements OnInit, AfterViewInit {
 
-  private LayerStyles = new LayerStyles();
+  private LayerStyles;
 
   constructor(private statusBarService:StatusBarService) { 
-
+    this.LayerStyles = new LayerStyles();
+    console.log(this.LayerStyles);
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
       "sources": {
         "osm": {
           "type": "vector",
-          "tiles": ["http://127.0.0.1:7777/v2/tiles/{z}/{x}/{y}.pbf"],
+          "tiles": ["http://127.0.0.1:7768/tiles/v1/{z}/{x}/{y}.pbf"],
           "maxzoom": 14
         }
       },

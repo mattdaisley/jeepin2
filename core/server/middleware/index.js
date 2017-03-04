@@ -1,9 +1,9 @@
 var bodyParser      = require('body-parser'),
-  express         = require('express'),
-  config 			= require('../config'),
-  // routes          = require('../routes'),
-  errors 			= require('../errors'),
-  cors            = require('cors'),
+  express           = require('express'),
+  config 			      = require('../config'),
+  routes            = require('../routes'),
+  errors 			      = require('../errors'),
+  cors              = require('cors'),
 
   middleware,
   setupMiddleware;
@@ -17,6 +17,8 @@ setupMiddleware = function setupMiddleware(app) {
   app.use('/', express.static(config.corePath + '/client/dist'));
 
   app.use(cors());
+
+  app.use(routes.tileServerBaseUri, routes.tileServer(middleware));
   
   // app.enable('trust proxy');
   // app.use(checkSSL);

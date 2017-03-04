@@ -7,7 +7,8 @@ config.db = {};
 config.appRoot      = path.resolve(__dirname, '../../../');
 config.corePath     = path.resolve(config.appRoot + '/core');
 
-config.apiBaseUri   = '/api/v0.1/';
+config.apiBaseUri        = '/api/v0.1/';
+config.tileServerBaseUri = '/tiles/v1/';
 
 config.jwtSecret    = 'mattAppSuperSecret';
 
