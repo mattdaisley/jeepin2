@@ -7,7 +7,8 @@ core/client/node_modules/*
 
 jeepin2.log
 
+core/server/tile-server/data/*
 *.osm
 *.osm.pbf
 *.osrm*
-*.mbtiles
+*.mbtile

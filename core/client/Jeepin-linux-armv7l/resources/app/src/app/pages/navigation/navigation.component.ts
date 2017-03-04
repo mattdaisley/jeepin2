@@ -1,8 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
+import { Map, NavigationControl, Layer, GeoJSONSourceRaw } from 'mapbox-gl/dist/mapbox-gl';
+
 import { StatusBarService } from '../../status-bar/status-bar.service';
 
-import { Map, NavigationControl } from 'mapbox-gl/dist/mapbox-gl';
+import { LayerStyles } from './layer-styles';
 
 // declare var mapboxgl: any;
 
@@ -12,7 +14,12 @@ import { Map, NavigationControl } from 'mapbox-gl/dist/mapbox-gl';
 })
 export class NavigationComponent implements OnInit, AfterViewInit {
 
-  constructor(private statusBarService:StatusBarService) { }
+  private LayerStyles;
+
+  constructor(private statusBarService:StatusBarService) { 
+    this.LayerStyles = new LayerStyles();
+    console.log(this.LayerStyles);
+  }
 
   ngOnInit() {
     this.statusBarService.currentPage = 'Navigation';
@@ -23,110 +30,13 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     var simple = {
       "version": 8,
       "sources": {
-          "osm": {
-              "type": "vector",
-              "tiles": ["http://127.0.0.1:7777/v2/tiles/{z}/{x}/{y}.pbf"],
-              "maxzoom": 14
-          }
+        "osm": {
+          "type": "vector",
+          "tiles": ["http://127.0.0.1:7768/tiles/v1/{z}/{x}/{y}.pbf"],
+          "maxzoom": 14
+        }
       },
-      "layers": [
-          {
-              "id": "background",
-              "type": "background",
-              "paint": {
-                  "background-color": "#E8E0D8"
-              }
-          }, {
-              "id": "landuse",
-              "type": "fill",
-              "source": "osm",
-              "source-layer": "landuse",
-              "filter": ["==", "$type", "Polygon"],
-              "paint": {
-                  "fill-color": "#AACBAF"
-              }
-          }, {
-              "id": "landcover",
-              "type": "fill",
-              "source": "osm",
-              "source-layer": "landcover",
-              "filter": ["==", "$type", "Polygon"],
-              "paint": {
-                  "fill-color": "#C8FACC"
-              }
-          }, {
-              "id": "park",
-              "type": "fill",
-              "source": "osm",
-              "source-layer": "park",
-              "filter": ["==", "$type", "Polygon"],
-              "paint": {
-                  "fill-color": "#ADD19E"
-              }
-          }, {
-              "id": "waterway",
-              "type": "line",
-              "source": "osm",
-              "source-layer": "waterway",
-              "filter": ["==", "$type", "LineString"],
-              "paint": {
-                  "line-color": "#73B6E6",
-                  "line-width": 2
-              }
-          }, {
-              "id": "transportation",
-              "type": "line",
-              "source": "osm",
-              "source-layer": "transportation",
-              "filter": ["==", "$type", "LineString"],
-              "paint": {
-                  "line-color": "#FFFFFF",
-                  "line-width": 2
-              }
-          }, {
-              "id": "transportation_name",
-              "type": "line",
-              "source": "osm",
-              "source-layer": "transportation_name",
-              "filter": ["==", "$type", "LineString"],
-              "paint": {
-                  "line-color": "#ccc",
-                  "line-width": 2
-              }
-        //   }, {
-        //       "id": "place",
-        //       "type": "symbol",
-        //       "source": "osm",
-        //       "source-layer": "place",
-        //       "layout": {
-        //         "text-field": "{name_en}"
-        //       },
-        //       "paint": {
-        //           "icon-color": "#73B6E6",
-        //           "text-color": "black"
-        //           // "line-color": "#000000",
-        //           // "line-width": 2
-        //       }
-          }, {
-              "id": "building",
-              "type": "fill",
-              "source": "osm",
-              "source-layer": "building",
-              "filter": ["==", "$type", "Polygon"],
-              "paint": {
-                  "fill-color": "#D9D0C9"
-              }
-          }, {
-              "id": "water",
-              "type": "fill",
-              "source": "osm",
-              "source-layer": "water",
-              "filter": ["==", "$type", "Polygon"],
-              "paint": {
-                  "fill-color": "#73B6E6"
-              }
-          }
-      ]
+      "layers": this.LayerStyles.styles[1]
     };
 
     var map = new Map({
@@ -137,6 +47,121 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     });
 
     map.addControl(new NavigationControl());
+
+    let FeatureData:GeoJSON.Feature<GeoJSON.LineString> = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+            type: "LineString",
+            coordinates: [
+                [
+                    -105.082614,
+                    39.805566
+                ],
+                [
+                    -105.081435,
+                    39.805564
+                ],
+                [
+                    -105.081456,
+                    39.801936
+                ],
+                [
+                    -105.062894,
+                    39.801677
+                ],
+                [
+                    -105.056905,
+                    39.799341
+                ],
+                [
+                    -105.053442,
+                    39.799157
+                ],
+                [
+                    -105.053336,
+                    39.795428
+                ],
+                [
+                    -105.041498,
+                    39.798974
+                ],
+                [
+                    -105.024263,
+                    39.800774
+                ],
+                [
+                    -105.009842,
+                    39.807696
+                ],
+                [
+                    -104.991537,
+                    39.81272
+                ],
+                [
+                    -104.981014,
+                    39.818155
+                ],
+                [
+                    -104.980858,
+                    39.827779
+                ],
+                [
+                    -104.983153,
+                    39.833619
+                ],
+                [
+                    -104.987403,
+                    39.858673
+                ],
+                [
+                    -104.987486,
+                    39.897614
+                ],
+                [
+                    -104.99061,
+                    39.908771
+                ],
+                [
+                    -104.988914,
+                    39.914201
+                ],
+                [
+                    -104.994692,
+                    39.91404
+                ],
+                [
+                    -104.994448,
+                    39.9178
+                ]
+            ]
+        }
+    };
+
+    let source:GeoJSONSourceRaw = {
+        type: "geojson",
+        data: FeatureData
+    };
+
+    let layer:Layer = {
+      "id": "route",
+      "type": "line",
+      "source": "route",
+      "layout": {
+          "line-join": "round",
+          "line-cap": "round"
+      },
+      "paint": {
+          "line-color": "#04DFDF",
+          "line-width": 6
+      }
+    };
+
+    map.on('load', function () {
+    //   console.log(JSON.stringify(source));
+      map.addSource('route', source);
+      map.addLayer(layer);
+    });
   }
 
 }
