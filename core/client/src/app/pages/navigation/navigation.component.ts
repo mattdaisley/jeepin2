@@ -1,6 +1,10 @@
+/// <reference path="../../../typings/leaflet.vectorgrid.d.ts"/>
+
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 
-import { Map, NavigationControl, Layer, GeoJSONSourceRaw } from 'mapbox-gl/dist/mapbox-gl';
+// import { Map, NavigationControl, Layer, GeoJSONSourceRaw } from 'mapbox-gl/dist/mapbox-gl';
+import { Map, TileLayer } from 'leaflet';
+import 'leaflet.vectorgrid';
 
 import { StatusBarService } from '../../status-bar/status-bar.service';
 
@@ -14,11 +18,11 @@ import { LayerStyles } from './layer-styles';
 })
 export class NavigationComponent implements OnInit, AfterViewInit {
 
-  private LayerStyles;
+//   private LayerStyles;
 
   constructor(private statusBarService:StatusBarService) { 
-    this.LayerStyles = new LayerStyles();
-    console.log(this.LayerStyles);
+    // this.LayerStyles = new LayerStyles();
+    // console.log(this.LayerStyles);
   }
 
   ngOnInit() {
@@ -26,142 +30,175 @@ export class NavigationComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // console.log(mapboxGl);
-    var simple = {
-      "version": 8,
-      "sources": {
-        "osm": {
-          "type": "vector",
-          "tiles": ["http://127.0.0.1:7768/tiles/v1/{z}/{x}/{y}.pbf"],
-          "maxzoom": 14
-        }
-      },
-      "layers": this.LayerStyles.styles[1]
-    };
 
-    var map = new Map({
-      container: 'map',
-      style: simple,
-      zoom: 13,
-      center: [-105.082614,39.805396]
-    });
-
-    map.addControl(new NavigationControl());
-
-    let FeatureData:GeoJSON.Feature<GeoJSON.LineString> = {
-        type: "Feature",
-        properties: {},
-        geometry: {
-            type: "LineString",
-            coordinates: [
-                [
-                    -105.082614,
-                    39.805566
-                ],
-                [
-                    -105.081435,
-                    39.805564
-                ],
-                [
-                    -105.081456,
-                    39.801936
-                ],
-                [
-                    -105.062894,
-                    39.801677
-                ],
-                [
-                    -105.056905,
-                    39.799341
-                ],
-                [
-                    -105.053442,
-                    39.799157
-                ],
-                [
-                    -105.053336,
-                    39.795428
-                ],
-                [
-                    -105.041498,
-                    39.798974
-                ],
-                [
-                    -105.024263,
-                    39.800774
-                ],
-                [
-                    -105.009842,
-                    39.807696
-                ],
-                [
-                    -104.991537,
-                    39.81272
-                ],
-                [
-                    -104.981014,
-                    39.818155
-                ],
-                [
-                    -104.980858,
-                    39.827779
-                ],
-                [
-                    -104.983153,
-                    39.833619
-                ],
-                [
-                    -104.987403,
-                    39.858673
-                ],
-                [
-                    -104.987486,
-                    39.897614
-                ],
-                [
-                    -104.99061,
-                    39.908771
-                ],
-                [
-                    -104.988914,
-                    39.914201
-                ],
-                [
-                    -104.994692,
-                    39.91404
-                ],
-                [
-                    -104.994448,
-                    39.9178
-                ]
-            ]
-        }
-    };
-
-    let source:GeoJSONSourceRaw = {
-        type: "geojson",
-        data: FeatureData
-    };
-
-    let layer:Layer = {
-      "id": "route",
-      "type": "line",
-      "source": "route",
-      "layout": {
-          "line-join": "round",
-          "line-cap": "round"
-      },
-      "paint": {
-          "line-color": "#04DFDF",
-          "line-width": 6
+    // let tileLayer = new TileLayer("http://127.0.0.1:7768/tiles/v1/{z}/{x}/{y}.pbf", {
+    //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+    // })
+    let vectorTileOptions = {
+      vectorTileLayerStyles: {
+  
+          water: {
+              weight: 0,
+              fillColor: '#9bc2c4',
+              fillOpacity: 1,
+              fill: true
+          },
+  
+          road: []
       }
     };
+    let pbfLayer = L.vectorGrid.protobuf("http://127.0.0.1:7768/tiles/v1/{z}/{x}/{y}.pbf", vectorTileOptions);
 
-    map.on('load', function () {
-    //   console.log(JSON.stringify(source));
-      map.addSource('route', source);
-      map.addLayer(layer);
+    let map = new Map("map", {
+        zoomControl: false,
+        center: L.latLng(40.731253, -73.996139),
+        zoom: 12,
+        minZoom: 4,
+        maxZoom: 19
     });
+
+    L.control.zoom({ position: "topright" }).addTo(map);
+    // L.control.layers(this.mapService.baseMaps).addTo(map);
+    L.control.scale().addTo(map);
+
+    pbfLayer.addTo(map);
+
+    // console.log(mapboxGl);
+    // var simple = {
+    //   "version": 8,
+    //   "sources": {
+    //     "osm": {
+    //       "type": "vector",
+    //       "tiles": ["http://127.0.0.1:7768/tiles/v1/{z}/{x}/{y}.pbf"],
+    //       "maxzoom": 14
+    //     }
+    //   },
+    //   "layers": this.LayerStyles.styles[1]
+    // };
+
+    // var map = new Map({
+    //   container: 'map',
+    //   style: simple,
+    //   zoom: 13,
+    //   center: [-105.082614,39.805396]
+    // });
+
+    // map.addControl(new NavigationControl());
+
+    // let FeatureData:GeoJSON.Feature<GeoJSON.LineString> = {
+    //     type: "Feature",
+    //     properties: {},
+    //     geometry: {
+    //         type: "LineString",
+    //         coordinates: [
+    //             [
+    //                 -105.082614,
+    //                 39.805566
+    //             ],
+    //             [
+    //                 -105.081435,
+    //                 39.805564
+    //             ],
+    //             [
+    //                 -105.081456,
+    //                 39.801936
+    //             ],
+    //             [
+    //                 -105.062894,
+    //                 39.801677
+    //             ],
+    //             [
+    //                 -105.056905,
+    //                 39.799341
+    //             ],
+    //             [
+    //                 -105.053442,
+    //                 39.799157
+    //             ],
+    //             [
+    //                 -105.053336,
+    //                 39.795428
+    //             ],
+    //             [
+    //                 -105.041498,
+    //                 39.798974
+    //             ],
+    //             [
+    //                 -105.024263,
+    //                 39.800774
+    //             ],
+    //             [
+    //                 -105.009842,
+    //                 39.807696
+    //             ],
+    //             [
+    //                 -104.991537,
+    //                 39.81272
+    //             ],
+    //             [
+    //                 -104.981014,
+    //                 39.818155
+    //             ],
+    //             [
+    //                 -104.980858,
+    //                 39.827779
+    //             ],
+    //             [
+    //                 -104.983153,
+    //                 39.833619
+    //             ],
+    //             [
+    //                 -104.987403,
+    //                 39.858673
+    //             ],
+    //             [
+    //                 -104.987486,
+    //                 39.897614
+    //             ],
+    //             [
+    //                 -104.99061,
+    //                 39.908771
+    //             ],
+    //             [
+    //                 -104.988914,
+    //                 39.914201
+    //             ],
+    //             [
+    //                 -104.994692,
+    //                 39.91404
+    //             ],
+    //             [
+    //                 -104.994448,
+    //                 39.9178
+    //             ]
+    //         ]
+    //     }
+    // };
+
+    // let source:GeoJSONSourceRaw = {
+    //     type: "geojson",
+    //     data: FeatureData
+    // };
+
+    // let layer:Layer = {
+    //   "id": "route",
+    //   "type": "line",
+    //   "source": "route",
+    //   "layout": {
+    //       "line-join": "round",
+    //       "line-cap": "round"
+    //   },
+    //   "paint": {
+    //       "line-color": "#04DFDF",
+    //       "line-width": 6
+    //   }
+    // };
+
+    // map.on('load', function () {
+    // //   console.log(JSON.stringify(source));
+    //   map.addSource('route', source);
+    //   map.addLayer(layer);
+    // });
   }
 
 }

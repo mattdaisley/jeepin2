@@ -20,7 +20,9 @@
       "styles": [
         "styles.scss", "../node_modules/mapbox-gl/dist/mapbox-gl.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/leaflet.vectorgrid"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
